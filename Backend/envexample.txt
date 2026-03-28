@@ -1,0 +1,10 @@
+# Base de datos
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=biblioteca_xyz
+DB_USER=root
+DB_PASSWORD=root
+
+# Servidor
+PORT=3000
+NODE_ENV=development

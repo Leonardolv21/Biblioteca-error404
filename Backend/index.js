@@ -1,17 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const db = require('./models');
+console.log("hola mundo");
+console.log("hola mundo 2");
+console.log("hola mundo 3 desde mi rama")
+require('dotenv').config();
+const { sequelize } = require('./models');
 
-require('./controllers')(app, db);
-
-// Para habilitar la BD
-db.sequelize.sync({
-    // force: true // drop tables and recreate
-}).then(() => {
-    console.log("db resync");
-});
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+sequelize.authenticate()
+  .then(() => console.log('Conectado a MySQL'))
+  .catch(err => console.error('Error de conexión:', err));
