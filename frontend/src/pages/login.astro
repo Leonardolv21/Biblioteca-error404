@@ -1,0 +1,104 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import LoginCard from "../components/login/LoginCard.astro";
+import AppFooter from "../components/shared/AppFooter.astro";
+import { mockUsers } from "../data/mockUsers";
+import "../styles/login.css";
+
+const roleLabels = {
+  admin: "Administrador",
+  bibliotecario: "Bibliotecario",
+  estudiante: "Estudiante",
+};
+---
+
+<MainLayout title="Login | Biblioteca Error404">
+  <div class="login-page">
+    <main class="login-main">
+      <section class="login-shell">
+        <div class="login-brand">
+          <div class="login-brand__icon">
+            <span class="material-symbols-outlined">account_balance</span>
+          </div>
+
+          <h1>Scholar's Archive</h1>
+          <p>Institutional Editorial Library System</p>
+        </div>
+
+        <article class="login-card">
+          <header class="login-card__header">
+            <h2>Inicio de Sesión - Universidad XYZ</h2>
+            <div class="login-card__divider"></div>
+          </header>
+
+          <div class="login-error" data-login-error></div>
+
+          <LoginCard />
+
+          <section class="login-demo">
+            <h3>Accesos mock de prueba</h3>
+
+            <div class="login-demo__grid">
+              {mockUsers.map((user) => (
+                <div class="login-demo__item">
+                  <strong>{roleLabels[user.role]}</strong>
+                  <span>Usuario: {user.uid}</span>
+                  <span>Contraseña: {user.password}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <div class="login-help">
+            ¿Tiene problemas para acceder?
+            <a href="#">Contact Support</a>
+          </div>
+        </article>
+
+        <div class="login-meta">
+          <span>Academic Portal</span>
+          <span class="login-meta__line"></span>
+          <span>Editorial Access</span>
+          <span class="login-meta__line"></span>
+          <span>v4.2.0</span>
+        </div>
+      </section>
+    </main>
+
+    <AppFooter />
+  </div>
+</MainLayout>
+
+<script type="module">
+  import { mockLogin, getSession } from "../lib/auth.js";
+
+  const currentSession = getSession();
+  if (currentSession?.dashboard) {
+    window.location.href = currentSession.dashboard;
+  }
+
+  const form = document.querySelector(".login-card__form");
+  const uidInput = document.querySelector("#uid");
+  const passwordInput = document.querySelector("#password");
+  const errorBox = document.querySelector("[data-login-error]");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const uid = uidInput?.value || "";
+    const password = passwordInput?.value || "";
+
+    const result = mockLogin(uid, password);
+
+    if (!result.ok) {
+      errorBox.textContent = result.message;
+      errorBox.classList.add("is-visible");
+      return;
+    }
+
+    errorBox.textContent = "";
+    errorBox.classList.remove("is-visible");
+
+    window.location.href = result.user.dashboard;
+  });
+</script>

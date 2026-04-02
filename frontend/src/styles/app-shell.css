@@ -1,0 +1,144 @@
+.app-shell {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.app-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.app-header__eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.app-header h1 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.8rem;
+  margin: 0;
+  color: #0f172a;
+}
+
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-userbox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.app-userbox strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.app-userbox small {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: capitalize;
+}
+
+.app-logout-button {
+  border: none;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  background: #1a237e;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.app-logout-button:hover {
+  opacity: 0.95;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-card h2 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #0f172a;
+}
+
+.dashboard-card p,
+.dashboard-card li {
+  color: #475569;
+  line-height: 1.5;
+}
+
+.dashboard-card ul {
+  padding-left: 1rem;
+}
+
+.quick-links {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.quick-links a {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+  color: #1a237e;
+  font-weight: 600;
+}
+
+.quick-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .app-header__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .app-userbox {
+    align-items: flex-start;
+  }
+}
