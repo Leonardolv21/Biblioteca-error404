@@ -35,11 +35,16 @@ const Libro = sequelize.define('Libro', {
   imagen_url: {
     type:     DataTypes.STRING(500),
     validate: { isUrl: true },
-  },
-  palabras_clave: {
-    type:         DataTypes.JSON,
-    defaultValue: [],
-    comment:      'Array de strings: ["historia","ciencia"]',
+  },  
+  estado: {
+    type:         DataTypes.ENUM('disponible', 'prestado', 'reservado', 'mantenimiento'),
+    allowNull:    false,
+    defaultValue: 'disponible',
+  },  
+  ejemplares: {
+    type:      DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+    defaultValue: 1,
   },
 }, {
   tableName:  'libros',

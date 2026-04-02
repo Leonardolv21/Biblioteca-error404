@@ -7,7 +7,7 @@ const Prestamo = sequelize.define('Prestamo', {
     autoIncrement: true,
     primaryKey:    true,
   },
-  ejemplar_id: {
+  libro_id: {
     type:      DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
   },
