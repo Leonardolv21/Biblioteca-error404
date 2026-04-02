@@ -1,0 +1,23 @@
+---
+const { allowedRoles = [], redirectTo = "/login" } = Astro.props;
+const roles = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
+---
+
+<script define:vars={{ roles, redirectTo }}>
+  const rawSession = localStorage.getItem("biblioteca_session");
+
+  if (!rawSession) {
+    window.location.href = redirectTo;
+  } else {
+    try {
+      const session = JSON.parse(rawSession);
+
+      if (!roles.includes(session.role)) {
+        window.location.href = session.dashboard || "/login";
+      }
+    } catch {
+      localStorage.removeItem("biblioteca_session");
+      window.location.href = redirectTo;
+    }
+  }
+</script>

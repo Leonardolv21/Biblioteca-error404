@@ -1,0 +1,38 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import RoleGuard from "../../components/auth/RoleGuard.astro";
+import AppHeader from "../../components/shared/AppHeader.astro";
+import "../../styles/app-shell.css";
+---
+
+<MainLayout title="Dashboard Bibliotecario | Biblioteca Error404">
+  <RoleGuard allowedRoles={["bibliotecario"]} />
+
+  <div class="app-shell">
+    <main class="app-content">
+      <AppHeader title="Dashboard del Bibliotecario" />
+
+      <section class="dashboard-grid">
+        <article class="dashboard-card">
+          <h2>Préstamos</h2>
+          <p>Registrar préstamos, devoluciones y renovaciones.</p>
+        </article>
+
+        <article class="dashboard-card">
+          <h2>Reservas</h2>
+          <p>Gestionar reservas pendientes y disponibilidad de ejemplares.</p>
+        </article>
+
+        <article class="dashboard-card">
+          <h2>Atención operativa</h2>
+          <p>Seguimiento del flujo diario de circulación de libros.</p>
+        </article>
+      </section>
+
+      <div class="quick-links">
+        <a href="/catalogo">Ir al catálogo</a>
+        <a href="/login">Volver al login</a>
+      </div>
+    </main>
+  </div>
+</MainLayout>

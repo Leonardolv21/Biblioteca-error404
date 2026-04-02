@@ -1,0 +1,42 @@
+---
+const { title = "Dashboard" } = Astro.props;
+---
+
+<header class="app-header">
+  <div>
+    <p class="app-header__eyebrow">Sistema de Biblioteca</p>
+    <h1>{title}</h1>
+  </div>
+
+  <div class="app-header__actions">
+    <div class="app-userbox">
+      <strong data-session-name>Usuario</strong>
+      <small data-session-role>Rol</small>
+    </div>
+
+    <button type="button" class="app-logout-button" data-logout-button>
+      Cerrar sesión
+    </button>
+  </div>
+</header>
+
+<script type="module">
+  import { getSession, clearSession } from "../../lib/auth.js";
+
+  const session = getSession();
+
+  document.querySelectorAll("[data-session-name]").forEach((el) => {
+    el.textContent = session?.name || "Usuario";
+  });
+
+  document.querySelectorAll("[data-session-role]").forEach((el) => {
+    el.textContent = session?.role || "Sin rol";
+  });
+
+  document.querySelectorAll("[data-logout-button]").forEach((button) => {
+    button.addEventListener("click", () => {
+      clearSession();
+      window.location.href = "/login";
+    });
+  });
+</script>
