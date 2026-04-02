@@ -33,10 +33,8 @@ const Usuario = sequelize.define('Usuario', {
     type:      DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
   },
-  activo: {
-    type:         DataTypes.BOOLEAN,
-    allowNull:    false,
-    defaultValue: true,
+  token: {
+    type:      DataTypes.STRING(150),
   },
   max_prestamos: {
     type:         DataTypes.TINYINT.UNSIGNED,
