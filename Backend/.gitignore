@@ -7,7 +7,7 @@ node_modules/
 .env.development
 .env.production
 Media/uploads/*
-!Media/uploads/.gitkeep
+Media/uploads/.gitkeep
 # Logs
 logs/
 *.log
