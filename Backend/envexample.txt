@@ -8,3 +8,10 @@ DB_PASSWORD=root
 # Servidor
 PORT=3000
 NODE_ENV=development
+
+#Con esto instalas todas las dependencias necesarias para el proyecto, ejecuta este comando en la terminal dentro de la carpeta Backend
+#npm install express sequelize mysql2 dotenv bcryptjs jsonwebtoken cors
+#npm install -D nodemon
+#npm install multer
+#Y lo corres con 
+#nodemon index.js

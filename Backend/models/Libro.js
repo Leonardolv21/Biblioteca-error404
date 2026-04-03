@@ -36,15 +36,25 @@ const Libro = sequelize.define('Libro', {
     type:     DataTypes.STRING(500),
     validate: { isUrl: true },
   },  
-  estado: {
-    type:         DataTypes.ENUM('disponible', 'prestado', 'reservado', 'mantenimiento'),
-    allowNull:    false,
-    defaultValue: 'disponible',
-  },  
   ejemplares: {
-    type:      DataTypes.INTEGER.UNSIGNED,
-    allowNull: false,
+    type:         DataTypes.INTEGER.UNSIGNED,
+    allowNull:    false,
     defaultValue: 1,
+  },
+  EPrestado: {
+    type:         DataTypes.INTEGER.UNSIGNED,
+    allowNull:    false,
+    defaultValue: 0,
+  },
+  EMantenimiento: {
+    type:         DataTypes.INTEGER.UNSIGNED,
+    allowNull:    false,
+    defaultValue: 0,
+  },
+  EReservado: {
+    type:         DataTypes.INTEGER.UNSIGNED,
+    allowNull:    false,
+    defaultValue: 0,
   },
 }, {
   tableName:  'libros',

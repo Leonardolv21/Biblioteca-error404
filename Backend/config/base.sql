@@ -49,8 +49,10 @@ CREATE TABLE libros (
   categoria_id INT UNSIGNED,
   descripcion  TEXT,
   imagen_url   VARCHAR(500),
-  estado       ENUM('disponible','prestado','reservado','mantenimiento') NOT NULL DEFAULT 'disponible',
-  ejemplares   INT,                      
+  ejemplares   INT,
+  EPrestado    INT DEFAULT 0,       -- cantidad de ejemplares prestados
+  EMantenimiento INT DEFAULT 0,     -- cantidad de ejemplares en mantenimiento
+  EReservado   INT DEFAULT 0,       -- cantidad de ejemplares reservados
   createdAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_libros_categoria FOREIGN KEY (categoria_id) REFERENCES categorias(id)
