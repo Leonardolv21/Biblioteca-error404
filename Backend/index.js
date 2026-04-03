@@ -5,7 +5,7 @@ const { sequelize } = require('./models');
 
 app.use(express.json());
 
-app.use('/api/libros', require('./routes/Catalogo.route'));
+app.use('/api/libros', require('./routes/Libro.route'));
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
