@@ -45,7 +45,7 @@ CREATE TABLE libros (
   autor        VARCHAR(200) NOT NULL,
   editorial    VARCHAR(150),
   isbn         VARCHAR(20) UNIQUE,
-  anio         YEAR,
+  anio         SMALLINT,
   categoria_id INT UNSIGNED,
   descripcion  TEXT,
   imagen_url   VARCHAR(500),
