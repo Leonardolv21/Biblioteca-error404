@@ -1,10 +1,10 @@
-// src/models/index.js
 const sequelize    = require('../config/database');
 
 const Rol          = require('./Rol');
 const Usuario      = require('./Usuario');
 const Categoria    = require('./Categoria');
 const Libro        = require('./Libro');
+const Ejemplar     = require('./Ejemplar');
 const Prestamo     = require('./Prestamo');
 const Reserva      = require('./Reserva');
 const Multa        = require('./Multa');
@@ -19,9 +19,13 @@ Usuario.belongsTo(Rol,   { foreignKey: 'rol_id', as: 'rol' });
 Categoria.hasMany(Libro,   { foreignKey: 'categoria_id', as: 'libros' });
 Libro.belongsTo(Categoria, { foreignKey: 'categoria_id', as: 'categoria' });
 
-// Libro ↔ Prestamo  ← antes era Ejemplar ↔ Prestamo
-Libro.hasMany(Prestamo,    { foreignKey: 'libro_id', as: 'prestamos' });
-Prestamo.belongsTo(Libro,  { foreignKey: 'libro_id', as: 'libro' });
+// Libro ↔ Ejemplar
+Libro.hasMany(Ejemplar,   { foreignKey: 'libro_id', as: 'copias' });  // ← 'copias' no 'ejemplares'
+Ejemplar.belongsTo(Libro, { foreignKey: 'libro_id', as: 'libro' });
+
+// Ejemplar ↔ Prestamo
+Ejemplar.hasMany(Prestamo,   { foreignKey: 'ejemplar_id', as: 'prestamos' });
+Prestamo.belongsTo(Ejemplar, { foreignKey: 'ejemplar_id', as: 'ejemplar' });
 
 // Usuario ↔ Prestamo (como lector)
 Usuario.hasMany(Prestamo,   { foreignKey: 'usuario_id', as: 'prestamos' });
@@ -38,6 +42,10 @@ Reserva.belongsTo(Libro,   { foreignKey: 'libro_id', as: 'libro' });
 // Usuario ↔ Reserva
 Usuario.hasMany(Reserva,   { foreignKey: 'usuario_id', as: 'reservas' });
 Reserva.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'usuario' });
+
+// Ejemplar ↔ Reserva
+Ejemplar.hasMany(Reserva,    { foreignKey: 'ejemplar_id', as: 'reservas' });
+Reserva.belongsTo(Ejemplar,  { foreignKey: 'ejemplar_id', as: 'ejemplar' });
 
 // Prestamo ↔ Multa
 Prestamo.hasOne(Multa,     { foreignKey: 'prestamo_id', as: 'multa' });
@@ -61,6 +69,7 @@ module.exports = {
   Usuario,
   Categoria,
   Libro,
+  Ejemplar,
   Prestamo,
   Reserva,
   Multa,

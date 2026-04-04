@@ -41,21 +41,6 @@ const Libro = sequelize.define('Libro', {
     allowNull:    false,
     defaultValue: 1,
   },
-  EPrestado: {
-    type:         DataTypes.INTEGER.UNSIGNED,
-    allowNull:    false,
-    defaultValue: 0,
-  },
-  EMantenimiento: {
-    type:         DataTypes.INTEGER.UNSIGNED,
-    allowNull:    false,
-    defaultValue: 0,
-  },
-  EReservado: {
-    type:         DataTypes.INTEGER.UNSIGNED,
-    allowNull:    false,
-    defaultValue: 0,
-  },
 }, {
   tableName:  'libros',
   timestamps: true,

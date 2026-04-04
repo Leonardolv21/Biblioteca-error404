@@ -50,18 +50,27 @@ CREATE TABLE libros (
   descripcion  TEXT,
   imagen_url   VARCHAR(500),
   ejemplares   INT,
-  EPrestado    INT DEFAULT 0,       -- cantidad de ejemplares prestados
-  EMantenimiento INT DEFAULT 0,     -- cantidad de ejemplares en mantenimiento
-  EReservado   INT DEFAULT 0,       -- cantidad de ejemplares reservados
   createdAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_libros_categoria FOREIGN KEY (categoria_id) REFERENCES categorias(id)
     ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
+CREATE TABLE ejemplares (
+  id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  libro_id  INT UNSIGNED NOT NULL,
+  codigo    VARCHAR(50) NOT NULL UNIQUE,
+  estado    ENUM('disponible','prestado','reservado','mantenimiento') NOT NULL DEFAULT 'disponible',
+  notas     VARCHAR(255),
+  createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_ejemplares_libro FOREIGN KEY (libro_id) REFERENCES libros(id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE prestamos (
   id                  INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  libro_id            INT UNSIGNED NOT NULL,
+  ejemplar_id        INT UNSIGNED NOT NULL,
   usuario_id          INT UNSIGNED NOT NULL,
   bibliotecario_id    INT UNSIGNED,           
   fecha_inicio        DATE NOT NULL,
@@ -72,7 +81,7 @@ CREATE TABLE prestamos (
   observaciones       TEXT,
   createdAt           DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt           DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT fk_prestamos_libro      FOREIGN KEY (libro_id)      REFERENCES libros(id),
+  CONSTRAINT fk_prestamos_ejemplar      FOREIGN KEY (ejemplar_id)      REFERENCES ejemplares(id),
   CONSTRAINT fk_prestamos_usuario       FOREIGN KEY (usuario_id)       REFERENCES usuarios(id),
   CONSTRAINT fk_prestamos_bibliotecario FOREIGN KEY (bibliotecario_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB;
@@ -82,6 +91,7 @@ CREATE TABLE reservas (
   id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   libro_id        INT UNSIGNED NOT NULL,      
   usuario_id      INT UNSIGNED NOT NULL,
+  ejemplar_id      INT UNSIGNED,
   fecha_reserva   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   fecha_expiracion DATETIME,                  
   estado          ENUM('pendiente','disponible','cancelada','completada') NOT NULL DEFAULT 'pendiente',
@@ -90,6 +100,8 @@ CREATE TABLE reservas (
   updatedAt       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_reservas_libro    FOREIGN KEY (libro_id)    REFERENCES libros(id),
   CONSTRAINT fk_reservas_usuario  FOREIGN KEY (usuario_id)  REFERENCES usuarios(id)
+    CONSTRAINT fk_reservas_ejemplar FOREIGN KEY (ejemplar_id) REFERENCES ejemplares(id)
+    ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 

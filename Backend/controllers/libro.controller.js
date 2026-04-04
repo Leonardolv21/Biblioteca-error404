@@ -3,10 +3,11 @@ const Categoria  = require('../models/Categoria');
 const { Op }     = require('sequelize');
 const fs   = require('fs');
 const path = require('path');
+const Ejemplar   = require('../models/Ejemplar');
 
 const getLibros = async (req, res) => {
   try {
-    const { titulo, autor, categoria_id } = req.query;  // ← quitamos estado
+    const { titulo, autor, categoria_id } = req.query;
     const where = {};
 
     if (titulo)       where.titulo       = { [Op.like]: `%${titulo}%` };
@@ -15,7 +16,10 @@ const getLibros = async (req, res) => {
 
     const libros = await Libro.findAll({
       where,
-      include: [{ model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] }],
+      include: [
+        { model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] },
+        { model: Ejemplar,  as: 'copias', attributes: ['id', 'codigo', 'estado'] },
+      ],
       order: [['createdAt', 'DESC']],
     });
 
