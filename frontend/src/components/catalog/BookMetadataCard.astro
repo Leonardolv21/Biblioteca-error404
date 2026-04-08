@@ -1,0 +1,16 @@
+---
+const { metadata = [] } = Astro.props;
+---
+
+<div class="book-meta-card">
+  <h3>Metadatos rápidos</h3>
+
+  <div class="book-meta-card__list">
+    {metadata.map((item: { label: string; value: string }) => (
+      <div class="book-meta-card__row">
+        <span>{item.label}</span>
+        <strong>{item.value}</strong>
+      </div>
+    ))}
+  </div>
+</div>

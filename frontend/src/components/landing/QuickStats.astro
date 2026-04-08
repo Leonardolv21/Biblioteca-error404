@@ -1,0 +1,14 @@
+---
+import { stats } from "../../data/landingData";
+---
+
+<section class="landing-stats">
+  <div class="landing-container landing-stats__grid">
+    {stats.map((item) => (
+      <article class="landing-stat">
+        <span class="landing-stat__value">{item.value}</span>
+        <span class="landing-stat__label">{item.label}</span>
+      </article>
+    ))}
+  </div>
+</section>

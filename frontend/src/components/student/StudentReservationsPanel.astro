@@ -1,0 +1,47 @@
+---
+type ReservationTone = "ready" | "waiting";
+
+type ReservationItem = {
+  title: string;
+  author: string;
+  status: string;
+  tone: ReservationTone;
+};
+
+interface Props {
+  reservations?: ReservationItem[];
+}
+
+const { reservations = [] } = Astro.props as Props;
+---
+
+<section class="student-panel">
+  <h2>Mis Reservas</h2>
+
+  <div class="student-panel__content">
+    <div class="reservation-list">
+      {reservations.map((item: ReservationItem) => (
+        <article class="reservation-item">
+          <h4>{item.title}</h4>
+          <p>{item.author}</p>
+
+          <div
+            class:list={[
+              "reservation-badge",
+              item.tone === "ready" ? "is-ready" : "is-waiting",
+            ]}
+          >
+            <span class="material-symbols-outlined">
+              {item.tone === "ready" ? "check_circle" : "hourglass_top"}
+            </span>
+            <span>{item.status}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <a href="/catalogo" class="student-panel__button">
+      Gestionar reservas
+    </a>
+  </div>
+</section>

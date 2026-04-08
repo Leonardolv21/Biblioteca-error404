@@ -1,0 +1,40 @@
+---
+const navItems = [
+  { label: "Mi Biblioteca", icon: "book_2", href: "/estudiante/dashboard", active: true },
+  { label: "Catálogo", icon: "search", href: "/catalogo" },
+  { label: "Mis Préstamos", icon: "inventory", href: "#" },
+  { label: "Reservas", icon: "assignment_return", href: "#" },
+  { label: "Historial", icon: "analytics", href: "#" },
+];
+---
+
+<aside class="student-sidebar">
+  <div class="student-sidebar__brand">
+    <span class="student-sidebar__title">Library Portal</span>
+    <span class="student-sidebar__subtitle">Academic Curator</span>
+  </div>
+
+  <nav class="student-sidebar__nav">
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class:list={["student-sidebar__link", item.active && "is-active"]}
+      >
+        <span class="material-symbols-outlined">{item.icon}</span>
+        <span>{item.label}</span>
+      </a>
+    ))}
+  </nav>
+
+  <div class="student-sidebar__footer">
+    <a href="#" class="student-sidebar__link">
+      <span class="material-symbols-outlined">help_outline</span>
+      <span>Ayuda</span>
+    </a>
+
+    <button type="button" class="student-sidebar__link student-sidebar__button" data-logout-button>
+      <span class="material-symbols-outlined">logout</span>
+      <span>Cerrar sesión</span>
+    </button>
+  </div>
+</aside>

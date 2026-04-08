@@ -1,0 +1,642 @@
+.student-dashboard {
+  min-height: 100vh;
+  background: #f9f9fb;
+  color: #1a1c1d;
+}
+
+.student-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  padding: 1rem;
+  background: #f3f3f5;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+
+.student-sidebar__brand {
+  margin-bottom: 2rem;
+  padding: 0.75rem 1rem;
+}
+
+.student-sidebar__title {
+  display: block;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #000666;
+}
+
+.student-sidebar__subtitle {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1a237e;
+  letter-spacing: 0.04em;
+}
+
+.student-sidebar__nav,
+.student-sidebar__footer {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.student-sidebar__nav {
+  flex: 1;
+}
+
+.student-sidebar__footer {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(203, 213, 225, 0.6);
+}
+
+.student-sidebar__link,
+.student-sidebar__button {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0.95rem 1rem;
+  border-radius: 10px;
+  color: #64748b;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.student-sidebar__link span:last-child,
+.student-sidebar__button span:last-child {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.student-sidebar__link:hover,
+.student-sidebar__button:hover {
+  background: #e8e8ea;
+  color: #1a237e;
+}
+
+.student-sidebar__link.is-active {
+  background: #ffffff;
+  color: #1a237e;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.student-topbar {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  height: 64px;
+  padding: 0 2rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 30;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.student-topbar__nav,
+.student-topbar__user,
+.student-topbar__profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.student-topbar__link {
+  font-size: 0.92rem;
+  color: #64748b;
+  font-weight: 700;
+  padding-bottom: 0.2rem;
+}
+
+.student-topbar__link.is-active,
+.student-topbar__link:hover {
+  color: #000666;
+}
+
+.student-topbar__icon-button {
+  border: none;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.student-topbar__icon-button:hover {
+  background: #f3f4f6;
+}
+
+.student-topbar__profile {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.student-topbar__profile span {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.student-topbar__profile img {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.student-main {
+  margin-left: 260px;
+  padding-top: 64px;
+  min-height: 100vh;
+}
+
+.student-shell {
+  width: min(1240px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+  display: grid;
+  gap: 4rem;
+}
+
+.student-hero h1 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: #000666;
+  margin-bottom: 0.35rem;
+}
+
+.student-hero p {
+  color: #585c80;
+  margin-bottom: 1.5rem;
+}
+
+.student-search-form {
+  position: relative;
+  max-width: 760px;
+}
+
+.student-search-form .material-symbols-outlined {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #767683;
+}
+
+.student-search-form input {
+  width: 100%;
+  min-height: 78px;
+  border: 1px solid rgba(198, 197, 212, 0.22);
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 1.25rem 10rem 1.25rem 4rem;
+  font-size: 1.02rem;
+  outline: none;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.student-search-form button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 1.5rem;
+  background: linear-gradient(135deg, #000666 0%, #1a237e 100%);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-head h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #000666;
+}
+
+.section-head a {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #585c80;
+}
+
+.section-head a:hover {
+  text-decoration: underline;
+}
+
+.loan-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.loan-card {
+  display: flex;
+  gap: 1.4rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid transparent;
+  transition: 0.2s ease;
+}
+
+.loan-card:hover {
+  border-color: rgba(198, 197, 212, 0.25);
+}
+
+.loan-card__cover {
+  width: 96px;
+  min-width: 96px;
+  height: 132px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e8e8ea;
+}
+
+.loan-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loan-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.loan-card__content h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 0.3rem;
+}
+
+.loan-card__content p {
+  color: #585c80;
+  font-size: 0.92rem;
+}
+
+.loan-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.loan-card__due {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loan-card__due .material-symbols-outlined {
+  color: #64748b;
+  font-size: 1.2rem;
+}
+
+.loan-card.is-urgent .loan-card__due .material-symbols-outlined,
+.loan-card.is-urgent .loan-card__due strong {
+  color: #ba1a1a;
+}
+
+.loan-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.loan-card__tag {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: #ffdad6;
+  color: #93000a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.loan-card__link {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.loan-card__link:hover {
+  text-decoration: underline;
+}
+
+.student-panel h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #000666;
+  margin-bottom: 1.25rem;
+}
+
+.student-panel__content {
+  padding: 1.75rem;
+  border-radius: 18px;
+  background: #e8e8ea;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.reservation-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.reservation-item {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(198, 197, 212, 0.25);
+}
+
+.reservation-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.reservation-item h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.reservation-item p {
+  font-size: 0.76rem;
+  color: #585c80;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.reservation-badge {
+  margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.reservation-badge.is-ready {
+  background: #e6f4ea;
+  color: #2e7d32;
+}
+
+.reservation-badge.is-waiting {
+  background: #ffdbd0;
+  color: #7b2e12;
+}
+
+.student-panel__button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #000666;
+  font-weight: 800;
+}
+
+.student-panel__button:hover {
+  background: #f8fafc;
+}
+
+.recommend-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recommend-section__header h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #000666;
+}
+
+.recommend-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.recommend-nav button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: #e8e8ea;
+  color: #000666;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.recommend-nav button:hover {
+  background: #000666;
+  color: #ffffff;
+}
+
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.recommend-card {
+  display: block;
+}
+
+.recommend-card__image {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+  background: #e8e8ea;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.recommend-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.recommend-card:hover .recommend-card__image img {
+  transform: scale(1.05);
+}
+
+.recommend-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.recommend-card__badge.is-available {
+  color: #2e7d32;
+}
+
+.recommend-card__badge.is-borrowed {
+  background: rgba(186, 26, 26, 0.9);
+  color: #ffffff;
+}
+
+.recommend-card h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+}
+
+.recommend-card p {
+  font-size: 0.8rem;
+  color: #585c80;
+}
+
+.student-fab {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #000666 0%, #1a237e 100%);
+  color: #ffffff;
+  box-shadow: 0 20px 35px rgba(26, 28, 29, 0.2);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+@media (max-width: 1100px) {
+  .student-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recommend-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .student-sidebar {
+    display: none;
+  }
+
+  .student-topbar {
+    left: 0;
+  }
+
+  .student-main {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .student-topbar {
+    padding-inline: 1rem;
+  }
+
+  .student-topbar__nav {
+    display: none;
+  }
+
+  .student-search-form input {
+    min-height: 66px;
+    padding-right: 1rem;
+  }
+
+  .student-search-form button {
+    position: static;
+    width: 100%;
+    margin-top: 0.75rem;
+    min-height: 52px;
+  }
+
+  .student-search-form {
+    display: block;
+  }
+
+  .recommend-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .loan-card {
+    flex-direction: column;
+  }
+
+  .loan-card__cover {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (max-width: 520px) {
+  .recommend-grid {
+    grid-template-columns: 1fr;
+  }
+}

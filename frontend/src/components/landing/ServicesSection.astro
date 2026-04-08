@@ -1,0 +1,44 @@
+---
+import { services, highlights } from "../../data/landingData";
+---
+
+<section class="landing-services">
+  <div class="landing-container landing-services__grid">
+    <div class="landing-services__cards">
+      {services.map((service) => (
+        <article class:list={["landing-service-card", service.tone]}>
+          <span class="material-symbols-outlined">{service.icon}</span>
+          <h4>{service.title}</h4>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="landing-services__content">
+      <span class="landing-kicker">Our Ecosystem</span>
+      <h2 class="landing-services__title">
+        Elevating the <br />
+        Research Standard
+      </h2>
+
+      <p class="landing-services__text">
+        The Scholar’s Archive is more than a repository. It is a modern
+        ecosystem designed to foster breakthroughs through sophisticated
+        tooling and quiet, dignified spaces for deep work.
+      </p>
+
+      <ul class="landing-checklist">
+        {highlights.map((item) => (
+          <li>
+            <span class="material-symbols-outlined">check_circle</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a href="/catalogo" class="landing-btn landing-btn--secondary">
+        Explore All Services
+      </a>
+    </div>
+  </div>
+</section>

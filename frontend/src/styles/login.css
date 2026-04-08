@@ -358,4 +358,22 @@
   color: #475569;
   line-height: 1.5;
 }
+
+
+.field-error {
+  display: none;
+  font-size: 0.8rem;
+  color: #b91c1c;
+  margin-top: 0.15rem;
+}
+
+.field-error.is-visible {
+  display: block;
+}
+
+.login-input-wrap input.is-invalid {
+  border-color: #dc2626;
+  background: #fef2f2;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+}
 }
