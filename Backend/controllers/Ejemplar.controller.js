@@ -1,4 +1,3 @@
-// controllers/ejemplar.controller.js
 const Ejemplar = require('../models/Ejemplar');
 const Libro    = require('../models/Libro');
 
