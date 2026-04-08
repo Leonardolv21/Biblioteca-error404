@@ -1,0 +1,36 @@
+---
+import { acquisitions } from "../../data/landingData";
+---
+
+<section class="landing-section">
+  <div class="landing-container">
+    <div class="landing-section__header">
+      <div>
+        <span class="landing-kicker">Curation</span>
+        <h2 class="landing-section__title">New Acquisitions</h2>
+      </div>
+
+      <div class="landing-section__actions">
+        <button type="button" class="landing-icon-button">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button type="button" class="landing-icon-button">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="landing-books">
+      {acquisitions.map((book) => (
+        <article class="landing-book-card">
+          <div class="landing-book-card__image">
+            <img src={book.image} alt={book.title} />
+          </div>
+
+          <h3>{book.title}</h3>
+          <p>{book.author}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

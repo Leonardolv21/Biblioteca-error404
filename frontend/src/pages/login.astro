@@ -5,7 +5,7 @@ import AppFooter from "../components/shared/AppFooter.astro";
 import { mockUsers } from "../data/mockUsers";
 import "../styles/login.css";
 
-const roleLabels = {
+const roleLabels: Record<string, string> = {
   admin: "Administrador",
   bibliotecario: "Bibliotecario",
   estudiante: "Estudiante",
@@ -41,7 +41,7 @@ const roleLabels = {
             <div class="login-demo__grid">
               {mockUsers.map((user) => (
                 <div class="login-demo__item">
-                  <strong>{roleLabels[user.role]}</strong>
+                  <strong>{roleLabels[user.role] || user.role}</strong>
                   <span>Usuario: {user.uid}</span>
                   <span>Contraseña: {user.password}</span>
                 </div>
@@ -69,36 +69,123 @@ const roleLabels = {
   </div>
 </MainLayout>
 
-<script type="module">
+<script>
   import { mockLogin, getSession } from "../lib/auth.js";
+
+  const params = new URLSearchParams(window.location.search);
+  const nextUrl = params.get("next");
+  const intent = params.get("intent");
 
   const currentSession = getSession();
   if (currentSession?.dashboard) {
-    window.location.href = currentSession.dashboard;
+    window.location.href = nextUrl || currentSession.dashboard;
   }
 
-  const form = document.querySelector(".login-card__form");
-  const uidInput = document.querySelector("#uid");
-  const passwordInput = document.querySelector("#password");
-  const errorBox = document.querySelector("[data-login-error]");
+  const form = document.querySelector(".login-card__form") as HTMLFormElement | null;
+  const uidInput = document.querySelector("#uid") as HTMLInputElement | null;
+  const passwordInput = document.querySelector("#password") as HTMLInputElement | null;
+  const errorBox = document.querySelector("[data-login-error]") as HTMLElement | null;
+
+  function showGeneralError(message: string) {
+    if (!errorBox) return;
+    errorBox.textContent = message;
+    errorBox.classList.add("is-visible");
+  }
+
+  function clearGeneralError() {
+    if (!errorBox) return;
+    errorBox.textContent = "";
+    errorBox.classList.remove("is-visible");
+  }
+
+  function setFieldError(fieldName: string, message: string) {
+    const errorElement = document.querySelector(
+      `[data-field-error="${fieldName}"]`
+    );
+    const input = document.querySelector(`#${fieldName}`);
+
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.classList.add("is-visible");
+    }
+
+    if (input) {
+      input.classList.add("is-invalid");
+    }
+  }
+
+  function clearFieldError(fieldName: string) {
+    const errorElement = document.querySelector(
+      `[data-field-error="${fieldName}"]`
+    );
+    const input = document.querySelector(`#${fieldName}`);
+
+    if (errorElement) {
+      errorElement.textContent = "";
+      errorElement.classList.remove("is-visible");
+    }
+
+    if (input) {
+      input.classList.remove("is-invalid");
+    }
+  }
+
+  function clearAllErrors() {
+    clearGeneralError();
+    clearFieldError("uid");
+    clearFieldError("password");
+  }
+
+  if (intent === "loan") {
+    showGeneralError("Debes iniciar sesión para solicitar un préstamo.");
+  } else if (intent === "reserve") {
+    showGeneralError("Debes iniciar sesión para reservar este libro.");
+  } else if (intent === "queue") {
+    showGeneralError("Debes iniciar sesión para entrar a la lista de espera.");
+  }
+
+  uidInput?.addEventListener("input", () => clearFieldError("uid"));
+  passwordInput?.addEventListener("input", () => clearFieldError("password"));
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
+    clearAllErrors();
 
-    const uid = uidInput?.value || "";
+    const uid = uidInput?.value?.trim() || "";
     const password = passwordInput?.value || "";
+
+    let hasErrors = false;
+
+    if (!uid) {
+      setFieldError("uid", "El usuario es obligatorio.");
+      hasErrors = true;
+    }
+
+    if (!password) {
+      setFieldError("password", "La contraseña es obligatoria.");
+      hasErrors = true;
+    }
+
+    if (password && password.length < 6) {
+      setFieldError("password", "La contraseña debe tener al menos 6 caracteres.");
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      showGeneralError("Por favor revisa los campos marcados.");
+      return;
+    }
 
     const result = mockLogin(uid, password);
 
     if (!result.ok) {
-      errorBox.textContent = result.message;
-      errorBox.classList.add("is-visible");
+      showGeneralError("Usuario o contraseña incorrectos.");
+      uidInput?.classList.add("is-invalid");
+      passwordInput?.classList.add("is-invalid");
       return;
     }
 
-    errorBox.textContent = "";
-    errorBox.classList.remove("is-visible");
-
-    window.location.href = result.user.dashboard;
+    clearAllErrors();
+    window.location.href = nextUrl || result.user?.dashboard || "/";
   });
 </script>

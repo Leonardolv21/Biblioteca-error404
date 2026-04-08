@@ -1,0 +1,173 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PublicFooter from "../../components/landing/PublicFooter.astro";
+import PublicCatalogTopbar from "../../components/catalog/PublicCatalogTopbar.astro";
+import CatalogFilters from "../../components/catalog/CatalogFilters.astro";
+import CatalogBookCard from "../../components/catalog/CatalogBookCard.astro";
+import { catalogBooks } from "../../data/catalogData";
+import "../../styles/catalog.css";
+
+const categoriesMap = catalogBooks.reduce((acc: Record<string, number>, book) => {
+  acc[book.category] = (acc[book.category] || 0) + 1;
+  return acc;
+}, {});
+
+const categories = Object.entries(categoriesMap).map(([name, count]) => ({
+  name,
+  count,
+}));
+---
+
+<MainLayout title="Catálogo | Biblioteca Error404">
+  <div class="catalog-page">
+    <PublicCatalogTopbar />
+
+    <main class="catalog-main catalog-shell">
+      <nav class="catalog-breadcrumb">
+        <span>Portal</span>
+        <span class="catalog-breadcrumb__line"></span>
+        <strong>Catálogo</strong>
+      </nav>
+
+      <section class="catalog-hero">
+        <div class="catalog-hero__top">
+          <div>
+            <h1>Explora el Catálogo</h1>
+            <p>Descubre y accede a la colección académica global.</p>
+          </div>
+
+          <div class="catalog-count-badge">
+            Mostrando <strong data-results-count>{catalogBooks.length} libros</strong>
+          </div>
+        </div>
+
+        <div class="catalog-search-wrap">
+          <span class="material-symbols-outlined">search</span>
+          <input
+            type="text"
+            placeholder="Buscar por título o autor..."
+            data-catalog-search
+          />
+        </div>
+      </section>
+
+      <section class="catalog-layout">
+        <CatalogFilters categories={categories} />
+
+        <div class="catalog-results">
+          <div class="catalog-grid" data-catalog-grid>
+            {catalogBooks.map((book) => (
+              <CatalogBookCard book={book} />
+            ))}
+          </div>
+
+          <div class="catalog-empty" data-catalog-empty>
+            No se encontraron libros con los filtros actuales.
+          </div>
+
+          <footer class="catalog-pagination">
+            <button class="catalog-page-button" type="button">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="catalog-page-button is-active" type="button">01</button>
+            <button class="catalog-page-button" type="button">02</button>
+            <button class="catalog-page-button" type="button">03</button>
+            <span class="catalog-page-dots">...</span>
+            <button class="catalog-page-button" type="button">42</button>
+            <button class="catalog-page-button" type="button">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <PublicFooter />
+  </div>
+</MainLayout>
+
+<script type="module">
+  const searchInput = document.querySelector("[data-catalog-search]");
+  const categoryButtons = [...document.querySelectorAll("[data-category-filter]")];
+  const availableCheckbox = document.querySelector("[data-available-filter]");
+  const yearSelect = document.querySelector("[data-year-filter]");
+  const cards = [...document.querySelectorAll("[data-book-card]")];
+  const resultsCount = document.querySelector("[data-results-count]");
+  const emptyState = document.querySelector("[data-catalog-empty]");
+
+  let currentCategory = "all";
+
+  function matchesYear(year, selectedRange) {
+    const numericYear = Number(year);
+
+    if (selectedRange === "all") return true;
+    if (selectedRange === "recent") return numericYear >= 2024;
+    if (selectedRange === "2020-2023") return numericYear >= 2020 && numericYear <= 2023;
+    if (selectedRange === "2010-2019") return numericYear >= 2010 && numericYear <= 2019;
+    if (selectedRange === "older") return numericYear < 2010;
+
+    return true;
+  }
+
+  function applyFilters() {
+    const searchTerm = searchInput?.value?.trim().toLowerCase() || "";
+    const availableOnly = !!availableCheckbox?.checked;
+    const selectedYear = yearSelect?.value || "all";
+
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const title = card.dataset.title || "";
+      const author = card.dataset.author || "";
+      const category = card.dataset.category || "";
+      const status = card.dataset.status || "";
+      const year = card.dataset.year || "";
+
+      const matchesSearch =
+        !searchTerm || title.includes(searchTerm) || author.includes(searchTerm);
+
+      const matchesCategory =
+        currentCategory === "all" || category === currentCategory;
+
+      const matchesAvailability =
+        !availableOnly || status === "Disponible";
+
+      const matchesYearFilter = matchesYear(year, selectedYear);
+
+      const isVisible =
+        matchesSearch &&
+        matchesCategory &&
+        matchesAvailability &&
+        matchesYearFilter;
+
+      card.style.display = isVisible ? "" : "none";
+
+      if (isVisible) visibleCount += 1;
+    });
+
+    if (resultsCount) {
+      resultsCount.textContent = `${visibleCount} libros`;
+    }
+
+    if (emptyState) {
+      emptyState.classList.toggle("is-visible", visibleCount === 0);
+    }
+  }
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentCategory = button.dataset.categoryFilter || "all";
+
+      categoryButtons.forEach((item) => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+
+      applyFilters();
+    });
+  });
+
+  searchInput?.addEventListener("input", applyFilters);
+  availableCheckbox?.addEventListener("change", applyFilters);
+  yearSelect?.addEventListener("change", applyFilters);
+
+  applyFilters();
+</script>

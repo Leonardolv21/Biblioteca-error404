@@ -1,0 +1,47 @@
+---
+const { categories = [] } = Astro.props;
+---
+
+<aside class="catalog-filters">
+  <div class="catalog-filter-block">
+    <h3>Categoría</h3>
+
+    <div class="catalog-filter-list">
+      <button type="button" class="catalog-filter-chip is-active" data-category-filter="all">
+        Todas
+      </button>
+
+      {categories.map((item: {name: string, count: number}) => (
+        <button
+          type="button"
+          class="catalog-filter-chip"
+          data-category-filter={item.name}
+        >
+          <span>{item.name}</span>
+          <small>{item.count}</small>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="catalog-filter-block">
+    <h3>Disponibilidad</h3>
+
+    <label class="catalog-checkbox">
+      <input type="checkbox" data-available-filter />
+      <span>Solo disponibles</span>
+    </label>
+  </div>
+
+  <div class="catalog-filter-block">
+    <h3>Año de publicación</h3>
+
+    <select data-year-filter class="catalog-select">
+      <option value="all">Todos los años</option>
+      <option value="recent">2024 - reciente</option>
+      <option value="2020-2023">2020 - 2023</option>
+      <option value="2010-2019">2010 - 2019</option>
+      <option value="older">Anteriores</option>
+    </select>
+  </div>
+</aside>
