@@ -8,7 +8,6 @@ const crearEjemplar = async (req, res) => {
     const libro = await Libro.findByPk(libro_id);
     if (!libro) return res.status(404).json({ error: 'Libro no encontrado' });
 
-    // Contar cuántos ejemplares ya existen para generar el ID secuencial
     const total  = await Ejemplar.count({ where: { libro_id } });
     const codigo = `${libro.isbn}-${total + 1}`;
 
