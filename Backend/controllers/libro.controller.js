@@ -51,11 +51,7 @@ const crearLibro = async (req, res) => {
 
     const libro = await Libro.create({
       titulo, autor, editorial, isbn, anio,
-      categoria_id, descripcion, imagen_url,
-      ejemplares,
-      EPrestado:      0,
-      EMantenimiento: 0,
-      EReservado:     0,
+      categoria_id, descripcion, imagen_url, ejemplares,
     });
 
     res.status(201).json(libro);
