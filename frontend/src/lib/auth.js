@@ -24,7 +24,7 @@ export function mockLogin(uid, password) {
     dashboard: user.dashboard,
   };
 
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
 
   return {
     ok: true,
@@ -33,7 +33,7 @@ export function mockLogin(uid, password) {
 }
 
 export function getSession() {
-  const raw = localStorage.getItem(SESSION_KEY);
+  const raw = sessionStorage.getItem(SESSION_KEY);
 
   if (!raw) return null;
 
@@ -45,7 +45,7 @@ export function getSession() {
 }
 
 export function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
 }
 
 export function isLoggedIn() {

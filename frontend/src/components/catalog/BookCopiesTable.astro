@@ -1,0 +1,89 @@
+---
+const { copies = [] } = Astro.props;
+
+type CopyStatus = "Disponible" | "Prestado" | "Reservado" | "Otro";
+
+type CopyItem = {
+  accessionNo: string;
+  location: string;
+  condition: string;
+  status: CopyStatus;
+};
+
+function getStatusClass(status: CopyStatus) {
+  if (status === "Disponible") return "is-available";
+  if (status === "Prestado") return "is-borrowed";
+  if (status === "Reservado") return "is-reserved";
+  return "is-neutral";
+}
+
+function getActionLabel(status: CopyStatus) {
+  if (status === "Disponible") return "Solicitar préstamo";
+  if (status === "Prestado") return "Reservar";
+  if (status === "Reservado") return "Ver estado";
+  return "Ver detalle";
+}
+
+function getActionType(status: CopyStatus) {
+  if (status === "Disponible") return "loan";
+  if (status === "Prestado") return "reserve";
+  if (status === "Reservado") return "queue";
+  return "view";
+}
+
+function getActionClass(status: CopyStatus) {
+  if (status === "Disponible") return "is-primary";
+  return "is-secondary";
+}
+---
+
+<section class="book-copies">
+  <div class="book-copies__header">
+    <h2>Ejemplares disponibles</h2>
+    <span>{copies.length} ejemplares registrados</span>
+  </div>
+
+  <div class="book-copies__table-wrap">
+    <table class="book-copies__table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Ubicación</th>
+          <th>Condición</th>
+          <th>Estado</th>
+          <th class="is-right">Acción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {
+          copies.map((copy: CopyItem) => (
+            <tr>
+              <td class="is-mono">{copy.accessionNo}</td>
+              <td>{copy.location}</td>
+              <td>{copy.condition}</td>
+              <td>
+                <span
+                  class:list={["status-badge", getStatusClass(copy.status)]}
+                >
+                  {copy.status}
+                </span>
+              </td>
+              <td class="is-right">
+                <button
+                  type="button"
+                  class:list={["copy-action", getActionClass(copy.status)]}
+                  data-copy-action={getActionType(copy.status)}
+                  data-copy-status={copy.status}
+                  data-copy-code={copy.accessionNo}
+                >
+                  {getActionLabel(copy.status)}
+                </button>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

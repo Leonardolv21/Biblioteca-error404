@@ -1,0 +1,33 @@
+<header class="catalog-topbar">
+  <div class="catalog-shell">
+    <div class="catalog-topbar__left">
+      <a href="/" class="catalog-brand">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span>Scholar's Archive</span>
+      </a>
+
+      <nav class="catalog-topbar__nav">
+        <a href="/" class="catalog-topbar__link">Inicio</a>
+        <a href="/catalogo" class="catalog-topbar__link is-active">Catálogo</a>
+      </nav>
+    </div>
+
+    <div class="catalog-topbar__right">
+      <a href="/login" class="catalog-session-link" data-session-link>
+        Iniciar sesión
+      </a>
+    </div>
+  </div>
+</header>
+
+<script type="module">
+  import { getSession } from "../../lib/auth.js";
+
+  const sessionLink = document.querySelector("[data-session-link]");
+  const session = getSession();
+
+  if (session?.dashboard && sessionLink) {
+    sessionLink.textContent = "Ir a mi panel";
+    sessionLink.href = session.dashboard;
+  }
+</script>

@@ -1,0 +1,17 @@
+---
+const { book } = Astro.props;
+const isAvailable = book.status === "Disponible";
+---
+
+<a href={`/catalogo/${book.id}`} class="recommend-card">
+  <div class="recommend-card__image">
+    <img src={book.image} alt={book.title} />
+
+    <div class:list={["recommend-card__badge", isAvailable ? "is-available" : "is-borrowed"]}>
+      {book.status}
+    </div>
+  </div>
+
+  <h4>{book.title}</h4>
+  <p>{book.author}</p>
+</a>

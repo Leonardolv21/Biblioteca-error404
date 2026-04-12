@@ -1,0 +1,293 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PublicCatalogTopbar from "../../components/catalog/PublicCatalogTopbar.astro";
+import PublicFooter from "../../components/landing/PublicFooter.astro";
+import BookMetadataCard from "../../components/catalog/BookMetadataCard.astro";
+import BookCopiesTable from "../../components/catalog/BookCopiesTable.astro";
+import { catalogBooks } from "../../data/catalogData";
+import { detailedBooks } from "../../data/bookDetails";
+import "../../styles/book-detail.css";
+import "../../styles/catalog.css";
+import "../../styles/landing.css";
+
+type CatalogBook = {
+  id: string;
+  ref: string;
+  title: string;
+  author: string;
+  year: number;
+  category: string;
+  status: string;
+  image: string;
+};
+
+type QuickMetadataItem = {
+  label: string;
+  value: string;
+};
+
+type CopyItem = {
+  accessionNo: string;
+  location: string;
+  condition: string;
+  status: string;
+};
+
+type DetailedBookExtra = {
+  subtitle: string;
+  breadcrumb: string[];
+  quickMetadata: QuickMetadataItem[];
+  description: string[];
+  copies: CopyItem[];
+};
+
+type BookPageData = CatalogBook & DetailedBookExtra;
+
+interface Props {
+  book: BookPageData;
+}
+
+export function getStaticPaths() {
+  const books = catalogBooks as CatalogBook[];
+  const detailsMap = detailedBooks as Record<string, DetailedBookExtra | undefined>;
+
+  return books.map((catalogBook: CatalogBook) => {
+    const extra = detailsMap[catalogBook.id];
+    const fallbackStatus = catalogBook.status === "Disponible" ? "Disponible" : "Prestado";
+
+    const book: BookPageData = extra
+      ? { ...catalogBook, ...extra }
+      : {
+          ...catalogBook,
+          subtitle: "Detalle del recurso bibliográfico",
+          breadcrumb: ["Inicio", "Catálogo", catalogBook.title],
+          quickMetadata: [
+            { label: "ISBN-13", value: "Por definir" },
+            { label: "Idioma", value: "Por definir" },
+            { label: "Páginas", value: "Por definir" },
+            { label: "Formato", value: "Por definir" },
+          ],
+          description: [
+            "Este registro bibliográfico todavía no cuenta con una descripción ampliada en el sistema.",
+            "Más adelante podrás ver resumen, metadatos completos, existencias y acciones conectadas al backend real.",
+          ],
+          copies: [
+            {
+              accessionNo: `LIB-${catalogBook.ref}-001`,
+              location: "Biblioteca Central",
+              condition: "Buen estado",
+              status: fallbackStatus,
+            },
+          ],
+        };
+
+    return {
+      params: { id: catalogBook.id },
+      props: { book },
+    };
+  });
+}
+
+const { book } = Astro.props as Props;
+---
+
+<MainLayout title={`${book.title} | Biblioteca Error404`}>
+  <div class="book-detail-page">
+    <PublicCatalogTopbar />
+
+    <main class="book-detail-main">
+      <header class="book-detail-header book-detail-container">
+        <nav class="book-breadcrumb">
+          {book.breadcrumb.map((item: string, index: number) => (
+            <>
+              {index < book.breadcrumb.length - 1 ? (
+                <span>{item}</span>
+              ) : (
+                <strong>{item}</strong>
+              )}
+              {index < book.breadcrumb.length - 1 && (
+                <span class="book-breadcrumb__line"></span>
+              )}
+            </>
+          ))}
+        </nav>
+      </header>
+
+      <section class="book-detail-container book-detail-grid">
+        <div class="book-detail-cover-column">
+          <div class="book-cover-box">
+            <img src={book.image} alt={book.title} />
+          </div>
+
+          <BookMetadataCard metadata={book.quickMetadata} />
+        </div>
+
+        <div class="book-detail-content">
+          <h1>{book.title}</h1>
+          <p class="book-detail-subtitle">{book.subtitle}</p>
+
+          <div class="book-tags">
+            <span class="book-tag">
+              <span class="material-symbols-outlined">person</span>
+              <span>{book.author}</span>
+            </span>
+
+            <span class="book-tag">
+              <span class="material-symbols-outlined">category</span>
+              <span>{book.category}</span>
+            </span>
+
+            <span class="book-tag book-tag--accent">
+              <span class="material-symbols-outlined">star</span>
+              <span>Recurso académico</span>
+            </span>
+          </div>
+
+          <div class="book-description">
+            {book.description.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+
+          <div class="book-access-note">
+            Puedes consultar este detalle sin iniciar sesión. Para solicitar un préstamo
+            o reservar un ejemplar, el sistema te pedirá iniciar sesión primero.
+          </div>
+
+          <BookCopiesTable copies={book.copies} />
+        </div>
+      </section>
+
+      <PublicFooter />
+    </main>
+
+    <div class="detail-toast" data-detail-toast></div>
+  </div>
+</MainLayout>
+
+<script>
+  import { mockLogin, getSession } from "../../lib/auth.js";
+
+  const params = new URLSearchParams(window.location.search);
+  const nextUrl = params.get("next");
+  const intent = params.get("intent");
+
+  const currentSession = getSession();
+  if (currentSession?.dashboard) {
+    window.location.href = nextUrl || currentSession.dashboard;
+  }
+
+  const form = document.querySelector(".login-card__form");
+  const uidInput = document.querySelector("#uid") as HTMLInputElement | null;
+  const passwordInput = document.querySelector("#password") as HTMLInputElement | null;
+  const errorBox = document.querySelector("[data-login-error]");
+
+  function showGeneralError(message: string) {
+    if (!errorBox) return;
+    errorBox.textContent = message;
+    errorBox.classList.add("is-visible");
+  }
+
+  function clearGeneralError() {
+    if (!errorBox) return;
+    errorBox.textContent = "";
+    errorBox.classList.remove("is-visible");
+  }
+
+  function setFieldError(fieldName: string, message: string) {
+    const errorElement = document.querySelector(
+      `[data-field-error="${fieldName}"]`
+    );
+    const input = document.querySelector(`#${fieldName}`);
+
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.classList.add("is-visible");
+    }
+
+    if (input) {
+      input.classList.add("is-invalid");
+    }
+  }
+
+  function clearFieldError(fieldName: string) {
+    const errorElement = document.querySelector(
+      `[data-field-error="${fieldName}"]`
+    );
+    const input = document.querySelector(`#${fieldName}`);
+
+    if (errorElement) {
+      errorElement.textContent = "";
+      errorElement.classList.remove("is-visible");
+    }
+
+    if (input) {
+      input.classList.remove("is-invalid");
+    }
+  }
+
+  function clearAllErrors() {
+    clearGeneralError();
+    clearFieldError("uid");
+    clearFieldError("password");
+  }
+
+  if (intent === "loan") {
+    showGeneralError("Debes iniciar sesión para solicitar un préstamo.");
+  } else if (intent === "reserve") {
+    showGeneralError("Debes iniciar sesión para reservar este libro.");
+  } else if (intent === "queue") {
+    showGeneralError("Debes iniciar sesión para entrar a la lista de espera.");
+  }
+
+  uidInput?.addEventListener("input", () => clearFieldError("uid"));
+  passwordInput?.addEventListener("input", () => clearFieldError("password"));
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    clearAllErrors();
+
+    const uid = uidInput?.value?.trim() || "";
+    const password = passwordInput?.value || "";
+
+    let hasErrors = false;
+
+    if (!uid) {
+      setFieldError("uid", "El usuario es obligatorio.");
+      hasErrors = true;
+    }
+
+    if (!password) {
+      setFieldError("password", "La contraseña es obligatoria.");
+      hasErrors = true;
+    }
+
+    if (password && password.length < 6) {
+      setFieldError("password", "La contraseña debe tener al menos 6 caracteres.");
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      showGeneralError("Por favor revisa los campos marcados.");
+      return;
+    }
+
+    const result = mockLogin(uid, password);
+
+    if (!result.ok) {
+      showGeneralError(result.message || "No se pudo iniciar sesión.");
+      uidInput?.classList.add("is-invalid");
+      passwordInput?.classList.add("is-invalid");
+      return;
+    }
+
+    if (nextUrl) {
+      window.location.href = nextUrl;
+      return;
+    }
+
+    if (result.user?.dashboard) {
+      window.location.href = result.user.dashboard;
+    }
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+const { book } = Astro.props;
+
+const isAvailable = book.status === "Disponible";
+---
+
+<article
+  class:list={[
+    "catalog-book-card",
+    !isAvailable && "is-offset",
+  ]}
+  data-book-card
+  data-title={book.title.toLowerCase()}
+  data-author={book.author.toLowerCase()}
+  data-category={book.category}
+  data-status={book.status}
+  data-year={book.year}
+>
+  <div class="catalog-book-card__image">
+    <img src={book.image} alt={book.title} />
+
+    <div class="catalog-book-card__ref">
+      Ref. {book.ref}
+    </div>
+  </div>
+
+  <div class="catalog-book-card__body">
+    <div class="catalog-book-card__status">
+      <span class:list={["catalog-dot", isAvailable ? "is-available" : "is-borrowed"]}></span>
+      <span>{book.status}</span>
+    </div>
+
+    <h3>{book.title}</h3>
+    <p>{book.author}, {book.year}</p>
+
+    <a href={`/catalogo/${book.id}`} class="catalog-book-card__button">
+      Ver detalles
+    </a>
+  </div>
+</article>

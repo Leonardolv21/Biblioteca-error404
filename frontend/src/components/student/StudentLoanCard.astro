@@ -1,0 +1,34 @@
+---
+const { loan } = Astro.props;
+---
+
+<article class:list={["loan-card", loan.urgent && "is-urgent"]}>
+  <div class="loan-card__cover">
+    <img src={loan.image} alt={loan.title} />
+  </div>
+
+  <div class="loan-card__content">
+    <div>
+      <h3>{loan.title}</h3>
+      <p>{loan.author}</p>
+    </div>
+
+    <div class="loan-card__footer">
+      <div class="loan-card__due">
+        <span class="material-symbols-outlined">
+          {loan.urgent ? "schedule" : "event"}
+        </span>
+
+        <p>
+          Devolución:
+          <strong>{loan.dueDate}</strong>
+        </p>
+      </div>
+
+      <div class="loan-card__actions">
+        {loan.tag && <span class="loan-card__tag">{loan.tag}</span>}
+        <a href={`/catalogo/${loan.id}`} class="loan-card__link">Ver libro</a>
+      </div>
+    </div>
+  </div>
+</article>

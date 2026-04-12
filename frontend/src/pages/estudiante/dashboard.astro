@@ -1,0 +1,104 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import RoleGuard from "../../components/auth/RoleGuard.astro";
+import StudentSidebar from "../../components/student/StudentSidebar.astro";
+import StudentTopbar from "../../components/student/StudentTopbar.astro";
+import StudentLoanCard from "../../components/student/StudentLoanCard.astro";
+import StudentReservationsPanel from "../../components/student/StudentReservationsPanel.astro";
+import StudentRecommendationCard from "../../components/student/StudentRecommendationCard.astro";
+import { currentLoans, reservations, recommendations } from "../../data/studentDashboardData";
+import "../../styles/student-dashboard.css";
+---
+
+<MainLayout title="Mi Biblioteca | Biblioteca Error404">
+  <RoleGuard allowedRoles={["estudiante"]} />
+
+  <div class="student-dashboard">
+    <StudentSidebar />
+    <StudentTopbar />
+
+    <main class="student-main">
+      <div class="student-shell">
+        <section class="student-hero">
+          <h1>Hola, <span data-session-first-name>Juan</span>.</h1>
+          <p>Explora el catálogo académico de la Universidad XYZ.</p>
+
+          <form class="student-search-form" action="/catalogo" method="get">
+            <span class="material-symbols-outlined">search</span>
+            <input
+              type="text"
+              name="q"
+              placeholder="Busca por título, autor o ISBN"
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        </section>
+
+        <section class="student-grid">
+          <div>
+            <div class="section-head">
+              <h2>Mis Préstamos</h2>
+              <a href="#">Ver todos</a>
+            </div>
+
+            <div class="loan-list">
+              {currentLoans.map((loan) => (
+                <StudentLoanCard loan={loan} />
+              ))}
+            </div>
+          </div>
+
+          <StudentReservationsPanel reservations={reservations as any} />
+        </section>
+
+        <section class="recommend-section">
+          <div class="recommend-section__header">
+            <h2>Recomendados para ti</h2>
+
+            <div class="recommend-nav">
+              <button type="button">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button type="button">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="recommend-grid">
+            {recommendations.map((book) => (
+              <StudentRecommendationCard book={book} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <a href="/catalogo" class="student-fab" aria-label="Explorar catálogo">
+      <span class="material-symbols-outlined">add</span>
+    </a>
+  </div>
+</MainLayout>
+
+<script>
+  import { getSession, clearSession } from "../../lib/auth.js";
+
+  const session = getSession();
+  const fullName = session?.name || "Juan Pérez";
+  const firstName = fullName.split(" ")[0] || "Juan";
+
+  document.querySelectorAll("[data-session-name]").forEach((el) => {
+    el.textContent = fullName;
+  });
+
+  document.querySelectorAll("[data-session-first-name]").forEach((el) => {
+    el.textContent = firstName;
+  });
+
+  document.querySelectorAll("[data-logout-button]").forEach((button) => {
+    button.addEventListener("click", () => {
+      clearSession();
+      window.location.href = "/login";
+    });
+  });
+</script>
