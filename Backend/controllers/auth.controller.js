@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Usuario, Rol } = require('../models');
-
 const jwtSecret = process.env.JWT_SECRET || 'secret_local_dev';
 const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1h';
+const { crearUsuario } = require('./user.controller');
 
 const login = async (req, res) => {
     const body = req.body || {};
@@ -51,38 +51,17 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    const body = req.body || {};
-    const { nombre, apellido, correo, password } = body;
-    if (!nombre || !apellido || !correo || !password) {
-        return res.status(400).json({
-            error: 'nombre, apellido, correo y password son requeridos',
-        });
-    }
+  const { nombre, apellido, correo, password } = req.body;
 
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const nuevoUsuario = await Usuario.create({
-            nombre,
-            apellido,
-            correo,
-            password_hash: hashedPassword,
-            rol_id: 3, // Estudiante por defecto
-            max_prestamos: 3, // Máximo 3 préstamos por defecto
-        });
+  if (!nombre || !apellido || !correo || !password) {
+    return res.status(400).json({
+      error: 'nombre, apellido, correo y password son requeridos',
+    });
+  }
+  req.body.rol_id        = 3;
+  req.body.max_prestamos = 3;
 
-        return res.status(201).json({
-            id: nuevoUsuario.id,
-            nombre: nuevoUsuario.nombre,
-            apellido: nuevoUsuario.apellido,
-            correo: nuevoUsuario.correo,
-            rol_id: nuevoUsuario.rol_id,
-            max_prestamos: nuevoUsuario.max_prestamos,
-            message: 'Usuario registrado exitosamente'
-        });
-    } catch (error) {
-        console.error('REGISTER ERROR', error);
-        return res.status(500).json({ error: 'No se pudo crear el usuario' });
-    }
+  return crearUsuario(req, res);
 };
 
 module.exports = {
