@@ -1,85 +1,91 @@
-const express = require('express');
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { Usuario, Rol } = require('../models');
 
-module.exports = (app, db) => {
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+const jwtSecret = process.env.JWT_SECRET || 'secret_local_dev';
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1h';
 
-    const { Usuario, Rol } = db || {};
+const login = async (req, res) => {
+    const body = req.body || {};
+    const { correo, password } = body;
+    if (!correo || !password) {
+        return res.status(400).json({ error: 'Correo y password son requeridos' });
+    }
 
-    app.get('/login', (req, res) => {
-        res.status(405).json({ message: 'usa el POST /login para autenticar' });
-    });
+    try {
+        const usuario = await Usuario.findOne({
+            where: { correo },
+            include: [{ model: Rol, as: 'rol' }],
+        });
 
-    app.post('/login', async (req, res) => {
-        if (!Usuario) {
-            return res.status(500).json({ error: 'Modelos de base de datos no disponibles' });
+        if (!usuario || !(await bcrypt.compare(password, usuario.password_hash))) {
+            return res.status(401).json({ error: 'Credenciales inválidas' });
         }
 
-        const { correo, password } = req.body;
-        if (!correo || !password) {
-            return res.status(400).json({ error: 'Correo y password son requeridos' });
-        }
+        const payload = {
+            id: usuario.id,
+            correo: usuario.correo,
+            rol_id: usuario.rol_id,
+        };
 
-        try {
-            const usuario = await Usuario.findOne({
-                where: { correo },
-                include: [{ model: Rol, as: 'rol' }],
-            });
+        const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
+        await usuario.update({ token });
 
-            if (!usuario || usuario.password_hash !== password) {
-                return res.status(401).json({ error: 'Credenciales inválidas' });
-            }
+        return res.json({
+            token,
+            user: {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                apellido: usuario.apellido,
+                correo: usuario.correo,
+                matricula: usuario.matricula,
+                rol_id: usuario.rol_id,
+                rol: usuario.rol ? usuario.rol.nombre : null,
+                max_prestamos: usuario.max_prestamos,
+            },
+        });
+    } catch (error) {
+        console.error('LOGIN ERROR', error);
+        return res.status(500).json({ error: 'No se pudo iniciar sesión' });
+    }
+};
 
-            const token = crypto.randomBytes(24).toString('hex');
-            await usuario.update({ token });
+const register = async (req, res) => {
+    const body = req.body || {};
+    const { nombre, apellido, correo, password } = body;
+    if (!nombre || !apellido || !correo || !password) {
+        return res.status(400).json({
+            error: 'nombre, apellido, correo y password son requeridos',
+        });
+    }
 
-            return res.json({
-                token,
-                user: {
-                    id: usuario.id,
-                    nombre: usuario.nombre,
-                    apellido: usuario.apellido,
-                    correo: usuario.correo,
-                    matricula: usuario.matricula,
-                    rol_id: usuario.rol_id,
-                    rol: usuario.rol ? usuario.rol.nombre : null,
-                    max_prestamos: usuario.max_prestamos,
-                },
-            });
-        } catch (error) {
-            console.error('LOGIN ERROR', error);
-            return res.status(500).json({ error: 'No se pudo iniciar sesión' });
-        }
-    });
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const nuevoUsuario = await Usuario.create({
+            nombre,
+            apellido,
+            correo,
+            password_hash: hashedPassword,
+            rol_id: 3, // Estudiante por defecto
+            max_prestamos: 3, // Máximo 3 préstamos por defecto
+        });
 
-    app.post('/register', async (req, res) => {
-        if (!Usuario) {
-            return res.status(500).json({ error: 'Modelos de base de datos no disponibles' });
-        }
+        return res.status(201).json({
+            id: nuevoUsuario.id,
+            nombre: nuevoUsuario.nombre,
+            apellido: nuevoUsuario.apellido,
+            correo: nuevoUsuario.correo,
+            rol_id: nuevoUsuario.rol_id,
+            max_prestamos: nuevoUsuario.max_prestamos,
+            message: 'Usuario registrado exitosamente'
+        });
+    } catch (error) {
+        console.error('REGISTER ERROR', error);
+        return res.status(500).json({ error: 'No se pudo crear el usuario' });
+    }
+};
 
-        const { nombre, apellido, correo, password, matricula, rol_id, max_prestamos } = req.body;
-        if (!nombre || !apellido || !correo || !password || !rol_id) {
-            return res.status(400).json({
-                error: 'nombre, apellido, correo, password y rol_id son requeridos',
-            });
-        }
-
-        try {
-            const nuevoUsuario = await Usuario.create({
-                nombre,
-                apellido,
-                correo,
-                password_hash: password,
-                matricula,
-                rol_id,
-                max_prestamos: max_prestamos ?? 3,
-            });
-
-            return res.status(201).json(nuevoUsuario);
-        } catch (error) {
-            console.error('REGISTER ERROR', error);
-            return res.status(500).json({ error: 'No se pudo crear el usuario' });
-        }
-    });
+module.exports = {
+    login,
+    register,
 };
