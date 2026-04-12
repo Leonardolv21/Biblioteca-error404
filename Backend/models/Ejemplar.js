@@ -1,3 +1,4 @@
+// models/Ejemplar.js
 const { DataTypes } = require('sequelize');
 const sequelize     = require('../config/database');
 
@@ -15,7 +16,6 @@ const Ejemplar = sequelize.define('Ejemplar', {
     type:      DataTypes.STRING(50),
     allowNull: false,
     unique:    true,
-    comment:   'Código de barras o QR único del ejemplar físico',
   },
   estado: {
     type:         DataTypes.ENUM('disponible', 'prestado', 'reservado', 'mantenimiento'),
@@ -23,8 +23,7 @@ const Ejemplar = sequelize.define('Ejemplar', {
     defaultValue: 'disponible',
   },
   notas: {
-    type:    DataTypes.STRING(255),
-    comment: 'Observaciones sobre el estado físico del ejemplar',
+    type: DataTypes.STRING(255),
   },
 }, {
   tableName:  'ejemplares',

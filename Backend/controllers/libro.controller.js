@@ -1,0 +1,124 @@
+const Libro      = require('../models/Libro');
+const Categoria  = require('../models/Categoria');
+const { Op }     = require('sequelize');
+const fs   = require('fs');
+const path = require('path');
+const Ejemplar   = require('../models/Ejemplar');
+
+const getLibros = async (req, res) => {
+  try {
+    const { titulo, autor, categoria_id } = req.query;
+    const where = {};
+
+    if (titulo)       where.titulo       = { [Op.like]: `%${titulo}%` };
+    if (autor)        where.autor        = { [Op.like]: `%${autor}%` };
+    if (categoria_id) where.categoria_id = categoria_id;
+
+    const libros = await Libro.findAll({
+      where,
+      include: [
+        { model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] },
+        { model: Ejemplar,  as: 'copias', attributes: ['id', 'codigo', 'estado'] },
+      ],
+      order: [['createdAt', 'DESC']],
+    });
+
+    res.json(libros);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener libros' });
+  }
+};
+
+const getLibroPorId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const libro = await Libro.findByPk(id, {
+      include: [{ model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] }],
+    });
+
+    if (!libro) return res.status(404).json({ error: 'Libro no encontrado' });
+
+    res.json(libro);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al obtener libro' });
+  }
+};
+
+const crearLibro = async (req, res) => {
+  const { titulo, autor, editorial, isbn, anio, categoria_id, descripcion, ejemplares } = req.body;
+  try {
+    const imagen_url = req.file ? req.file.filename : null;
+
+    const libro = await Libro.create({
+      titulo, autor, editorial, isbn, anio,
+      categoria_id, descripcion, imagen_url,
+      ejemplares,
+      EPrestado:      0,
+      EMantenimiento: 0,
+      EReservado:     0,
+    });
+
+    res.status(201).json(libro);
+  } catch (err) {
+    res.status(500).json({ error: 'Error al crear libro', details: err.message });
+  }
+};
+
+const actualizarLibro = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const libro = await Libro.findByPk(id);
+    if (!libro) return res.status(404).json({ error: 'Libro no encontrado' });
+
+    if (req.file) {
+      // Borrar imagen anterior
+      if (libro.imagen_url) {
+        const rutaAnterior = path.join('Media/uploads', libro.imagen_url);
+        if (fs.existsSync(rutaAnterior)) fs.unlinkSync(rutaAnterior);
+      }
+
+      // Renombrar el archivo con el ISBN del libro
+      const ext          = path.extname(req.file.filename);
+      const nuevoNombre  = `${libro.isbn}${ext}`;
+      const rutaActual   = path.join('Media/uploads', req.file.filename);
+      const rutaNueva    = path.join('Media/uploads', nuevoNombre);
+
+      fs.renameSync(rutaActual, rutaNueva);
+      req.body.imagen_url = nuevoNombre;
+    }
+
+    await libro.update(req.body);
+
+    res.json({ message: 'Libro actualizado correctamente', libro });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al actualizar libro', details: err.message });
+  }
+};
+
+const eliminarLibro = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const libro = await Libro.findByPk(id);
+    if (!libro) return res.status(404).json({ error: 'Libro no encontrado' });
+
+    if (libro.imagen_url) {
+      const rutaImagen = path.join('Media/uploads', libro.imagen_url);
+      if (fs.existsSync(rutaImagen)) {
+        fs.unlinkSync(rutaImagen);
+      }
+    }
+    await libro.destroy();
+
+    res.json({ message: 'Libro eliminado correctamente' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar libro', details: err.message });
+  }
+};
+
+module.exports = {
+  getLibros,
+  getLibroPorId,
+  crearLibro,
+  actualizarLibro,
+  eliminarLibro,
+};
