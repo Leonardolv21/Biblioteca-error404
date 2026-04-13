@@ -1,38 +1,557 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import RoleGuard from "../../components/auth/RoleGuard.astro";
-import AppHeader from "../../components/shared/AppHeader.astro";
-import "../../styles/app-shell.css";
+import "../../styles/admin-dashboard.css";
 ---
 
 <MainLayout title="Dashboard Bibliotecario | Biblioteca Error404">
   <RoleGuard allowedRoles={["bibliotecario"]} />
 
-  <div class="app-shell">
-    <main class="app-content">
-      <AppHeader title="Dashboard del Bibliotecario" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
 
-      <section class="dashboard-grid">
-        <article class="dashboard-card">
-          <h2>Préstamos</h2>
-          <p>Registrar préstamos, devoluciones y renovaciones.</p>
-        </article>
+  <div class="admin-layout">
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__brand">
+        Scholar's Archive
+        <small>Panel de bibliotecario</small>
+      </div>
 
-        <article class="dashboard-card">
-          <h2>Reservas</h2>
-          <p>Gestionar reservas pendientes y disponibilidad de ejemplares.</p>
-        </article>
+      <button class="admin-nav-btn is-active" data-nav="prestamos">
+        <span class="material-symbols-outlined">swap_horiz</span> Préstamos
+      </button>
+      <button class="admin-nav-btn" data-nav="reservas">
+        <span class="material-symbols-outlined">bookmark</span> Reservas
+      </button>
 
-        <article class="dashboard-card">
-          <h2>Atención operativa</h2>
-          <p>Seguimiento del flujo diario de circulación de libros.</p>
-        </article>
+      <div class="admin-sidebar__spacer"></div>
+
+      <div style="padding:0.5rem 0.75rem;font-size:0.8rem;">
+        <strong data-session-name style="color:#fff;">Bibliotecario</strong>
+        <small style="display:block;color:#94a3b8;" data-session-role
+          >bibliotecario</small
+        >
+      </div>
+
+      <button class="admin-sidebar__logout" data-logout-button>
+        <span class="material-symbols-outlined">logout</span> Cerrar sesión
+      </button>
+    </aside>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="admin-main">
+      <!-- ─── PRÉSTAMOS ─── -->
+      <section class="admin-section is-active" id="sec-prestamos">
+        <div class="admin-main__header">
+          <div>
+            <h1>Préstamos</h1><p>
+              Gestión de préstamos, devoluciones y renovaciones
+            </p>
+          </div>
+          <button class="btn btn--primary" id="btn-nuevo-prestamo">
+            <span class="material-symbols-outlined">add</span> Nuevo Préstamo
+          </button>
+        </div>
+        <!-- Tarjetas operativas -->
+        <div class="stat-grid" id="stats-prestamos">
+          <div class="admin-loading">Cargando...</div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-toolbar">
+            <h2>Préstamos del sistema</h2>
+            <div class="admin-table-actions">
+              <select
+                class="admin-search"
+                id="filtro-estado-prestamo"
+                style="width:auto;"
+              >
+                <option value="todos">Todos</option>
+                <option value="activo">Activos</option>
+                <option value="renovado">Renovados</option>
+                <option value="vencido">Vencidos</option>
+                <option value="devuelto">Devueltos</option>
+              </select>
+              <input
+                class="admin-search"
+                placeholder="Buscar préstamo..."
+                data-search="prestamos"
+              />
+            </div>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Usuario</th><th>Libro</th><th>Ejemplar</th>
+                <th>Inicio</th><th>Vencimiento</th><th>Estado</th><th>Renov.</th
+                ><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-prestamos">
+              <tr><td colspan="9" class="admin-loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
-      <div class="quick-links">
-        <a href="/catalogo">Ir al catálogo</a>
-        <a href="/login">Volver al login</a>
-      </div>
+      <!-- ─── RESERVAS ─── -->
+      <section class="admin-section" id="sec-reservas">
+        <div class="admin-main__header">
+          <div>
+            <h1>Reservas</h1><p>
+              Reservas pendientes, disponibles y completadas
+            </p>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-toolbar">
+            <h2>Reservas del sistema</h2>
+            <div class="admin-table-actions">
+              <select
+                class="admin-search"
+                id="filtro-estado-reserva"
+                style="width:auto;"
+              >
+                <option value="todos">Todas</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="disponible">Disponibles</option>
+                <option value="completada">Completadas</option>
+                <option value="cancelada">Canceladas</option>
+              </select>
+            </div>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Usuario</th><th>Libro</th><th>Estado</th>
+                <th>Fecha reserva</th><th>Expiración</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-reservas">
+              <tr><td colspan="7" class="admin-loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </div>
+
+  <!-- ═══ MODAL ═══ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-title">Modal</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
 </MainLayout>
+
+<script>
+  import { getSession, clearSession, apiFetch } from "../../lib/auth.js";
+
+  const session = getSession();
+
+  document.querySelectorAll("[data-session-name]").forEach((el) => {
+    el.textContent = session?.name || "Bibliotecario";
+  });
+  document.querySelectorAll("[data-session-role]").forEach((el) => {
+    el.textContent = session?.role || "bibliotecario";
+  });
+  document.querySelectorAll("[data-logout-button]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      clearSession();
+      window.location.href = "/login";
+    });
+  });
+
+  /* ── Navigation ── */
+  const navButtons = document.querySelectorAll("[data-nav]");
+  const sections = document.querySelectorAll(".admin-section");
+  navButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = (btn as HTMLElement).dataset.nav!;
+      navButtons.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      sections.forEach((s) => s.classList.remove("is-active"));
+      document.getElementById(`sec-${target}`)?.classList.add("is-active");
+      if (target === "prestamos") loadPrestamos();
+      if (target === "reservas") loadReservas();
+    });
+  });
+
+  /* ── Modal ── */
+  const modalOverlay = document.getElementById("modal-overlay")!;
+  const modalTitle = document.getElementById("modal-title")!;
+  const modalBody = document.getElementById("modal-body")!;
+  const modalClose = document.getElementById("modal-close")!;
+  function openModal(title: string, html: string) {
+    modalTitle.textContent = title;
+    modalBody.innerHTML = html;
+    modalOverlay.classList.add("is-open");
+  }
+  function closeModal() {
+    modalOverlay.classList.remove("is-open");
+  }
+  modalClose.addEventListener("click", closeModal);
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  function toast(msg: string, ok = true) {
+    const t = document.createElement("div");
+    t.className = `toast ${ok ? "toast--ok" : "toast--err"}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
+
+  /* ── Helpers ── */
+  function badgeClass(estado: string) {
+    const m: Record<string, string> = {
+      activo: "badge--green",
+      renovado: "badge--blue",
+      devuelto: "badge--gray",
+      vencido: "badge--red",
+      pendiente: "badge--yellow",
+      disponible: "badge--green",
+      completada: "badge--gray",
+      cancelada: "badge--red",
+    };
+    return m[estado] || "badge--gray";
+  }
+  function esc(v: any) {
+    return v == null ? "—" : String(v);
+  }
+  function fdate(d: any) {
+    return d ? new Date(d).toLocaleDateString("es-MX") : "—";
+  }
+
+  /* ══════════════════════════════════
+     PRÉSTAMOS
+  ══════════════════════════════════ */
+  let prestamosData: any[] = [];
+  let prestamosLoaded = false;
+
+  async function loadPrestamos(force = false) {
+    if (prestamosLoaded && !force) return;
+    try {
+      prestamosData = await (await apiFetch("/loans")).json();
+
+      // Stats operativos
+      const activos = prestamosData.filter(
+        (p: any) => p.estado === "activo" || p.estado === "renovado",
+      ).length;
+      const vencidos = prestamosData.filter((p: any) => {
+        if (p.estado === "devuelto") return false;
+        return (
+          new Date(p.fecha_vencimiento).getTime() < Date.now() &&
+          p.estado !== "devuelto"
+        );
+      }).length;
+      const devolvidos = prestamosData.filter(
+        (p: any) => p.estado === "devuelto",
+      ).length;
+      document.getElementById("stats-prestamos")!.innerHTML = `
+        <div class="stat-card stat-card--accent"><div class="stat-card__label">Activos</div><div class="stat-card__value">${activos}</div></div>
+        <div class="stat-card" style="border-left:4px solid #dc2626;"><div class="stat-card__label">Vencidos</div><div class="stat-card__value">${vencidos}</div></div>
+        <div class="stat-card"><div class="stat-card__label">Devueltos</div><div class="stat-card__value">${devolvidos}</div></div>
+        <div class="stat-card"><div class="stat-card__label">Total</div><div class="stat-card__value">${prestamosData.length}</div></div>
+      `;
+
+      renderPrestamos(prestamosData);
+      prestamosLoaded = true;
+    } catch {
+      document.getElementById("tbody-prestamos")!.innerHTML =
+        '<tr><td colspan="9" class="admin-empty">Error al cargar</td></tr>';
+      document.getElementById("stats-prestamos")!.innerHTML =
+        '<div class="admin-empty">Error</div>';
+    }
+  }
+
+  function filterPrestamos() {
+    const q =
+      (
+        document.querySelector('[data-search="prestamos"]') as HTMLInputElement
+      )?.value?.toLowerCase() || "";
+    const estado =
+      (document.getElementById("filtro-estado-prestamo") as HTMLSelectElement)
+        ?.value || "todos";
+    const filtered = prestamosData.filter((p: any) => {
+      const matchEstado = estado === "todos" || p.estado === estado;
+      const matchSearch =
+        !q ||
+        (p.usuario?.nombre || "").toLowerCase().includes(q) ||
+        (p.ejemplar?.libro?.titulo || "").toLowerCase().includes(q) ||
+        (p.ejemplar?.codigo || "").toLowerCase().includes(q);
+      return matchEstado && matchSearch;
+    });
+    renderPrestamos(filtered);
+  }
+
+  function renderPrestamos(list: any[]) {
+    const tbody = document.getElementById("tbody-prestamos")!;
+    if (!list.length) {
+      tbody.innerHTML =
+        '<tr><td colspan="9" class="admin-empty">No hay préstamos</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list
+      .map((p: any) => {
+        const isOverdue =
+          p.estado !== "devuelto" &&
+          new Date(p.fecha_vencimiento).getTime() < Date.now();
+        return `<tr ${isOverdue ? 'style="background:#fef2f2;"' : ""}>
+      <td>${p.id}</td>
+      <td>${esc(p.usuario?.nombre)} ${esc(p.usuario?.apellido)}</td>
+      <td>${esc(p.ejemplar?.libro?.titulo)}</td>
+      <td>${esc(p.ejemplar?.codigo || p.ejemplar_id)}</td>
+      <td>${fdate(p.fecha_inicio)}</td><td>${fdate(p.fecha_vencimiento)}</td>
+      <td><span class="badge ${badgeClass(p.estado)}">${p.estado}${isOverdue && p.estado !== "vencido" ? " ⚠" : ""}</span></td>
+      <td>${p.renovaciones}/2</td>
+      <td class="action-cell">
+        ${p.estado !== "devuelto" ? `<button class="btn btn--success btn--sm" data-return="${p.id}">Devolver</button>` : ""}
+        ${(p.estado === "activo" || p.estado === "renovado") && p.renovaciones < 2 ? `<button class="btn btn--outline btn--sm" data-renew="${p.id}">Renovar</button>` : ""}
+      </td></tr>`;
+      })
+      .join("");
+    attachPrestamoActions();
+  }
+
+  function attachPrestamoActions() {
+    document.querySelectorAll("[data-return]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.return;
+        try {
+          await apiFetch(`/loans/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ estado: "devuelto" }),
+          });
+          toast("Préstamo devuelto");
+          prestamosLoaded = false;
+          loadPrestamos(true);
+        } catch {
+          toast("Error al devolver", false);
+        }
+      });
+    });
+    document.querySelectorAll("[data-renew]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.renew;
+        try {
+          await apiFetch(`/loans/${id}/renew`, { method: "POST" });
+          toast("Préstamo renovado");
+          prestamosLoaded = false;
+          loadPrestamos(true);
+        } catch {
+          toast("Error al renovar", false);
+        }
+      });
+    });
+  }
+
+  document
+    .querySelector('[data-search="prestamos"]')
+    ?.addEventListener("input", filterPrestamos);
+  document
+    .getElementById("filtro-estado-prestamo")
+    ?.addEventListener("change", filterPrestamos);
+
+  // ── Crear préstamo ──
+  document
+    .getElementById("btn-nuevo-prestamo")!
+    .addEventListener("click", async () => {
+      let users: any[] = [];
+      let books: any[] = [];
+      try {
+        users = await (await apiFetch("/users")).json();
+      } catch {}
+      try {
+        books = await (await apiFetch("/libros")).json();
+      } catch {}
+
+      const userOpts = users
+        .map(
+          (u: any) =>
+            `<option value="${u.id}">${esc(u.nombre)} ${esc(u.apellido)} (${esc(u.matricula)})</option>`,
+        )
+        .join("");
+      const today = new Date().toISOString().split("T")[0];
+      const venc = new Date(Date.now() + 14 * 86400000)
+        .toISOString()
+        .split("T")[0];
+
+      openModal(
+        "Nuevo Préstamo",
+        `
+      <form id="form-prestamo" class="modal-form">
+        <label>Usuario *<select name="usuario_id" required><option value="">— Seleccionar —</option>${userOpts}</select></label>
+        <label>Libro *<select id="sel-libro-prestamo" required><option value="">— Seleccionar libro —</option>${books.map((b: any) => `<option value="${b.id}">${esc(b.titulo)} (${esc(b.isbn)})</option>`).join("")}</select></label>
+        <label>Ejemplar disponible *<select name="ejemplar_id" id="sel-ejemplar-prestamo" required><option value="">— Seleccione libro primero —</option></select></label>
+        <label>Fecha inicio<input name="fecha_inicio" type="date" value="${today}" /></label>
+        <label>Fecha vencimiento<input name="fecha_vencimiento" type="date" value="${venc}" /></label>
+        <label>Observaciones<textarea name="observaciones" rows="2"></textarea></label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn--outline" onclick="document.getElementById('modal-overlay').classList.remove('is-open')">Cancelar</button>
+          <button type="submit" class="btn btn--primary">Crear Préstamo</button>
+        </div>
+      </form>`,
+      );
+
+      document
+        .getElementById("sel-libro-prestamo")!
+        .addEventListener("change", async (e) => {
+          const libroId = (e.target as HTMLSelectElement).value;
+          const sel = document.getElementById(
+            "sel-ejemplar-prestamo",
+          ) as HTMLSelectElement;
+          if (!libroId) {
+            sel.innerHTML =
+              '<option value="">— Seleccione libro primero —</option>';
+            return;
+          }
+          try {
+            const ejs = await (
+              await apiFetch(`/ejemplares/libro/${libroId}`)
+            ).json();
+            const disponibles = ejs.filter(
+              (ej: any) => ej.estado === "disponible",
+            );
+            sel.innerHTML = disponibles.length
+              ? disponibles
+                  .map(
+                    (ej: any) =>
+                      `<option value="${ej.id}">${ej.codigo} (${ej.estado})</option>`,
+                  )
+                  .join("")
+              : '<option value="">— No hay disponibles —</option>';
+          } catch {
+            sel.innerHTML = '<option value="">Error al cargar</option>';
+          }
+        });
+
+      document
+        .getElementById("form-prestamo")!
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const fd = new FormData(e.target as HTMLFormElement);
+          const data: any = {};
+          fd.forEach((v, k) => {
+            if (v) data[k] = v;
+          });
+          data.bibliotecario_id = session?.id;
+          data.usuario_id = Number(data.usuario_id);
+          data.ejemplar_id = Number(data.ejemplar_id);
+          try {
+            await apiFetch("/loans", {
+              method: "POST",
+              body: JSON.stringify(data),
+            });
+            toast("Préstamo creado");
+            closeModal();
+            prestamosLoaded = false;
+            loadPrestamos(true);
+          } catch {
+            toast("Error al crear préstamo", false);
+          }
+        });
+    });
+
+  /* ══════════════════════════════════
+     RESERVAS
+  ══════════════════════════════════ */
+  let reservasData: any[] = [];
+  let reservasLoaded = false;
+
+  async function loadReservas(force = false) {
+    if (reservasLoaded && !force) return;
+    try {
+      reservasData = await (await apiFetch("/reservations")).json();
+      renderReservas(reservasData);
+      reservasLoaded = true;
+    } catch {
+      document.getElementById("tbody-reservas")!.innerHTML =
+        '<tr><td colspan="7" class="admin-empty">Error al cargar</td></tr>';
+    }
+  }
+
+  function filterReservas() {
+    const estado =
+      (document.getElementById("filtro-estado-reserva") as HTMLSelectElement)
+        ?.value || "todos";
+    const filtered =
+      estado === "todos"
+        ? reservasData
+        : reservasData.filter((r: any) => r.estado === estado);
+    renderReservas(filtered);
+  }
+
+  function renderReservas(list: any[]) {
+    const tbody = document.getElementById("tbody-reservas")!;
+    if (!list.length) {
+      tbody.innerHTML =
+        '<tr><td colspan="7" class="admin-empty">No hay reservas</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list
+      .map(
+        (r: any) => `<tr>
+      <td>${r.id}</td>
+      <td>${esc(r.usuario?.nombre)} ${esc(r.usuario?.apellido)}</td>
+      <td>${esc(r.libro?.titulo)}</td>
+      <td><span class="badge ${badgeClass(r.estado)}">${r.estado}</span></td>
+      <td>${fdate(r.fecha_reserva)}</td><td>${fdate(r.fecha_expiracion)}</td>
+      <td class="action-cell">
+        ${r.estado === "pendiente" ? `<button class="btn btn--outline btn--sm" data-cancel-res="${r.id}">Cancelar</button>` : ""}
+        ${r.estado === "disponible" ? `<button class="btn btn--success btn--sm" data-complete-res="${r.id}">Completar</button>` : ""}
+      </td></tr>`,
+      )
+      .join("");
+    attachReservaActions();
+  }
+
+  document
+    .getElementById("filtro-estado-reserva")
+    ?.addEventListener("change", filterReservas);
+
+  function attachReservaActions() {
+    document.querySelectorAll("[data-cancel-res]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.cancelRes;
+        try {
+          await apiFetch(`/reservations/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ estado: "cancelada" }),
+          });
+          toast("Reserva cancelada");
+          reservasLoaded = false;
+          loadReservas(true);
+        } catch {
+          toast("Error al cancelar", false);
+        }
+      });
+    });
+    document.querySelectorAll("[data-complete-res]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.completeRes;
+        try {
+          await apiFetch(`/reservations/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ estado: "completada" }),
+          });
+          toast("Reserva completada");
+          reservasLoaded = false;
+          loadReservas(true);
+        } catch {
+          toast("Error al completar", false);
+        }
+      });
+    });
+  }
+
+  // Carga inicial
+  loadPrestamos();
+</script>

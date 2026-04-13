@@ -1,13 +1,13 @@
 <header class="catalog-topbar">
   <div class="catalog-shell">
     <div class="catalog-topbar__left">
-      <a href="/" class="catalog-brand">
+      <a href="/" class="catalog-brand" data-brand-link>
         <span class="material-symbols-outlined">account_balance</span>
         <span>Scholar's Archive</span>
       </a>
 
       <nav class="catalog-topbar__nav">
-        <a href="/" class="catalog-topbar__link">Inicio</a>
+        <a href="/" class="catalog-topbar__link" data-inicio-link>Inicio</a>
         <a href="/catalogo" class="catalog-topbar__link is-active">Catálogo</a>
       </nav>
     </div>
@@ -20,14 +20,32 @@
   </div>
 </header>
 
-<script type="module">
+<script>
   import { getSession } from "../../lib/auth.js";
 
-  const sessionLink = document.querySelector("[data-session-link]");
   const session = getSession();
+  const sessionLink = document.querySelector(
+    "[data-session-link]",
+  ) as HTMLAnchorElement | null;
+  const inicioLink = document.querySelector(
+    "[data-inicio-link]",
+  ) as HTMLAnchorElement | null;
+  const brandLink = document.querySelector(
+    "[data-brand-link]",
+  ) as HTMLAnchorElement | null;
 
-  if (session?.dashboard && sessionLink) {
-    sessionLink.textContent = "Ir a mi panel";
-    sessionLink.href = session.dashboard;
+  if (session?.dashboard) {
+    // Logged in: redirect "Inicio" and brand to user dashboard, show "Ir a mi panel"
+    if (sessionLink) {
+      sessionLink.textContent = "Ir a mi panel";
+      sessionLink.href = session.dashboard;
+    }
+    if (inicioLink) {
+      inicioLink.href = session.dashboard;
+      inicioLink.textContent = "Mi Panel";
+    }
+    if (brandLink) {
+      brandLink.href = session.dashboard;
+    }
   }
 </script>
