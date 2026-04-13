@@ -5,6 +5,7 @@ const app = express();
 const { sequelize } = require('./models');
 const bcrypt = require('bcryptjs');
 const { Usuario, Rol } = require('./models');
+const { runDbMigrations } = require('./utils/dbMigrations');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,10 +22,10 @@ app.use('/api/admin', require('./routes/admin.route'));
 const seedAdmin = async () => {
   try {
     const rolAdmin = await Rol.findOne({ where: { nombre: 'administrador' } });
-    if (!rolAdmin) return console.log('⚠️  Rol administrador no encontrado en la BD');
+    if (!rolAdmin) return console.log('Rol administrador no encontrado en la BD');
 
     const existe = await Usuario.findOne({ where: { correo: process.env.ADMIN_EMAIL || 'admin@biblioteca.com' } });
-    if (existe) return console.log('✅ Admin ya existe, omitiendo creación');
+    if (existe) return console.log('Admin ya existe, omitiendo creación');
 
     await Usuario.create({
       nombre: 'Admin',
@@ -35,15 +36,16 @@ const seedAdmin = async () => {
       max_prestamos: 0,
     });
 
-    console.log('✅ Usuario admin creado correctamente');
+    console.log('Usuario admin creado correctamente');
   } catch (error) {
-    console.error('❌ Error al crear admin:', error.message);
+    console.error('Error al crear admin:', error.message);
   }
 };
 const PORT = process.env.PORT;
 sequelize.authenticate()
   .then(async () => {
     console.log('Conectado a MySQL');
+    await runDbMigrations();
     await seedAdmin();
     app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
   })
