@@ -53,7 +53,13 @@ const crearLibro = async (req, res) => {
       titulo, autor, editorial, isbn, anio,
       categoria_id, descripcion, imagen_url, ejemplares,
     });
-
+    const cantidad = ejemplares ?? 1;
+    for (let i = 1; i <= cantidad; i++) {
+      await Ejemplar.create({
+        libro_id: libro.id,
+        codigo:   `${isbn}-${i}`,
+      });
+    }
     res.status(201).json(libro);
   } catch (err) {
     res.status(500).json({ error: 'Error al crear libro', details: err.message });

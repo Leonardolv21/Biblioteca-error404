@@ -2,7 +2,8 @@ const Ejemplar = require('../models/Ejemplar');
 const Libro    = require('../models/Libro');
 
 const crearEjemplar = async (req, res) => {
-  const { libro_id, notas } = req.body;
+  const { libro_id } = req.params;
+  const notas = req.body?.notas ?? null;
   try {
     const libro = await Libro.findByPk(libro_id);
     if (!libro) return res.status(404).json({ error: 'Libro no encontrado' });
