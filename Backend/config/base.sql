@@ -48,6 +48,7 @@ CREATE TABLE libros (
   anio         SMALLINT,
   categoria_id INT UNSIGNED,
   descripcion  TEXT,
+  palabras_clave VARCHAR(500),
   imagen_url   VARCHAR(500),
   ejemplares   INT,
   createdAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -140,7 +141,6 @@ CREATE TABLE auditoria (
   entidad         VARCHAR(50) NOT NULL,      
   entidad_id      INT UNSIGNED,
   detalle         JSON,                      
-  ip              VARCHAR(45),
   createdAt       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_auditoria_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)

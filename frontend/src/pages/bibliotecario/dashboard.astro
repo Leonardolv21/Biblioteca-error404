@@ -13,7 +13,6 @@ import "../../styles/admin-dashboard.css";
   />
 
   <div class="admin-layout">
-    <!-- ═══ SIDEBAR ═══ -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar__brand">
         Scholar's Archive
@@ -41,9 +40,7 @@ import "../../styles/admin-dashboard.css";
       </button>
     </aside>
 
-    <!-- ═══ MAIN CONTENT ═══ -->
     <main class="admin-main">
-      <!-- ─── PRÉSTAMOS ─── -->
       <section class="admin-section is-active" id="sec-prestamos">
         <div class="admin-main__header">
           <div>
@@ -55,7 +52,6 @@ import "../../styles/admin-dashboard.css";
             <span class="material-symbols-outlined">add</span> Nuevo Préstamo
           </button>
         </div>
-        <!-- Tarjetas operativas -->
         <div class="stat-grid" id="stats-prestamos">
           <div class="admin-loading">Cargando...</div>
         </div>
@@ -96,7 +92,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── RESERVAS ─── -->
       <section class="admin-section" id="sec-reservas">
         <div class="admin-main__header">
           <div>
@@ -138,7 +133,6 @@ import "../../styles/admin-dashboard.css";
     </main>
   </div>
 
-  <!-- ═══ MODAL ═══ -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -168,7 +162,6 @@ import "../../styles/admin-dashboard.css";
     });
   });
 
-  /* ── Navigation ── */
   const navButtons = document.querySelectorAll("[data-nav]");
   const sections = document.querySelectorAll(".admin-section");
   navButtons.forEach((btn) => {
@@ -183,7 +176,6 @@ import "../../styles/admin-dashboard.css";
     });
   });
 
-  /* ── Modal ── */
   const modalOverlay = document.getElementById("modal-overlay")!;
   const modalTitle = document.getElementById("modal-title")!;
   const modalBody = document.getElementById("modal-body")!;
@@ -209,7 +201,6 @@ import "../../styles/admin-dashboard.css";
     setTimeout(() => t.remove(), 3500);
   }
 
-  /* ── Helpers ── */
   function badgeClass(estado: string) {
     const m: Record<string, string> = {
       activo: "badge--green",
@@ -230,9 +221,6 @@ import "../../styles/admin-dashboard.css";
     return d ? new Date(d).toLocaleDateString("es-MX") : "—";
   }
 
-  /* ══════════════════════════════════
-     PRÉSTAMOS
-  ══════════════════════════════════ */
   let prestamosData: any[] = [];
   let prestamosLoaded = false;
 
@@ -241,7 +229,6 @@ import "../../styles/admin-dashboard.css";
     try {
       prestamosData = await (await apiFetch("/loans")).json();
 
-      // Stats operativos
       const activos = prestamosData.filter(
         (p: any) => p.estado === "activo" || p.estado === "renovado",
       ).length;
@@ -342,7 +329,12 @@ import "../../styles/admin-dashboard.css";
       btn.addEventListener("click", async () => {
         const id = (btn as HTMLElement).dataset.renew;
         try {
-          await apiFetch(`/loans/${id}/renew`, { method: "POST" });
+          const res = await apiFetch(`/loans/${id}/renew`, { method: "POST" });
+          const data = await res.json();
+          if (!res.ok) {
+            toast(data.error || data.message || "No se pudo renovar", false);
+            return;
+          }
           toast("Préstamo renovado");
           prestamosLoaded = false;
           loadPrestamos(true);
@@ -460,9 +452,6 @@ import "../../styles/admin-dashboard.css";
         });
     });
 
-  /* ══════════════════════════════════
-     RESERVAS
-  ══════════════════════════════════ */
   let reservasData: any[] = [];
   let reservasLoaded = false;
 
@@ -552,6 +541,5 @@ import "../../styles/admin-dashboard.css";
     });
   }
 
-  // Carga inicial
   loadPrestamos();
 </script>

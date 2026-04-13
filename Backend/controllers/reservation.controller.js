@@ -1,4 +1,5 @@
-const { Reserva, Usuario, Libro, Ejemplar } = require('../models');
+const { Reserva, Usuario, Libro, Ejemplar, Prestamo } = require('../models');
+const { createAudit } = require('../utils/audit');
 
 const listarReservas = async (req, res) => {
     try {
@@ -70,7 +71,7 @@ const obtenerReserva = async (req, res) => {
 };
 
 const crearReserva = async (req, res) => {
-    const { libro_id, usuario_id, fecha_reserva, fecha_expiracion, estado, ejemplar_id, notificado } = req.body;
+    const { libro_id, usuario_id, fecha_reserva, fecha_expiracion, estado, ejemplar_id, notificado, solicitar_prestamo } = req.body;
     if (!libro_id || !usuario_id) {
         return res.status(400).json({ error: 'libro_id y usuario_id son requeridos' });
     }
@@ -86,11 +87,22 @@ const crearReserva = async (req, res) => {
             return res.status(404).json({ error: 'Usuario no encontrado' });
         }
 
+        const activeLoans = await Prestamo.count({
+            where: {
+                usuario_id,
+                estado: ['activo', 'renovado'],
+            },
+        });
+
+        if (activeLoans >= usuario.max_prestamos) {
+            return res.status(400).json({ error: 'El usuario alcanzó el máximo de préstamos activos' });
+        }
+
         const ejemplaresDisponibles = await Ejemplar.count({
             where: { libro_id, estado: 'disponible' },
         });
 
-        if (ejemplaresDisponibles > 0) {
+        if (ejemplaresDisponibles > 0 && !solicitar_prestamo) {
             return res.status(400).json({ error: 'El libro tiene ejemplares disponibles; no es necesario reservarlo' });
         }
 
@@ -111,7 +123,7 @@ const crearReserva = async (req, res) => {
             return res.status(400).json({ error: 'Ya existe una reserva activa para este libro por este usuario' });
         }
 
-        const reserva = await Reserva.create({
+        const datosReserva = {
             libro_id,
             usuario_id,
             fecha_reserva: fecha_reserva || new Date(),
@@ -119,6 +131,46 @@ const crearReserva = async (req, res) => {
             estado: estado || 'pendiente',
             ejemplar_id,
             notificado: notificado ?? false,
+        };
+
+        if (ejemplaresDisponibles > 0 && solicitar_prestamo) {
+            const ejemplarDisponible = await Ejemplar.findOne({
+                where: { libro_id, estado: 'disponible' },
+                order: [['id', 'ASC']],
+            });
+
+            if (!ejemplarDisponible) {
+                return res.status(400).json({ error: 'No se encontró un ejemplar disponible para generar la solicitud' });
+            }
+
+            const expiracion = new Date();
+            expiracion.setDate(expiracion.getDate() + 2);
+
+            datosReserva.estado = 'disponible';
+            datosReserva.ejemplar_id = ejemplarDisponible.id;
+            datosReserva.fecha_expiracion = fecha_expiracion || expiracion;
+            datosReserva.notificado = true;
+
+            const ejemplarAntes = ejemplarDisponible.toJSON();
+            await ejemplarDisponible.update({ estado: 'reservado' });
+
+            await createAudit({
+                req,
+                accion: 'reservar_ejemplar_desde_solicitud',
+                entidad: 'ejemplar',
+                entidad_id: ejemplarDisponible.id,
+                detalle: { antes: ejemplarAntes, despues: ejemplarDisponible.toJSON() },
+            });
+        }
+
+        const reserva = await Reserva.create(datosReserva);
+
+        await createAudit({
+            req,
+            accion: solicitar_prestamo ? 'solicitar_prestamo_online' : 'crear_reserva',
+            entidad: 'reserva',
+            entidad_id: reserva.id,
+            detalle: { reserva: reserva.toJSON() },
         });
 
         return res.status(201).json(reserva);
@@ -135,7 +187,8 @@ const actualizarReserva = async (req, res) => {
             return res.status(404).json({ error: 'Reserva no encontrada' });
         }
 
-        // Students can only cancel their own reservations
+        const reservaAntes = reserva.toJSON();
+
         const role = req.user.rol.nombre;
         if (role === 'estudiante') {
             if (reserva.usuario_id !== req.user.id) {
@@ -159,16 +212,121 @@ const actualizarReserva = async (req, res) => {
         if (estado === 'disponible' && ejemplar_id) {
             const ejemplar = await Ejemplar.findByPk(ejemplar_id);
             if (ejemplar) {
+                const ejemplarAntes = ejemplar.toJSON();
                 await ejemplar.update({ estado: 'reservado' });
+                await createAudit({
+                    req,
+                    accion: 'reservar_ejemplar',
+                    entidad: 'ejemplar',
+                    entidad_id: ejemplar.id,
+                    detalle: { antes: ejemplarAntes, despues: ejemplar.toJSON() },
+                });
             }
         }
 
-        if (['cancelada', 'completada'].includes(estado) && reserva.ejemplar_id) {
+        if (estado === 'completada') {
+            if (!reserva.ejemplar_id) {
+                return res.status(400).json({ error: 'La reserva no tiene ejemplar asignado para completar el préstamo' });
+            }
+
+            const ejemplar = await Ejemplar.findByPk(reserva.ejemplar_id);
+            if (!ejemplar) {
+                return res.status(404).json({ error: 'Ejemplar no encontrado para completar la reserva' });
+            }
+
+            const usuario = await Usuario.findByPk(reserva.usuario_id);
+            if (!usuario) {
+                return res.status(404).json({ error: 'Usuario no encontrado para completar la reserva' });
+            }
+
+            const activeLoans = await Prestamo.count({
+                where: {
+                    usuario_id: reserva.usuario_id,
+                    estado: ['activo', 'renovado'],
+                },
+            });
+
+            if (activeLoans >= usuario.max_prestamos) {
+                return res.status(400).json({ error: 'El usuario alcanzó el máximo de préstamos activos' });
+            }
+
+            const existePrestamoActivo = await Prestamo.count({
+                where: {
+                    ejemplar_id: reserva.ejemplar_id,
+                    estado: ['activo', 'renovado'],
+                },
+            });
+
+            if (existePrestamoActivo > 0) {
+                return res.status(400).json({ error: 'El ejemplar ya tiene un préstamo activo' });
+            }
+
+            const ejemplarAntes = ejemplar.toJSON();
+            await ejemplar.update({ estado: 'prestado' });
+
+            const fechaInicio = new Date();
+            const fechaVencimiento = new Date();
+            fechaVencimiento.setDate(fechaVencimiento.getDate() + 14);
+
+            const nuevoPrestamo = await Prestamo.create({
+                usuario_id: reserva.usuario_id,
+                ejemplar_id: reserva.ejemplar_id,
+                bibliotecario_id: req.user?.rol?.nombre === 'bibliotecario' || req.user?.rol?.nombre === 'administrador'
+                    ? req.user.id
+                    : null,
+                fecha_inicio: fechaInicio.toISOString().split('T')[0],
+                fecha_vencimiento: fechaVencimiento.toISOString().split('T')[0],
+                estado: 'activo',
+                renovaciones: 0,
+            });
+
+            await createAudit({
+                req,
+                accion: 'completar_reserva',
+                entidad: 'reserva',
+                entidad_id: reserva.id,
+                detalle: { antes: reservaAntes, despues: reserva.toJSON() },
+            });
+
+            await createAudit({
+                req,
+                accion: 'crear_prestamo_desde_reserva',
+                entidad: 'prestamo',
+                entidad_id: nuevoPrestamo.id,
+                detalle: { prestamo: nuevoPrestamo.toJSON() },
+            });
+
+            await createAudit({
+                req,
+                accion: 'actualizar_ejemplar',
+                entidad: 'ejemplar',
+                entidad_id: ejemplar.id,
+                detalle: { antes: ejemplarAntes, despues: ejemplar.toJSON() },
+            });
+        }
+
+        if (estado === 'cancelada' && reserva.ejemplar_id) {
             const ejemplar = await Ejemplar.findByPk(reserva.ejemplar_id);
             if (ejemplar && ejemplar.estado === 'reservado') {
+                const ejemplarAntes = ejemplar.toJSON();
                 await ejemplar.update({ estado: 'disponible' });
+                await createAudit({
+                    req,
+                    accion: 'liberar_ejemplar_reserva_cancelada',
+                    entidad: 'ejemplar',
+                    entidad_id: ejemplar.id,
+                    detalle: { antes: ejemplarAntes, despues: ejemplar.toJSON() },
+                });
             }
         }
+
+        await createAudit({
+            req,
+            accion: 'actualizar_reserva',
+            entidad: 'reserva',
+            entidad_id: reserva.id,
+            detalle: { antes: reservaAntes, despues: reserva.toJSON() },
+        });
 
         return res.json(reserva);
     } catch (error) {
@@ -184,14 +342,33 @@ const eliminarReserva = async (req, res) => {
             return res.status(404).json({ error: 'Reserva no encontrada' });
         }
 
+        const reservaAntes = reserva.toJSON();
+
         if (reserva.ejemplar_id) {
             const ejemplar = await Ejemplar.findByPk(reserva.ejemplar_id);
             if (ejemplar && ejemplar.estado === 'reservado') {
+                const ejemplarAntes = ejemplar.toJSON();
                 await ejemplar.update({ estado: 'disponible' });
+                await createAudit({
+                    req,
+                    accion: 'liberar_ejemplar_reserva_eliminada',
+                    entidad: 'ejemplar',
+                    entidad_id: ejemplar.id,
+                    detalle: { antes: ejemplarAntes, despues: ejemplar.toJSON() },
+                });
             }
         }
 
         await reserva.destroy();
+
+        await createAudit({
+            req,
+            accion: 'eliminar_reserva',
+            entidad: 'reserva',
+            entidad_id: reservaAntes.id,
+            detalle: { antes: reservaAntes },
+        });
+
         return res.json({ message: 'Reserva eliminada correctamente' });
     } catch (error) {
         console.error('RESERVATION DELETE ERROR', error);

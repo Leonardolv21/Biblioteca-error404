@@ -8,7 +8,6 @@ import "../../styles/admin-dashboard.css";
   <RoleGuard allowedRoles={["admin", "administrador"]} />
 
   <div class="admin-layout">
-    <!-- ═══ SIDEBAR ═══ -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar__brand">
         Scholar's Archive
@@ -54,9 +53,7 @@ import "../../styles/admin-dashboard.css";
       </button>
     </aside>
 
-    <!-- ═══ MAIN CONTENT ═══ -->
     <main class="admin-main">
-      <!-- ─── RESUMEN ─── -->
       <section class="admin-section is-active" id="sec-resumen">
         <div class="admin-main__header">
           <div><h1>Resumen general</h1><p>Vista global del sistema</p></div>
@@ -66,7 +63,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── LIBROS ─── -->
       <section class="admin-section" id="sec-libros">
         <div class="admin-main__header">
           <div>
@@ -99,7 +95,6 @@ import "../../styles/admin-dashboard.css";
             </tbody>
           </table>
         </div>
-        <!-- Ejemplares sub-panel -->
         <div
           id="panel-ejemplares"
           class="admin-table-wrap"
@@ -130,7 +125,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── USUARIOS ─── -->
       <section class="admin-section" id="sec-usuarios">
         <div class="admin-main__header">
           <div>
@@ -165,7 +159,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── PRÉSTAMOS ─── -->
       <section class="admin-section" id="sec-prestamos">
         <div class="admin-main__header">
           <div>
@@ -203,7 +196,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── RESERVAS ─── -->
       <section class="admin-section" id="sec-reservas">
         <div class="admin-main__header">
           <div>
@@ -230,7 +222,6 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── CATEGORÍAS ─── -->
       <section class="admin-section" id="sec-categorias">
         <div class="admin-main__header">
           <div><h1>Categorías</h1><p>Gestión de categorías de libros</p></div>
@@ -251,22 +242,40 @@ import "../../styles/admin-dashboard.css";
         </div>
       </section>
 
-      <!-- ─── REPORTES ─── -->
       <section class="admin-section" id="sec-reportes">
         <div class="admin-main__header">
           <div><h1>Reportes</h1><p>Estadísticas y exportación de datos</p></div>
         </div>
         <h2 style="margin-bottom:0.75rem;">Exportar reportes</h2>
         <div class="export-group">
-          <button class="btn btn--primary" data-export="csv">
-            <span class="material-symbols-outlined">table_view</span> Usuarios más
-            préstamos (CSV)
+          <button class="btn btn--primary" data-export="excel">
+            <span class="material-symbols-outlined">table_view</span> Reportes completos
+            (Excel)
           </button>
           <button class="btn btn--danger" data-export="pdf">
-            <span class="material-symbols-outlined">picture_as_pdf</span> Usuarios
-            más préstamos (PDF)
+            <span class="material-symbols-outlined">picture_as_pdf</span> Reportes
+            completos (PDF)
           </button>
         </div>
+
+        <div class="stat-grid" id="stats-reportes">
+          <div class="admin-loading">Cargando...</div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <div class="admin-table-toolbar">
+            <h2>Préstamos por estado</h2>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Estado</th><th>Cantidad</th></tr>
+            </thead>
+            <tbody id="tbody-prestamos-estados">
+              <tr><td colspan="2" class="admin-loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
         <div class="admin-table-wrap">
           <div class="admin-table-toolbar">
             <h2>Ranking: usuarios con más préstamos</h2>
@@ -284,9 +293,25 @@ import "../../styles/admin-dashboard.css";
             </tbody>
           </table>
         </div>
+
+        <div class="admin-table-wrap">
+          <div class="admin-table-toolbar">
+            <h2>Ranking: libros más prestados</h2>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr
+                ><th>#</th><th>Título</th><th>Autor</th><th>Total préstamos</th
+                ></tr
+              >
+            </thead>
+            <tbody id="tbody-ranking-libros">
+              <tr><td colspan="4" class="admin-loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
-      <!-- ─── AUDITORÍA ─── -->
       <section class="admin-section" id="sec-auditoria">
         <div class="admin-main__header">
           <div>
@@ -299,7 +324,7 @@ import "../../styles/admin-dashboard.css";
             <thead>
               <tr
                 ><th>ID</th><th>Usuario ID</th><th>Acción</th><th>Entidad</th
-                ><th>Entidad ID</th><th>IP</th><th>Fecha</th></tr
+                ><th>Entidad ID</th><th>Fecha</th></tr
               >
             </thead>
             <tbody id="tbody-auditoria">
@@ -311,7 +336,6 @@ import "../../styles/admin-dashboard.css";
     </main>
   </div>
 
-  <!-- ═══ MODAL ═══ -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -326,9 +350,6 @@ import "../../styles/admin-dashboard.css";
 <script>
   import { getSession, clearSession, apiFetch } from "../../lib/auth.js";
 
-  /* ══════════════════════════════════
-     SESSION & NAV
-  ══════════════════════════════════ */
   const session = getSession();
   const API_BASE = "http://localhost:3000/api";
 
@@ -361,16 +382,13 @@ import "../../styles/admin-dashboard.css";
         prestamos: loadPrestamos,
         reservas: loadReservas,
         categorias: loadCategorias,
-        reportes: loadRanking,
+        reportes: loadReportes,
         auditoria: loadAuditoria,
       };
       loaders[target]?.();
     });
   });
 
-  /* ══════════════════════════════════
-     MODAL SYSTEM
-  ══════════════════════════════════ */
   const modalOverlay = document.getElementById("modal-overlay")!;
   const modalTitle = document.getElementById("modal-title")!;
   const modalBody = document.getElementById("modal-body")!;
@@ -397,9 +415,6 @@ import "../../styles/admin-dashboard.css";
     setTimeout(() => t.remove(), 3500);
   }
 
-  /* ══════════════════════════════════
-     HELPERS
-  ══════════════════════════════════ */
   function badgeClass(estado: string) {
     const m: Record<string, string> = {
       activo: "badge--green",
@@ -423,7 +438,6 @@ import "../../styles/admin-dashboard.css";
     return d ? new Date(d).toLocaleDateString("es-MX") : "—";
   }
 
-  // Shared caches
   let categoriasCache: any[] | null = null;
   let rolesCache: any[] | null = null;
   async function getCategorias() {
@@ -441,9 +455,6 @@ import "../../styles/admin-dashboard.css";
     return rolesCache!;
   }
 
-  /* ══════════════════════════════════
-     RESUMEN
-  ══════════════════════════════════ */
   let resumenLoaded = false;
   async function loadResumen() {
     if (resumenLoaded) return;
@@ -465,9 +476,6 @@ import "../../styles/admin-dashboard.css";
   }
   loadResumen();
 
-  /* ══════════════════════════════════
-     LIBROS – FULL CRUD
-  ══════════════════════════════════ */
   let librosData: any[] = [];
   let librosLoaded = false;
 
@@ -558,7 +566,6 @@ import "../../styles/admin-dashboard.css";
       );
     });
 
-  // ── Libro form (create/edit) ──
   async function openLibroForm(libro: any = null) {
     const cats = await getCategorias();
     const catOptions = cats
@@ -578,6 +585,7 @@ import "../../styles/admin-dashboard.css";
         <label>ISBN<input name="isbn" value="${libro?.isbn || ""}" /></label>
         <label>Año<input name="anio" type="number" value="${libro?.anio || ""}" /></label>
         <label>Categoría<select name="categoria_id"><option value="">— Sin categoría —</option>${catOptions}</select></label>
+        <label>Palabras clave<input name="palabras_clave" placeholder="ej: algebra, calculo, universidad" value="${libro?.palabras_clave || ""}" /></label>
         <label>Descripción<textarea name="descripcion" rows="3">${libro?.descripcion || ""}</textarea></label>
         ${!libro ? '<label>Ejemplares iniciales<input name="ejemplares" type="number" value="1" min="1" /></label>' : ""}
         <label>Imagen<input name="imagen" type="file" accept="image/*" /></label>
@@ -624,7 +632,6 @@ import "../../styles/admin-dashboard.css";
     .getElementById("btn-nuevo-libro")!
     .addEventListener("click", () => openLibroForm());
 
-  // ── Ejemplares sub-panel ──
   let currentEjemplaresLibroId: number | null = null;
 
   async function openEjemplaresPanel(libroId: number, titulo: string) {
@@ -675,7 +682,6 @@ import "../../styles/admin-dashboard.css";
         )
         .join("");
 
-      // attach
       document.querySelectorAll("[data-save-estado-ej]").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const ejId = (btn as HTMLElement).dataset.saveEstadoEj;
@@ -756,9 +762,6 @@ import "../../styles/admin-dashboard.css";
         });
     });
 
-  /* ══════════════════════════════════
-     USUARIOS – FULL CRUD
-  ══════════════════════════════════ */
   let usuariosData: any[] = [];
   let usuariosLoaded = false;
 
@@ -869,7 +872,6 @@ import "../../styles/admin-dashboard.css";
       );
     });
 
-  // ── User form (create/edit) ──
   async function openUserForm(user: any = null) {
     const roles = await getRoles();
     const roleOptions = roles
@@ -897,7 +899,6 @@ import "../../styles/admin-dashboard.css";
     `,
     );
 
-    // Show/hide max_prestamos based on selected role
     const selRol = document.getElementById("sel-rol-user") as HTMLSelectElement;
     const lblMax = document.getElementById("lbl-max-prestamos") as HTMLElement;
     const estudianteRol = roles.find((r: any) => r.nombre === "estudiante");
@@ -921,14 +922,12 @@ import "../../styles/admin-dashboard.css";
         if (data.max_prestamos) data.max_prestamos = Number(data.max_prestamos);
         try {
           if (user) {
-            // Update – backend accepts nombre, apellido, password
             await apiFetch(`/users/${user.id}`, {
               method: "PUT",
               body: JSON.stringify(data),
             });
             toast("Usuario actualizado");
           } else {
-            // Create via register
             await apiFetch("/auth/register", {
               method: "POST",
               body: JSON.stringify(data),
@@ -949,9 +948,6 @@ import "../../styles/admin-dashboard.css";
     .getElementById("btn-nuevo-usuario")!
     .addEventListener("click", () => openUserForm());
 
-  /* ══════════════════════════════════
-     PRÉSTAMOS – FULL CRUD
-  ══════════════════════════════════ */
   let prestamosData: any[] = [];
   let prestamosLoaded = false;
 
@@ -1058,11 +1054,9 @@ import "../../styles/admin-dashboard.css";
       );
     });
 
-  // ── Create loan form ──
   document
     .getElementById("btn-nuevo-prestamo")!
     .addEventListener("click", async () => {
-      // Load users and available books
       let users = usuariosData;
       if (!users.length) {
         users = await (await apiFetch("/users")).json();
@@ -1107,7 +1101,6 @@ import "../../styles/admin-dashboard.css";
     `,
       );
 
-      // Load ejemplares when book changes
       document
         .getElementById("sel-libro-prestamo")!
         .addEventListener("change", async (e) => {
@@ -1168,9 +1161,6 @@ import "../../styles/admin-dashboard.css";
         });
     });
 
-  /* ══════════════════════════════════
-     RESERVAS – GESTIÓN
-  ══════════════════════════════════ */
   let reservasData: any[] = [];
   let reservasLoaded = false;
 
@@ -1265,9 +1255,6 @@ import "../../styles/admin-dashboard.css";
     });
   }
 
-  /* ══════════════════════════════════
-     CATEGORÍAS
-  ══════════════════════════════════ */
   let categoriasLoaded = false;
 
   async function loadCategorias(force = false) {
@@ -1337,46 +1324,81 @@ import "../../styles/admin-dashboard.css";
         });
     });
 
-  /* ══════════════════════════════════
-     REPORTES (ranking)
-  ══════════════════════════════════ */
-  let rankingLoaded = false;
-  async function loadRanking() {
-    if (rankingLoaded) return;
+  let reportesLoaded = false;
+  async function loadReportes(force = false) {
+    if (reportesLoaded && !force) return;
     try {
-      const list = await (
-        await apiFetch("/admin/usuarios-mas-prestamos")
-      ).json();
-      const tbody = document.getElementById("tbody-ranking")!;
-      if (!list.length) {
-        tbody.innerHTML =
+      const reportes = await (await apiFetch("/admin/reportes")).json();
+      const resumen = reportes?.prestamos?.resumen || {};
+      const usuarios = reportes?.usuarios || [];
+      const libros = reportes?.libros || [];
+
+      document.getElementById("stats-reportes")!.innerHTML = `
+        <div class="stat-card stat-card--accent"><div class="stat-card__label">Activos</div><div class="stat-card__value">${resumen.activos || 0}</div></div>
+        <div class="stat-card" style="border-left:4px solid #dc2626;"><div class="stat-card__label">Vencidos</div><div class="stat-card__value">${resumen.vencidos || 0}</div></div>
+        <div class="stat-card"><div class="stat-card__label">Devueltos</div><div class="stat-card__value">${resumen.devueltos || 0}</div></div>
+        <div class="stat-card"><div class="stat-card__label">Total préstamos</div><div class="stat-card__value">${resumen.total || 0}</div></div>
+      `;
+
+      document.getElementById("tbody-prestamos-estados")!.innerHTML = `
+        <tr><td>Activos</td><td><strong>${resumen.activos || 0}</strong></td></tr>
+        <tr><td>Vencidos</td><td><strong>${resumen.vencidos || 0}</strong></td></tr>
+        <tr><td>Devueltos</td><td><strong>${resumen.devueltos || 0}</strong></td></tr>
+      `;
+
+      const tbodyUsuarios = document.getElementById("tbody-ranking")!;
+      if (!usuarios.length) {
+        tbodyUsuarios.innerHTML =
           '<tr><td colspan="5" class="admin-empty">Sin datos</td></tr>';
-        rankingLoaded = true;
-        return;
+      } else {
+        tbodyUsuarios.innerHTML = usuarios
+          .map(
+            (u: any, i: number) => `<tr>
+          <td>${i + 1}</td>
+          <td>${esc(u.nombre)} ${esc(u.apellido)}</td>
+          <td>${esc(u.correo)}</td>
+          <td>${esc(u.matricula)}</td>
+          <td><strong>${u.cant_prestamos}</strong></td>
+        </tr>`,
+          )
+          .join("");
       }
-      tbody.innerHTML = list
-        .map(
-          (u: any, i: number) => `<tr>
-        <td>${i + 1}</td>
-        <td>${esc(u.nombre)} ${esc(u.apellido)}</td>
-        <td>${esc(u.correo)}</td>
-        <td>${esc(u.matricula)}</td>
-        <td><strong>${u.cant_prestamos}</strong></td>
-      </tr>`,
-        )
-        .join("");
-      rankingLoaded = true;
+
+      const tbodyLibros = document.getElementById("tbody-ranking-libros")!;
+      if (!libros.length) {
+        tbodyLibros.innerHTML =
+          '<tr><td colspan="4" class="admin-empty">Sin datos</td></tr>';
+      } else {
+        tbodyLibros.innerHTML = libros
+          .map(
+            (l: any, i: number) => `<tr>
+          <td>${i + 1}</td>
+          <td>${esc(l.titulo)}</td>
+          <td>${esc(l.autor)}</td>
+          <td><strong>${l.cant_prestamos}</strong></td>
+        </tr>`,
+          )
+          .join("");
+      }
+
+      reportesLoaded = true;
     } catch {
+      document.getElementById("stats-reportes")!.innerHTML =
+        '<div class="admin-empty">Error al cargar</div>';
+      document.getElementById("tbody-prestamos-estados")!.innerHTML =
+        '<tr><td colspan="2" class="admin-empty">Error al cargar</td></tr>';
       document.getElementById("tbody-ranking")!.innerHTML =
         '<tr><td colspan="5" class="admin-empty">Error al cargar</td></tr>';
+      document.getElementById("tbody-ranking-libros")!.innerHTML =
+        '<tr><td colspan="4" class="admin-empty">Error al cargar</td></tr>';
     }
   }
 
   document
-    .querySelector('[data-export="csv"]')
+    .querySelector('[data-export="excel"]')
     ?.addEventListener("click", () => {
       window.open(
-        `${API_BASE}/admin/usuarios-mas-prestamos/export?token=${session?.token}`,
+        `${API_BASE}/admin/reportes/export/excel?token=${session?.token}`,
         "_blank",
       );
     });
@@ -1384,14 +1406,11 @@ import "../../styles/admin-dashboard.css";
     .querySelector('[data-export="pdf"]')
     ?.addEventListener("click", () => {
       window.open(
-        `${API_BASE}/admin/usuarios-mas-prestamos/export/pdf?token=${session?.token}`,
+        `${API_BASE}/admin/reportes/export/pdf?token=${session?.token}`,
         "_blank",
       );
     });
 
-  /* ══════════════════════════════════
-     AUDITORÍA
-  ══════════════════════════════════ */
   let auditoriaLoaded = false;
   async function loadAuditoria() {
     if (auditoriaLoaded) return;
@@ -1400,7 +1419,7 @@ import "../../styles/admin-dashboard.css";
       const tbody = document.getElementById("tbody-auditoria")!;
       if (!list.length) {
         tbody.innerHTML =
-          '<tr><td colspan="7" class="admin-empty">Sin registros de auditoría</td></tr>';
+          '<tr><td colspan="6" class="admin-empty">Sin registros de auditoría</td></tr>';
         auditoriaLoaded = true;
         return;
       }
@@ -1412,7 +1431,6 @@ import "../../styles/admin-dashboard.css";
         <td>${esc(a.accion)}</td>
         <td>${esc(a.entidad)}</td>
         <td>${esc(a.entidad_id)}</td>
-        <td>${esc(a.ip)}</td>
         <td>${new Date(a.createdAt).toLocaleString("es-MX")}</td>
       </tr>`,
         )
@@ -1420,7 +1438,7 @@ import "../../styles/admin-dashboard.css";
       auditoriaLoaded = true;
     } catch {
       document.getElementById("tbody-auditoria")!.innerHTML =
-        '<tr><td colspan="7" class="admin-empty">Error al cargar</td></tr>';
+        '<tr><td colspan="6" class="admin-empty">Error al cargar</td></tr>';
     }
   }
 </script>

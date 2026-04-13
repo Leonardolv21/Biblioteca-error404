@@ -8,7 +8,6 @@ import "../../styles/student-dashboard.css";
   <RoleGuard allowedRoles={["estudiante"]} />
 
   <div class="student-dashboard">
-    <!-- ═══ SIDEBAR ═══ -->
     <aside class="student-sidebar">
       <div class="student-sidebar__brand">
         <span class="student-sidebar__title">Library Portal</span>
@@ -63,7 +62,6 @@ import "../../styles/student-dashboard.css";
       </div>
     </aside>
 
-    <!-- ═══ TOPBAR ═══ -->
     <header class="student-topbar">
       <div class="student-topbar__nav">
         <a href="/catalogo" class="student-topbar__link">Catálogo</a>
@@ -94,10 +92,8 @@ import "../../styles/student-dashboard.css";
       </div>
     </header>
 
-    <!-- ═══ MAIN CONTENT ═══ -->
     <main class="student-main">
       <div class="student-shell">
-        <!-- ─── INICIO (Mi Biblioteca) ─── -->
         <section class="student-page is-active" id="page-inicio">
           <section class="student-hero">
             <h1>Hola, <span data-session-first-name>Estudiante</span>.</h1>
@@ -140,7 +136,6 @@ import "../../styles/student-dashboard.css";
           </section>
         </section>
 
-        <!-- ─── MIS PRÉSTAMOS ─── -->
         <section class="student-page" id="page-prestamos">
           <div class="section-head" style="margin-bottom:1.5rem;">
             <h2>Todos mis Préstamos</h2>
@@ -151,7 +146,7 @@ import "../../styles/student-dashboard.css";
                 <tr>
                   <th>Libro</th><th>Ejemplar</th><th>Inicio</th><th
                     >Vencimiento</th
-                  ><th>Estado</th><th>Renov.</th><th>Acciones</th>
+                  ><th>Estado</th><th>Renov.</th>
                 </tr>
               </thead>
               <tbody id="tbody-mis-prestamos">
@@ -162,7 +157,6 @@ import "../../styles/student-dashboard.css";
           </div>
         </section>
 
-        <!-- ─── RESERVAS ─── -->
         <section class="student-page" id="page-reservas">
           <div class="section-head" style="margin-bottom:1.5rem;">
             <h2>Mis Reservas</h2>
@@ -184,7 +178,6 @@ import "../../styles/student-dashboard.css";
           </div>
         </section>
 
-        <!-- ─── HISTORIAL ─── -->
         <section class="student-page" id="page-historial">
           <div class="section-head" style="margin-bottom:1.5rem;">
             <h2>Historial de Préstamos</h2>
@@ -206,7 +199,6 @@ import "../../styles/student-dashboard.css";
           </div>
         </section>
 
-        <!-- ─── NOTIFICACIONES ─── -->
         <section class="student-page" id="page-notificaciones">
           <div class="section-head" style="margin-bottom:1.5rem;">
             <h2>Notificaciones</h2>
@@ -245,9 +237,6 @@ import "../../styles/student-dashboard.css";
     });
   });
 
-  /* ══════════════════════════════════
-     NAVIGATION
-  ══════════════════════════════════ */
   const pages = document.querySelectorAll(".student-page");
   const sideLinks = document.querySelectorAll(
     "[data-nav-link], [data-nav-btn]",
@@ -279,9 +268,6 @@ import "../../styles/student-dashboard.css";
     });
   });
 
-  /* ══════════════════════════════════
-     HELPERS
-  ══════════════════════════════════ */
   function esc(v: any) {
     return v == null ? "—" : String(v);
   }
@@ -316,9 +302,6 @@ import "../../styles/student-dashboard.css";
     setTimeout(() => t.remove(), 3500);
   }
 
-  /* ══════════════════════════════════
-     HOME – Mis Préstamos + Reservas preview
-  ══════════════════════════════════ */
   let homeLoaded = false;
   async function loadHome() {
     if (homeLoaded) return;
@@ -404,9 +387,6 @@ import "../../styles/student-dashboard.css";
 
   loadHome();
 
-  /* ══════════════════════════════════
-     MIS PRÉSTAMOS (todos)
-  ══════════════════════════════════ */
   let prestamosLoaded = false;
   async function loadMisPrestamos() {
     if (prestamosLoaded) return;
@@ -431,38 +411,16 @@ import "../../styles/student-dashboard.css";
         <td>${fdate(p.fecha_vencimiento)}</td>
         <td><span class="badge ${badgeClass(p.estado)}">${p.estado}</span></td>
         <td>${p.renovaciones}/2</td>
-        <td>
-          ${(p.estado === "activo" || p.estado === "renovado") && p.renovaciones < 2 ? `<button class="btn btn--outline btn--sm" data-renew-loan="${p.id}">Renovar</button>` : '<span class="student-empty-inline">—</span>'}
-        </td>
       </tr>`,
         )
         .join("");
       prestamosLoaded = true;
-
-      document.querySelectorAll("[data-renew-loan]").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const id = (btn as HTMLElement).dataset.renewLoan;
-          try {
-            await apiFetch(`/loans/${id}/renew`, { method: "POST" });
-            toast("Préstamo renovado");
-            prestamosLoaded = false;
-            homeLoaded = false;
-            loadMisPrestamos();
-            loadHome();
-          } catch {
-            toast("No se pudo renovar (puede haber reserva pendiente)", false);
-          }
-        });
-      });
     } catch {
       tbody.innerHTML =
         '<tr><td colspan="7" class="student-empty">Error al cargar.</td></tr>';
     }
   }
 
-  /* ══════════════════════════════════
-     MIS RESERVAS
-  ══════════════════════════════════ */
   let reservasLoaded = false;
   async function loadMisReservas() {
     if (reservasLoaded) return;
@@ -517,9 +475,6 @@ import "../../styles/student-dashboard.css";
     }
   }
 
-  /* ══════════════════════════════════
-     HISTORIAL (devueltos + vencidos)
-  ══════════════════════════════════ */
   let historialLoaded = false;
   async function loadHistorial() {
     if (historialLoaded) return;
@@ -553,15 +508,11 @@ import "../../styles/student-dashboard.css";
     }
   }
 
-  /* ══════════════════════════════════
-     NOTIFICACIONES
-  ══════════════════════════════════ */
   let notifsLoaded = false;
   async function loadNotificaciones() {
     if (notifsLoaded) return;
     const container = document.getElementById("notif-list")!;
     try {
-      // Load user-specific multas
       let multas: any[] = [];
       try {
         multas = await (
@@ -569,7 +520,6 @@ import "../../styles/student-dashboard.css";
         ).json();
       } catch {}
 
-      // Load user loans to check upcoming due dates
       let proxVencimiento: any[] = [];
       try {
         const loans = await (await apiFetch(`/loans/usuario/${userId}`)).json();
@@ -615,7 +565,6 @@ import "../../styles/student-dashboard.css";
         html = '<p class="student-empty">No tienes notificaciones.</p>';
       container.innerHTML = html;
 
-      // Update badge count
       const count = multas.length;
       const badge = document.getElementById("notif-count")!;
       if (count > 0) {
@@ -630,6 +579,5 @@ import "../../styles/student-dashboard.css";
     }
   }
 
-  // Load notification count on startup
   loadNotificaciones();
 </script>

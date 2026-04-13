@@ -35,7 +35,6 @@
   ) as HTMLAnchorElement | null;
 
   if (session?.dashboard) {
-    // Logged in: redirect "Inicio" and brand to user dashboard, show "Ir a mi panel"
     if (sessionLink) {
       sessionLink.textContent = "Ir a mi panel";
       sessionLink.href = session.dashboard;

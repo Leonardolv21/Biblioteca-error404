@@ -179,7 +179,6 @@ import "../styles/login.css";
       return;
     }
 
-    // Llamada real al backend
     const result = await login(uid, password);
 
     if (!result.ok) {
