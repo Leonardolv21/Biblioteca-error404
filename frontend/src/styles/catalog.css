@@ -441,6 +441,7 @@
 }
 
 @media (max-width: 720px) {
+
   .catalog-topbar .catalog-shell,
   .catalog-hero__top {
     flex-direction: column;
@@ -453,5 +454,39 @@
 
   .catalog-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  z-index: 9999;
+  animation: toastIn 0.3s ease;
+  max-width: 400px;
+}
+
+.toast--ok {
+  background: #16a34a;
+}
+
+.toast--err {
+  background: #dc2626;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

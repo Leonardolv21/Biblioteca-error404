@@ -2,20 +2,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import PublicFooter from "../../components/landing/PublicFooter.astro";
 import PublicCatalogTopbar from "../../components/catalog/PublicCatalogTopbar.astro";
-import CatalogFilters from "../../components/catalog/CatalogFilters.astro";
-import CatalogBookCard from "../../components/catalog/CatalogBookCard.astro";
-import { catalogBooks } from "../../data/catalogData";
 import "../../styles/catalog.css";
-
-const categoriesMap = catalogBooks.reduce((acc: Record<string, number>, book) => {
-  acc[book.category] = (acc[book.category] || 0) + 1;
-  return acc;
-}, {});
-
-const categories = Object.entries(categoriesMap).map(([name, count]) => ({
-  name,
-  count,
-}));
 ---
 
 <MainLayout title="Catálogo | Biblioteca Error404">
@@ -35,9 +22,8 @@ const categories = Object.entries(categoriesMap).map(([name, count]) => ({
             <h1>Explora el Catálogo</h1>
             <p>Descubre y accede a la colección académica global.</p>
           </div>
-
           <div class="catalog-count-badge">
-            Mostrando <strong data-results-count>{catalogBooks.length} libros</strong>
+            Mostrando <strong data-results-count>0 libros</strong>
           </div>
         </div>
 
@@ -52,32 +38,47 @@ const categories = Object.entries(categoriesMap).map(([name, count]) => ({
       </section>
 
       <section class="catalog-layout">
-        <CatalogFilters categories={categories} />
+        <aside class="catalog-filters">
+          <div class="catalog-filter-block">
+            <h3>Categoría</h3>
+            <div class="catalog-filter-list" id="category-filters">
+              <button
+                type="button"
+                class="catalog-filter-chip is-active"
+                data-category-filter="all">Todas</button
+              >
+            </div>
+          </div>
+          <div class="catalog-filter-block">
+            <h3>Disponibilidad</h3>
+            <label class="catalog-checkbox">
+              <input type="checkbox" data-available-filter />
+              <span>Solo disponibles</span>
+            </label>
+          </div>
+          <div class="catalog-filter-block">
+            <h3>Año de publicación</h3>
+            <select data-year-filter class="catalog-select">
+              <option value="all">Todos los años</option>
+              <option value="recent">2024 - reciente</option>
+              <option value="2020-2023">2020 - 2023</option>
+              <option value="2010-2019">2010 - 2019</option>
+              <option value="older">Anteriores</option>
+            </select>
+          </div>
+        </aside>
 
         <div class="catalog-results">
-          <div class="catalog-grid" data-catalog-grid>
-            {catalogBooks.map((book) => (
-              <CatalogBookCard book={book} />
-            ))}
+          <div class="catalog-grid" id="catalog-grid">
+            <div
+              style="grid-column:1/-1;text-align:center;padding:3rem;color:#94a3b8;"
+            >
+              Cargando catálogo...
+            </div>
           </div>
-
           <div class="catalog-empty" data-catalog-empty>
             No se encontraron libros con los filtros actuales.
           </div>
-
-          <footer class="catalog-pagination">
-            <button class="catalog-page-button" type="button">
-              <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button class="catalog-page-button is-active" type="button">01</button>
-            <button class="catalog-page-button" type="button">02</button>
-            <button class="catalog-page-button" type="button">03</button>
-            <span class="catalog-page-dots">...</span>
-            <button class="catalog-page-button" type="button">42</button>
-            <button class="catalog-page-button" type="button">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-          </footer>
         </div>
       </section>
     </main>
@@ -86,88 +87,272 @@ const categories = Object.entries(categoriesMap).map(([name, count]) => ({
   </div>
 </MainLayout>
 
-<script type="module">
-  const searchInput = document.querySelector("[data-catalog-search]");
-  const categoryButtons = [...document.querySelectorAll("[data-category-filter]")];
-  const availableCheckbox = document.querySelector("[data-available-filter]");
-  const yearSelect = document.querySelector("[data-year-filter]");
-  const cards = [...document.querySelectorAll("[data-book-card]")];
+<script>
+  import { getSession, apiFetch } from "../../lib/auth.js";
+
+  const API_BASE = "http://localhost:3000/api";
+  const session = getSession();
+
+  const searchInput = document.querySelector(
+    "[data-catalog-search]",
+  ) as HTMLInputElement | null;
+  const availableCheckbox = document.querySelector(
+    "[data-available-filter]",
+  ) as HTMLInputElement | null;
+  const yearSelect = document.querySelector(
+    "[data-year-filter]",
+  ) as HTMLSelectElement | null;
   const resultsCount = document.querySelector("[data-results-count]");
   const emptyState = document.querySelector("[data-catalog-empty]");
+  const catalogGrid = document.getElementById("catalog-grid")!;
+  const categoryContainer = document.getElementById("category-filters")!;
 
+  let allBooks: any[] = [];
   let currentCategory = "all";
 
-  function matchesYear(year, selectedRange) {
-    const numericYear = Number(year);
+  // Build auth headers if user is logged in
+  function authHeaders(): Record<string, string> {
+    const token = session?.token;
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }
 
-    if (selectedRange === "all") return true;
-    if (selectedRange === "recent") return numericYear >= 2024;
-    if (selectedRange === "2020-2023") return numericYear >= 2020 && numericYear <= 2023;
-    if (selectedRange === "2010-2019") return numericYear >= 2010 && numericYear <= 2019;
-    if (selectedRange === "older") return numericYear < 2010;
+  // Load books from real backend
+  async function loadCatalog() {
+    try {
+      const res = await fetch(`${API_BASE}/libros`, { headers: authHeaders() });
+      const books = await res.json();
+      allBooks = books;
 
+      // For each book, load ejemplares to determine status
+      await Promise.all(
+        books.map(async (book: any) => {
+          try {
+            const ejRes = await fetch(
+              `${API_BASE}/ejemplares/libro/${book.id}`,
+            );
+            const ejemplares = await ejRes.json();
+            book._ejemplares = ejemplares;
+            book._disponibles = ejemplares.filter(
+              (e: any) => e.estado === "disponible",
+            ).length;
+            book._status = book._disponibles > 0 ? "Disponible" : "Prestado";
+          } catch {
+            book._ejemplares = [];
+            book._disponibles = 0;
+            book._status = "Sin ejemplares";
+          }
+        }),
+      );
+
+      buildCategoryFilters();
+      renderBooks();
+    } catch {
+      catalogGrid.innerHTML =
+        '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#dc2626;">Error al cargar el catálogo</div>';
+    }
+  }
+
+  function buildCategoryFilters() {
+    const catMap: Record<string, number> = {};
+    allBooks.forEach((b) => {
+      const cat = b.categoria?.nombre || "Sin categoría";
+      catMap[cat] = (catMap[cat] || 0) + 1;
+    });
+
+    let html =
+      '<button type="button" class="catalog-filter-chip is-active" data-category-filter="all">Todas</button>';
+    Object.entries(catMap).forEach(([name, count]) => {
+      html += `<button type="button" class="catalog-filter-chip" data-category-filter="${name}"><span>${name}</span><small>${count}</small></button>`;
+    });
+    categoryContainer.innerHTML = html;
+
+    categoryContainer
+      .querySelectorAll("[data-category-filter]")
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentCategory =
+            (btn as HTMLElement).dataset.categoryFilter || "all";
+          categoryContainer
+            .querySelectorAll("[data-category-filter]")
+            .forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          renderBooks();
+        });
+      });
+  }
+
+  function matchesYear(year: number, range: string) {
+    if (range === "all") return true;
+    if (range === "recent") return year >= 2024;
+    if (range === "2020-2023") return year >= 2020 && year <= 2023;
+    if (range === "2010-2019") return year >= 2010 && year <= 2019;
+    if (range === "older") return year < 2010;
     return true;
   }
 
-  function applyFilters() {
-    const searchTerm = searchInput?.value?.trim().toLowerCase() || "";
+  function renderBooks() {
+    const search = searchInput?.value?.trim().toLowerCase() || "";
     const availableOnly = !!availableCheckbox?.checked;
-    const selectedYear = yearSelect?.value || "all";
+    const yearRange = yearSelect?.value || "all";
 
-    let visibleCount = 0;
+    const filtered = allBooks.filter((b) => {
+      const title = (b.titulo || "").toLowerCase();
+      const author = (b.autor || "").toLowerCase();
+      const cat = b.categoria?.nombre || "Sin categoría";
+      const year = Number(b.anio) || 0;
 
-    cards.forEach((card) => {
-      const title = card.dataset.title || "";
-      const author = card.dataset.author || "";
-      const category = card.dataset.category || "";
-      const status = card.dataset.status || "";
-      const year = card.dataset.year || "";
+      const matchSearch =
+        !search || title.includes(search) || author.includes(search);
+      const matchCat = currentCategory === "all" || cat === currentCategory;
+      const matchAvail = !availableOnly || b._status === "Disponible";
+      const matchYear = matchesYear(year, yearRange);
 
-      const matchesSearch =
-        !searchTerm || title.includes(searchTerm) || author.includes(searchTerm);
-
-      const matchesCategory =
-        currentCategory === "all" || category === currentCategory;
-
-      const matchesAvailability =
-        !availableOnly || status === "Disponible";
-
-      const matchesYearFilter = matchesYear(year, selectedYear);
-
-      const isVisible =
-        matchesSearch &&
-        matchesCategory &&
-        matchesAvailability &&
-        matchesYearFilter;
-
-      card.style.display = isVisible ? "" : "none";
-
-      if (isVisible) visibleCount += 1;
+      return matchSearch && matchCat && matchAvail && matchYear;
     });
 
-    if (resultsCount) {
-      resultsCount.textContent = `${visibleCount} libros`;
+    if (resultsCount) resultsCount.textContent = `${filtered.length} libros`;
+    if (emptyState)
+      (emptyState as HTMLElement).classList.toggle(
+        "is-visible",
+        filtered.length === 0,
+      );
+
+    if (!filtered.length) {
+      catalogGrid.innerHTML = "";
+      return;
     }
 
-    if (emptyState) {
-      emptyState.classList.toggle("is-visible", visibleCount === 0);
+    catalogGrid.innerHTML = filtered
+      .map((b) => {
+        const imgUrl = b.imagen_url
+          ? `${API_BASE.replace("/api", "")}/uploads/${b.imagen_url}`
+          : "";
+        const isAvail = b._status === "Disponible";
+        return `<article class="catalog-book-card ${!isAvail ? "is-offset" : ""}">
+        <div class="catalog-book-card__image">
+          ${imgUrl ? `<img src="${imgUrl}" alt="${b.titulo}" />` : `<div style="width:100%;height:100%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:0.8rem;">Sin imagen</div>`}
+          <div class="catalog-book-card__ref">Ref. ${b.id}</div>
+        </div>
+        <div class="catalog-book-card__body">
+          <div class="catalog-book-card__status">
+            <span class="catalog-dot ${isAvail ? "is-available" : "is-borrowed"}"></span>
+            <span>${b._status} ${isAvail ? `(${b._disponibles})` : ""}</span>
+          </div>
+          <h3>${b.titulo}</h3>
+          <p>${b.autor || "—"}, ${b.anio || "—"}</p>
+          <div class="catalog-book-card__actions" style="display:flex;gap:0.5rem;margin-top:auto;">
+            <button class="catalog-book-card__button" data-detail-book="${b.id}" style="flex:1;">Ver detalles</button>
+            ${
+              session?.role === "estudiante"
+                ? isAvail
+                  ? `<span style="flex:1;text-align:center;font-size:0.75rem;color:#16a34a;padding:0.5rem;border:1px solid #bbf7d0;border-radius:8px;display:flex;align-items:center;justify-content:center;">Disponible — solicita préstamo al bibliotecario</span>`
+                  : `<button class="catalog-book-card__button" data-reserve-book="${b.id}" style="flex:1;background:#1a237e;color:#fff;">Reservar</button>`
+                : !session
+                  ? `<a href="/login" class="catalog-book-card__button" style="flex:1;text-align:center;">Iniciar sesión</a>`
+                  : ""
+            }
+          </div>
+        </div>
+      </article>`;
+      })
+      .join("");
+
+    // Attach detail buttons — show modal with book info
+    document.querySelectorAll("[data-detail-book]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const bookId = Number((btn as HTMLElement).dataset.detailBook);
+        const book = allBooks.find((b: any) => b.id === bookId);
+        if (!book) return;
+        const imgUrl = book.imagen_url
+          ? `${API_BASE.replace("/api", "")}/uploads/${book.imagen_url}`
+          : "";
+        const ejemplares = book._ejemplares || [];
+        const overlay = document.createElement("div");
+        Object.assign(overlay.style, {
+          position: "fixed",
+          inset: "0",
+          background: "rgba(0,0,0,0.6)",
+          zIndex: "9999",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "1rem",
+        });
+        overlay.innerHTML = `
+          <div style="background:#fff;border-radius:12px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;padding:2rem;">
+            <button style="position:absolute;top:0.75rem;right:1rem;background:none;border:none;font-size:1.8rem;cursor:pointer;color:#64748b;" class="detail-close">&times;</button>
+            <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+              ${imgUrl ? `<img src="${imgUrl}" alt="${book.titulo}" style="width:200px;height:280px;object-fit:cover;border-radius:8px;flex-shrink:0;" />` : ""}
+              <div style="flex:1;min-width:200px;">
+                <h2 style="margin:0 0 0.75rem;color:#1e293b;">${book.titulo}</h2>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Autor:</strong> ${book.autor || "—"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Editorial:</strong> ${book.editorial || "—"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>ISBN:</strong> ${book.isbn || "—"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Año:</strong> ${book.anio || "—"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Categoría:</strong> ${book.categoria?.nombre || "—"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Descripción:</strong> ${book.descripcion || "Sin descripción"}</p>
+                <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Ejemplares:</strong> ${book._disponibles} disponibles de ${ejemplares.length} total</p>
+                <table style="width:100%;margin-top:0.75rem;font-size:0.85rem;border-collapse:collapse;">
+                  <thead><tr style="border-bottom:1px solid #e2e8f0;text-align:left;">
+                    <th style="padding:0.3rem 0.5rem;">Código</th><th style="padding:0.3rem 0.5rem;">Estado</th>
+                  </tr></thead>
+                  <tbody>
+                    ${ejemplares.length ? ejemplares.map((ej: any) => `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:0.3rem 0.5rem;">${ej.codigo}</td><td style="padding:0.3rem 0.5rem;"><span style="color:${ej.estado === "disponible" ? "#16a34a" : "#dc2626"};">${ej.estado}</span></td></tr>`).join("") : '<tr><td colspan="2" style="padding:0.5rem;color:#94a3b8;">Sin ejemplares</td></tr>'}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>`;
+        document.body.appendChild(overlay);
+        overlay
+          .querySelector(".detail-close")!
+          .addEventListener("click", () => overlay.remove());
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) overlay.remove();
+        });
+      });
+    });
+
+    // Attach reserve buttons for logged students
+    if (session?.role === "estudiante") {
+      document.querySelectorAll("[data-reserve-book]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const bookId = (btn as HTMLElement).dataset.reserveBook;
+          const book = allBooks.find((b: any) => b.id === Number(bookId));
+          if (!confirm(`¿Reservar "${book?.titulo}"?`)) return;
+          try {
+            const res = await apiFetch("/reservations", {
+              method: "POST",
+              body: JSON.stringify({
+                libro_id: Number(bookId),
+                usuario_id: session.id,
+              }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              throw new Error(err.error || "Error al reservar");
+            }
+            showToast("Reserva creada correctamente", true);
+            loadCatalog(); // refresh
+          } catch (e: any) {
+            showToast(e.message || "No se pudo reservar", false);
+          }
+        });
+      });
     }
   }
 
-  categoryButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      currentCategory = button.dataset.categoryFilter || "all";
+  searchInput?.addEventListener("input", renderBooks);
+  availableCheckbox?.addEventListener("change", renderBooks);
+  yearSelect?.addEventListener("change", renderBooks);
 
-      categoryButtons.forEach((item) => item.classList.remove("is-active"));
-      button.classList.add("is-active");
+  function showToast(msg: string, ok: boolean) {
+    const t = document.createElement("div");
+    t.className = `toast ${ok ? "toast--ok" : "toast--err"}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
 
-      applyFilters();
-    });
-  });
-
-  searchInput?.addEventListener("input", applyFilters);
-  availableCheckbox?.addEventListener("change", applyFilters);
-  yearSelect?.addEventListener("change", applyFilters);
-
-  applyFilters();
+  loadCatalog();
 </script>

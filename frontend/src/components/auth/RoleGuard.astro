@@ -4,20 +4,30 @@ const roles = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
 ---
 
 <script define:vars={{ roles, redirectTo }}>
-  const rawSession = localStorage.getItem("biblioteca_session");
+  // define:vars blocks cannot use import — read sessionStorage directly
+  const SESSION_KEY = "biblioteca_session";
+  let session = null;
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (raw) session = JSON.parse(raw);
+  } catch {
+    sessionStorage.removeItem(SESSION_KEY);
+  }
 
-  if (!rawSession) {
+  if (!session) {
     window.location.href = redirectTo;
-  } else {
-    try {
-      const session = JSON.parse(rawSession);
+  } else if (!roles.includes(session.role)) {
+    window.location.href = session.dashboard || "/login";
+  }
+</script>
 
-      if (!roles.includes(session.role)) {
-        window.location.href = session.dashboard || "/login";
-      }
-    } catch {
-      localStorage.removeItem("biblioteca_session");
+<script>
+  // Cross-tab logout listener (storage event only fires in OTHER tabs).
+  const redirectTo = "/login";
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === "biblioteca_session" && !event.newValue) {
       window.location.href = redirectTo;
     }
-  }
+  });
 </script>

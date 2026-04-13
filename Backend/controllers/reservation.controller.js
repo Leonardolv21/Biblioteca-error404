@@ -135,6 +135,17 @@ const actualizarReserva = async (req, res) => {
             return res.status(404).json({ error: 'Reserva no encontrada' });
         }
 
+        // Students can only cancel their own reservations
+        const role = req.user.rol.nombre;
+        if (role === 'estudiante') {
+            if (reserva.usuario_id !== req.user.id) {
+                return res.status(403).json({ error: 'No puedes modificar reservas de otro usuario' });
+            }
+            if (req.body.estado !== 'cancelada') {
+                return res.status(403).json({ error: 'Solo puedes cancelar tu reserva' });
+            }
+        }
+
         const { fecha_expiracion, estado, ejemplar_id, notificado } = req.body;
         const datosActualizar = {};
 

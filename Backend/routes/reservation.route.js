@@ -23,7 +23,7 @@ router.get('/pendientes', authenticate, authorize('administrador', 'bibliotecari
 router.get('/usuario/:usuarioId', authenticate, authorizeOrOwn, reservationController.listarReservasPorUsuario);
 router.get('/:id', authenticate, authorize('administrador', 'bibliotecario'), reservationController.obtenerReserva);
 router.post('/', authenticate, authorize('administrador', 'bibliotecario', 'estudiante'), reservationController.crearReserva);
-router.put('/:id', authenticate, authorize('administrador', 'bibliotecario'), reservationController.actualizarReserva);
+router.put('/:id', authenticate, authorize('administrador', 'bibliotecario', 'estudiante'), reservationController.actualizarReserva);
 router.delete('/:id', authenticate, authorize('administrador', 'bibliotecario'), reservationController.eliminarReserva);
 
 module.exports = router;

@@ -1,11 +1,14 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const { sequelize } = require('./models');
-const bcrypt  = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const { Usuario, Rol } = require('./models');
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/uploads', express.static('Media/uploads'));
 
 app.use('/api/libros', require('./routes/Libro.route'));
 app.use('/api/catalogo', require('./routes/Catalogo.route'));
@@ -24,11 +27,11 @@ const seedAdmin = async () => {
     if (existe) return console.log('✅ Admin ya existe, omitiendo creación');
 
     await Usuario.create({
-      nombre:        'Admin',
-      apellido:      'Sistema',
-      correo:        process.env.ADMIN_EMAIL    || 'admin@biblioteca.com',
+      nombre: 'Admin',
+      apellido: 'Sistema',
+      correo: process.env.ADMIN_EMAIL || 'admin@biblioteca.com',
       password_hash: await bcrypt.hash(process.env.ADMIN_PASSWORD || 'admin123', 10),
-      rol_id:        rolAdmin.id,
+      rol_id: rolAdmin.id,
       max_prestamos: 0,
     });
 
@@ -38,9 +41,6 @@ const seedAdmin = async () => {
   }
 };
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
 sequelize.authenticate()
   .then(async () => {
     console.log('Conectado a MySQL');

@@ -49,11 +49,15 @@ interface Props {
 
 export function getStaticPaths() {
   const books = catalogBooks as CatalogBook[];
-  const detailsMap = detailedBooks as Record<string, DetailedBookExtra | undefined>;
+  const detailsMap = detailedBooks as Record<
+    string,
+    DetailedBookExtra | undefined
+  >;
 
   return books.map((catalogBook: CatalogBook) => {
     const extra = detailsMap[catalogBook.id];
-    const fallbackStatus = catalogBook.status === "Disponible" ? "Disponible" : "Prestado";
+    const fallbackStatus =
+      catalogBook.status === "Disponible" ? "Disponible" : "Prestado";
 
     const book: BookPageData = extra
       ? { ...catalogBook, ...extra }
@@ -98,18 +102,20 @@ const { book } = Astro.props as Props;
     <main class="book-detail-main">
       <header class="book-detail-header book-detail-container">
         <nav class="book-breadcrumb">
-          {book.breadcrumb.map((item: string, index: number) => (
-            <>
-              {index < book.breadcrumb.length - 1 ? (
-                <span>{item}</span>
-              ) : (
-                <strong>{item}</strong>
-              )}
-              {index < book.breadcrumb.length - 1 && (
-                <span class="book-breadcrumb__line"></span>
-              )}
-            </>
-          ))}
+          {
+            book.breadcrumb.map((item: string, index: number) => (
+              <>
+                {index < book.breadcrumb.length - 1 ? (
+                  <span>{item}</span>
+                ) : (
+                  <strong>{item}</strong>
+                )}
+                {index < book.breadcrumb.length - 1 && (
+                  <span class="book-breadcrumb__line" />
+                )}
+              </>
+            ))
+          }
         </nav>
       </header>
 
@@ -144,14 +150,13 @@ const { book } = Astro.props as Props;
           </div>
 
           <div class="book-description">
-            {book.description.map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
+            {book.description.map((paragraph: string) => <p>{paragraph}</p>)}
           </div>
 
           <div class="book-access-note">
-            Puedes consultar este detalle sin iniciar sesión. Para solicitar un préstamo
-            o reservar un ejemplar, el sistema te pedirá iniciar sesión primero.
+            Puedes consultar este detalle sin iniciar sesión. Para solicitar un
+            préstamo o reservar un ejemplar, el sistema te pedirá iniciar sesión
+            primero.
           </div>
 
           <BookCopiesTable copies={book.copies} />
@@ -166,7 +171,7 @@ const { book } = Astro.props as Props;
 </MainLayout>
 
 <script>
-  import { mockLogin, getSession } from "../../lib/auth.js";
+  import { login, getSession } from "../../lib/auth.js";
 
   const params = new URLSearchParams(window.location.search);
   const nextUrl = params.get("next");
@@ -179,7 +184,9 @@ const { book } = Astro.props as Props;
 
   const form = document.querySelector(".login-card__form");
   const uidInput = document.querySelector("#uid") as HTMLInputElement | null;
-  const passwordInput = document.querySelector("#password") as HTMLInputElement | null;
+  const passwordInput = document.querySelector(
+    "#password",
+  ) as HTMLInputElement | null;
   const errorBox = document.querySelector("[data-login-error]");
 
   function showGeneralError(message: string) {
@@ -196,7 +203,7 @@ const { book } = Astro.props as Props;
 
   function setFieldError(fieldName: string, message: string) {
     const errorElement = document.querySelector(
-      `[data-field-error="${fieldName}"]`
+      `[data-field-error="${fieldName}"]`,
     );
     const input = document.querySelector(`#${fieldName}`);
 
@@ -212,7 +219,7 @@ const { book } = Astro.props as Props;
 
   function clearFieldError(fieldName: string) {
     const errorElement = document.querySelector(
-      `[data-field-error="${fieldName}"]`
+      `[data-field-error="${fieldName}"]`,
     );
     const input = document.querySelector(`#${fieldName}`);
 
@@ -243,7 +250,7 @@ const { book } = Astro.props as Props;
   uidInput?.addEventListener("input", () => clearFieldError("uid"));
   passwordInput?.addEventListener("input", () => clearFieldError("password"));
 
-  form?.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     clearAllErrors();
 
@@ -263,7 +270,10 @@ const { book } = Astro.props as Props;
     }
 
     if (password && password.length < 6) {
-      setFieldError("password", "La contraseña debe tener al menos 6 caracteres.");
+      setFieldError(
+        "password",
+        "La contraseña debe tener al menos 6 caracteres.",
+      );
       hasErrors = true;
     }
 
@@ -272,7 +282,7 @@ const { book } = Astro.props as Props;
       return;
     }
 
-    const result = mockLogin(uid, password);
+    const result = await login(uid, password);
 
     if (!result.ok) {
       showGeneralError(result.message || "No se pudo iniciar sesión.");

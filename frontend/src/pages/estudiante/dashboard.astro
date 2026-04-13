@@ -1,12 +1,6 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import RoleGuard from "../../components/auth/RoleGuard.astro";
-import StudentSidebar from "../../components/student/StudentSidebar.astro";
-import StudentTopbar from "../../components/student/StudentTopbar.astro";
-import StudentLoanCard from "../../components/student/StudentLoanCard.astro";
-import StudentReservationsPanel from "../../components/student/StudentReservationsPanel.astro";
-import StudentRecommendationCard from "../../components/student/StudentRecommendationCard.astro";
-import { currentLoans, reservations, recommendations } from "../../data/studentDashboardData";
 import "../../styles/student-dashboard.css";
 ---
 
@@ -14,61 +8,211 @@ import "../../styles/student-dashboard.css";
   <RoleGuard allowedRoles={["estudiante"]} />
 
   <div class="student-dashboard">
-    <StudentSidebar />
-    <StudentTopbar />
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="student-sidebar">
+      <div class="student-sidebar__brand">
+        <span class="student-sidebar__title">Library Portal</span>
+        <span class="student-sidebar__subtitle">Academic Curator</span>
+      </div>
 
+      <nav class="student-sidebar__nav">
+        <a
+          href="/estudiante/dashboard"
+          class="student-sidebar__link is-active"
+          data-nav-link="inicio"
+        >
+          <span class="material-symbols-outlined">book_2</span>
+          <span>Mi Biblioteca</span>
+        </a>
+        <a href="/catalogo" class="student-sidebar__link">
+          <span class="material-symbols-outlined">search</span>
+          <span>Catálogo</span>
+        </a>
+        <button
+          class="student-sidebar__link student-sidebar__button"
+          data-nav-btn="prestamos"
+        >
+          <span class="material-symbols-outlined">inventory</span>
+          <span>Mis Préstamos</span>
+        </button>
+        <button
+          class="student-sidebar__link student-sidebar__button"
+          data-nav-btn="reservas"
+        >
+          <span class="material-symbols-outlined">assignment_return</span>
+          <span>Reservas</span>
+        </button>
+        <button
+          class="student-sidebar__link student-sidebar__button"
+          data-nav-btn="historial"
+        >
+          <span class="material-symbols-outlined">analytics</span>
+          <span>Historial</span>
+        </button>
+      </nav>
+
+      <div class="student-sidebar__footer">
+        <button
+          type="button"
+          class="student-sidebar__link student-sidebar__button"
+          data-logout-button
+        >
+          <span class="material-symbols-outlined">logout</span>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ═══ TOPBAR ═══ -->
+    <header class="student-topbar">
+      <div class="student-topbar__nav">
+        <a href="/catalogo" class="student-topbar__link">Catálogo</a>
+        <button
+          class="student-topbar__link student-topbar__btn"
+          data-nav-btn="reservas">Reservas</button
+        >
+        <button
+          class="student-topbar__link student-topbar__btn"
+          data-nav-btn="historial">Historial</button
+        >
+      </div>
+      <div class="student-topbar__user">
+        <button
+          type="button"
+          class="student-topbar__icon-button"
+          data-nav-btn="notificaciones"
+          title="Notificaciones"
+        >
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="notif-badge" id="notif-count" style="display:none;"
+            >0</span
+          >
+        </button>
+        <div class="student-topbar__profile">
+          <span data-session-name>Estudiante</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
     <main class="student-main">
       <div class="student-shell">
-        <section class="student-hero">
-          <h1>Hola, <span data-session-first-name>Juan</span>.</h1>
-          <p>Explora el catálogo académico de la Universidad XYZ.</p>
+        <!-- ─── INICIO (Mi Biblioteca) ─── -->
+        <section class="student-page is-active" id="page-inicio">
+          <section class="student-hero">
+            <h1>Hola, <span data-session-first-name>Estudiante</span>.</h1>
+            <p>Explora el catálogo académico de la Universidad XYZ.</p>
+            <form class="student-search-form" action="/catalogo" method="get">
+              <span class="material-symbols-outlined">search</span>
+              <input
+                type="text"
+                name="q"
+                placeholder="Busca por título, autor o ISBN"
+              />
+              <button type="submit">Buscar</button>
+            </form>
+          </section>
 
-          <form class="student-search-form" action="/catalogo" method="get">
-            <span class="material-symbols-outlined">search</span>
-            <input
-              type="text"
-              name="q"
-              placeholder="Busca por título, autor o ISBN"
-            />
-            <button type="submit">Buscar</button>
-          </form>
+          <section class="student-grid">
+            <div>
+              <div class="section-head">
+                <h2>Mis Préstamos Activos</h2>
+                <button class="section-link" data-nav-btn="prestamos"
+                  >Ver todos</button
+                >
+              </div>
+              <div class="loan-list" id="home-loans">
+                <div class="student-loading">Cargando préstamos...</div>
+              </div>
+            </div>
+
+            <section class="student-panel">
+              <h2>Mis Reservas</h2>
+              <div class="student-panel__content">
+                <div class="reservation-list" id="home-reservas">
+                  <div class="student-loading">Cargando reservas...</div>
+                </div>
+                <button class="student-panel__button" data-nav-btn="reservas"
+                  >Gestionar reservas</button
+                >
+              </div>
+            </section>
+          </section>
         </section>
 
-        <section class="student-grid">
-          <div>
-            <div class="section-head">
-              <h2>Mis Préstamos</h2>
-              <a href="#">Ver todos</a>
-            </div>
-
-            <div class="loan-list">
-              {currentLoans.map((loan) => (
-                <StudentLoanCard loan={loan} />
-              ))}
-            </div>
+        <!-- ─── MIS PRÉSTAMOS ─── -->
+        <section class="student-page" id="page-prestamos">
+          <div class="section-head" style="margin-bottom:1.5rem;">
+            <h2>Todos mis Préstamos</h2>
           </div>
-
-          <StudentReservationsPanel reservations={reservations as any} />
+          <div class="student-table-wrap">
+            <table class="student-table">
+              <thead>
+                <tr>
+                  <th>Libro</th><th>Ejemplar</th><th>Inicio</th><th
+                    >Vencimiento</th
+                  ><th>Estado</th><th>Renov.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-mis-prestamos">
+                <tr><td colspan="7" class="student-loading">Cargando...</td></tr
+                >
+              </tbody>
+            </table>
+          </div>
         </section>
 
-        <section class="recommend-section">
-          <div class="recommend-section__header">
-            <h2>Recomendados para ti</h2>
-
-            <div class="recommend-nav">
-              <button type="button">
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button type="button">
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
+        <!-- ─── RESERVAS ─── -->
+        <section class="student-page" id="page-reservas">
+          <div class="section-head" style="margin-bottom:1.5rem;">
+            <h2>Mis Reservas</h2>
           </div>
+          <div class="student-table-wrap">
+            <table class="student-table">
+              <thead>
+                <tr>
+                  <th>Libro</th><th>Estado</th><th>Fecha reserva</th><th
+                    >Expiración</th
+                  ><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-mis-reservas">
+                <tr><td colspan="5" class="student-loading">Cargando...</td></tr
+                >
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-          <div class="recommend-grid">
-            {recommendations.map((book) => (
-              <StudentRecommendationCard book={book} />
-            ))}
+        <!-- ─── HISTORIAL ─── -->
+        <section class="student-page" id="page-historial">
+          <div class="section-head" style="margin-bottom:1.5rem;">
+            <h2>Historial de Préstamos</h2>
+          </div>
+          <div class="student-table-wrap">
+            <table class="student-table">
+              <thead>
+                <tr>
+                  <th>Libro</th><th>Ejemplar</th><th>Inicio</th><th
+                    >Devolución</th
+                  ><th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-historial">
+                <tr><td colspan="5" class="student-loading">Cargando...</td></tr
+                >
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─── NOTIFICACIONES ─── -->
+        <section class="student-page" id="page-notificaciones">
+          <div class="section-head" style="margin-bottom:1.5rem;">
+            <h2>Notificaciones</h2>
+          </div>
+          <div id="notif-list" class="notif-list">
+            <div class="student-loading">Cargando notificaciones...</div>
           </div>
         </section>
       </div>
@@ -81,24 +225,411 @@ import "../../styles/student-dashboard.css";
 </MainLayout>
 
 <script>
-  import { getSession, clearSession } from "../../lib/auth.js";
+  import { getSession, clearSession, apiFetch } from "../../lib/auth.js";
 
   const session = getSession();
-  const fullName = session?.name || "Juan Pérez";
-  const firstName = fullName.split(" ")[0] || "Juan";
+  const fullName = session?.name || "Estudiante";
+  const firstName = fullName.split(" ")[0];
+  const userId = session?.id;
 
   document.querySelectorAll("[data-session-name]").forEach((el) => {
     el.textContent = fullName;
   });
-
   document.querySelectorAll("[data-session-first-name]").forEach((el) => {
     el.textContent = firstName;
   });
-
-  document.querySelectorAll("[data-logout-button]").forEach((button) => {
-    button.addEventListener("click", () => {
+  document.querySelectorAll("[data-logout-button]").forEach((btn) => {
+    btn.addEventListener("click", () => {
       clearSession();
       window.location.href = "/login";
     });
   });
+
+  /* ══════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════ */
+  const pages = document.querySelectorAll(".student-page");
+  const sideLinks = document.querySelectorAll(
+    "[data-nav-link], [data-nav-btn]",
+  );
+
+  function showPage(id: string) {
+    pages.forEach((p) => p.classList.remove("is-active"));
+    document.getElementById(`page-${id}`)?.classList.add("is-active");
+    sideLinks.forEach((l) => l.classList.remove("is-active"));
+    const active = document.querySelector(
+      `[data-nav-link="${id}"], [data-nav-btn="${id}"]`,
+    );
+    if (active?.closest(".student-sidebar")) active.classList.add("is-active");
+
+    const loaders: Record<string, () => void> = {
+      inicio: loadHome,
+      prestamos: loadMisPrestamos,
+      reservas: loadMisReservas,
+      historial: loadHistorial,
+      notificaciones: loadNotificaciones,
+    };
+    loaders[id]?.();
+  }
+
+  document.querySelectorAll("[data-nav-btn]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = (btn as HTMLElement).dataset.navBtn!;
+      showPage(target);
+    });
+  });
+
+  /* ══════════════════════════════════
+     HELPERS
+  ══════════════════════════════════ */
+  function esc(v: any) {
+    return v == null ? "—" : String(v);
+  }
+  function fdate(d: any) {
+    return d
+      ? new Date(d).toLocaleDateString("es-MX", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      : "—";
+  }
+  function badgeClass(estado: string) {
+    const m: Record<string, string> = {
+      activo: "badge--green",
+      renovado: "badge--blue",
+      devuelto: "badge--gray",
+      vencido: "badge--red",
+      pendiente: "badge--yellow",
+      disponible: "badge--green",
+      completada: "badge--gray",
+      cancelada: "badge--red",
+    };
+    return m[estado] || "badge--gray";
+  }
+
+  function toast(msg: string, ok = true) {
+    const t = document.createElement("div");
+    t.className = `toast ${ok ? "toast--ok" : "toast--err"}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
+
+  /* ══════════════════════════════════
+     HOME – Mis Préstamos + Reservas preview
+  ══════════════════════════════════ */
+  let homeLoaded = false;
+  async function loadHome() {
+    if (homeLoaded) return;
+    await Promise.all([loadHomeLoans(), loadHomeReservas()]);
+    homeLoaded = true;
+  }
+
+  async function loadHomeLoans() {
+    const container = document.getElementById("home-loans")!;
+    try {
+      const loans = await (await apiFetch(`/loans/usuario/${userId}`)).json();
+      const activos = loans.filter(
+        (p: any) => p.estado === "activo" || p.estado === "renovado",
+      );
+      if (!activos.length) {
+        container.innerHTML =
+          '<p class="student-empty">No tienes préstamos activos.</p>';
+        return;
+      }
+      container.innerHTML = activos
+        .slice(0, 3)
+        .map((p: any) => {
+          const isUrgent =
+            p.fecha_vencimiento &&
+            new Date(p.fecha_vencimiento).getTime() - Date.now() < 3 * 86400000;
+          return `<article class="loan-card ${isUrgent ? "is-urgent" : ""}">
+          <div class="loan-card__content">
+            <div>
+              <h3>${esc(p.ejemplar?.libro?.titulo)}</h3>
+              <p>${esc(p.ejemplar?.libro?.autor)}</p>
+            </div>
+            <div class="loan-card__footer">
+              <div class="loan-card__due">
+                <span class="material-symbols-outlined">${isUrgent ? "schedule" : "event"}</span>
+                <p>Devolución: <strong>${fdate(p.fecha_vencimiento)}</strong></p>
+              </div>
+              <div class="loan-card__actions">
+                ${isUrgent ? '<span class="loan-card__tag">Próximo vencimiento</span>' : ""}
+                <span class="badge ${badgeClass(p.estado)}">${p.estado}</span>
+              </div>
+            </div>
+          </div>
+        </article>`;
+        })
+        .join("");
+    } catch {
+      container.innerHTML =
+        '<p class="student-empty">Error al cargar préstamos.</p>';
+    }
+  }
+
+  async function loadHomeReservas() {
+    const container = document.getElementById("home-reservas")!;
+    try {
+      const reservas = await (
+        await apiFetch(`/reservations/usuario/${userId}`)
+      ).json();
+      const activas = reservas.filter(
+        (r: any) => r.estado === "pendiente" || r.estado === "disponible",
+      );
+      if (!activas.length) {
+        container.innerHTML =
+          '<p class="student-empty">No tienes reservas activas.</p>';
+        return;
+      }
+      container.innerHTML = activas
+        .map(
+          (r: any) => `<article class="reservation-item">
+        <h4>${esc(r.libro?.titulo)}</h4>
+        <p>${esc(r.libro?.autor)}</p>
+        <div class="reservation-badge ${r.estado === "disponible" ? "is-ready" : "is-waiting"}">
+          <span class="material-symbols-outlined">${r.estado === "disponible" ? "check_circle" : "hourglass_top"}</span>
+          <span>${r.estado === "disponible" ? "Disponible para recoger" : "En espera"}</span>
+        </div>
+      </article>`,
+        )
+        .join("");
+    } catch {
+      container.innerHTML =
+        '<p class="student-empty">Error al cargar reservas.</p>';
+    }
+  }
+
+  loadHome();
+
+  /* ══════════════════════════════════
+     MIS PRÉSTAMOS (todos)
+  ══════════════════════════════════ */
+  let prestamosLoaded = false;
+  async function loadMisPrestamos() {
+    if (prestamosLoaded) return;
+    const tbody = document.getElementById("tbody-mis-prestamos")!;
+    try {
+      const loans = await (await apiFetch(`/loans/usuario/${userId}`)).json();
+      const activos = loans.filter(
+        (p: any) => p.estado === "activo" || p.estado === "renovado",
+      );
+      if (!activos.length) {
+        tbody.innerHTML =
+          '<tr><td colspan="7" class="student-empty">No tienes préstamos activos.</td></tr>';
+        prestamosLoaded = true;
+        return;
+      }
+      tbody.innerHTML = activos
+        .map(
+          (p: any) => `<tr>
+        <td>${esc(p.ejemplar?.libro?.titulo)}</td>
+        <td>${esc(p.ejemplar?.codigo)}</td>
+        <td>${fdate(p.fecha_inicio)}</td>
+        <td>${fdate(p.fecha_vencimiento)}</td>
+        <td><span class="badge ${badgeClass(p.estado)}">${p.estado}</span></td>
+        <td>${p.renovaciones}/2</td>
+        <td>
+          ${(p.estado === "activo" || p.estado === "renovado") && p.renovaciones < 2 ? `<button class="btn btn--outline btn--sm" data-renew-loan="${p.id}">Renovar</button>` : '<span class="student-empty-inline">—</span>'}
+        </td>
+      </tr>`,
+        )
+        .join("");
+      prestamosLoaded = true;
+
+      document.querySelectorAll("[data-renew-loan]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = (btn as HTMLElement).dataset.renewLoan;
+          try {
+            await apiFetch(`/loans/${id}/renew`, { method: "POST" });
+            toast("Préstamo renovado");
+            prestamosLoaded = false;
+            homeLoaded = false;
+            loadMisPrestamos();
+            loadHome();
+          } catch {
+            toast("No se pudo renovar (puede haber reserva pendiente)", false);
+          }
+        });
+      });
+    } catch {
+      tbody.innerHTML =
+        '<tr><td colspan="7" class="student-empty">Error al cargar.</td></tr>';
+    }
+  }
+
+  /* ══════════════════════════════════
+     MIS RESERVAS
+  ══════════════════════════════════ */
+  let reservasLoaded = false;
+  async function loadMisReservas() {
+    if (reservasLoaded) return;
+    const tbody = document.getElementById("tbody-mis-reservas")!;
+    try {
+      const reservas = await (
+        await apiFetch(`/reservations/usuario/${userId}`)
+      ).json();
+      if (!reservas.length) {
+        tbody.innerHTML =
+          '<tr><td colspan="5" class="student-empty">No tienes reservas.</td></tr>';
+        reservasLoaded = true;
+        return;
+      }
+      tbody.innerHTML = reservas
+        .map(
+          (r: any) => `<tr>
+        <td>${esc(r.libro?.titulo)}</td>
+        <td><span class="badge ${badgeClass(r.estado)}">${r.estado}</span></td>
+        <td>${fdate(r.fecha_reserva)}</td>
+        <td>${fdate(r.fecha_expiracion)}</td>
+        <td>
+          ${r.estado === "pendiente" ? `<button class="btn btn--danger btn--sm" data-cancel-reserva="${r.id}">Cancelar</button>` : "—"}
+        </td>
+      </tr>`,
+        )
+        .join("");
+      reservasLoaded = true;
+
+      document.querySelectorAll("[data-cancel-reserva]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = (btn as HTMLElement).dataset.cancelReserva;
+          if (!confirm("¿Cancelar esta reserva?")) return;
+          try {
+            await apiFetch(`/reservations/${id}`, {
+              method: "PUT",
+              body: JSON.stringify({ estado: "cancelada" }),
+            });
+            toast("Reserva cancelada");
+            reservasLoaded = false;
+            homeLoaded = false;
+            loadMisReservas();
+            loadHome();
+          } catch {
+            toast("Error al cancelar", false);
+          }
+        });
+      });
+    } catch {
+      tbody.innerHTML =
+        '<tr><td colspan="5" class="student-empty">Error al cargar.</td></tr>';
+    }
+  }
+
+  /* ══════════════════════════════════
+     HISTORIAL (devueltos + vencidos)
+  ══════════════════════════════════ */
+  let historialLoaded = false;
+  async function loadHistorial() {
+    if (historialLoaded) return;
+    const tbody = document.getElementById("tbody-historial")!;
+    try {
+      const loans = await (await apiFetch(`/loans/usuario/${userId}`)).json();
+      const pasados = loans.filter(
+        (p: any) => p.estado === "devuelto" || p.estado === "vencido",
+      );
+      if (!pasados.length) {
+        tbody.innerHTML =
+          '<tr><td colspan="5" class="student-empty">No tienes historial aún.</td></tr>';
+        historialLoaded = true;
+        return;
+      }
+      tbody.innerHTML = pasados
+        .map(
+          (p: any) => `<tr>
+        <td>${esc(p.ejemplar?.libro?.titulo)}</td>
+        <td>${esc(p.ejemplar?.codigo)}</td>
+        <td>${fdate(p.fecha_inicio)}</td>
+        <td>${fdate(p.fecha_devolucion || p.fecha_vencimiento)}</td>
+        <td><span class="badge ${badgeClass(p.estado)}">${p.estado}</span></td>
+      </tr>`,
+        )
+        .join("");
+      historialLoaded = true;
+    } catch {
+      tbody.innerHTML =
+        '<tr><td colspan="5" class="student-empty">Error al cargar.</td></tr>';
+    }
+  }
+
+  /* ══════════════════════════════════
+     NOTIFICACIONES
+  ══════════════════════════════════ */
+  let notifsLoaded = false;
+  async function loadNotificaciones() {
+    if (notifsLoaded) return;
+    const container = document.getElementById("notif-list")!;
+    try {
+      // Load user-specific multas
+      let multas: any[] = [];
+      try {
+        multas = await (
+          await apiFetch(`/loans/multas/usuario/${userId}`)
+        ).json();
+      } catch {}
+
+      // Load user loans to check upcoming due dates
+      let proxVencimiento: any[] = [];
+      try {
+        const loans = await (await apiFetch(`/loans/usuario/${userId}`)).json();
+        proxVencimiento = loans.filter((p: any) => {
+          if (p.estado !== "activo" && p.estado !== "renovado") return false;
+          const days =
+            (new Date(p.fecha_vencimiento).getTime() - Date.now()) / 86400000;
+          return days <= 3 && days >= 0;
+        });
+      } catch {}
+
+      let html = "";
+
+      if (multas.length) {
+        html += multas
+          .map(
+            (m: any) => `<div class="notif-item notif-item--danger">
+          <span class="material-symbols-outlined">warning</span>
+          <div>
+            <strong>Multa pendiente</strong>
+            <p>Monto: $${m.monto} — Préstamo #${m.prestamo_id}</p>
+          </div>
+        </div>`,
+          )
+          .join("");
+      }
+
+      if (proxVencimiento.length) {
+        html += proxVencimiento
+          .map(
+            (p: any) => `<div class="notif-item notif-item--info">
+          <span class="material-symbols-outlined">schedule</span>
+          <div>
+            <strong>Próximo vencimiento</strong>
+            <p>"${p.ejemplar?.libro?.titulo || "Libro"}" vence el ${new Date(p.fecha_vencimiento).toLocaleDateString("es-MX")}.</p>
+          </div>
+        </div>`,
+          )
+          .join("");
+      }
+
+      if (!html)
+        html = '<p class="student-empty">No tienes notificaciones.</p>';
+      container.innerHTML = html;
+
+      // Update badge count
+      const count = multas.length;
+      const badge = document.getElementById("notif-count")!;
+      if (count > 0) {
+        badge.textContent = String(count);
+        badge.style.display = "flex";
+      }
+
+      notifsLoaded = true;
+    } catch {
+      container.innerHTML =
+        '<p class="student-empty">Error al cargar notificaciones.</p>';
+    }
+  }
+
+  // Load notification count on startup
+  loadNotificaciones();
 </script>

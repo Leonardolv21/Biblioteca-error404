@@ -9,7 +9,7 @@ const authenticate = async (req, res, next) => {
         }
 
         const token = authHeader.substring(7);
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'tu_clave_secreta');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_local_dev');
 
         const usuario = await Usuario.findByPk(decoded.id, {
             include: [{ model: require('../models/Rol'), as: 'rol' }],
