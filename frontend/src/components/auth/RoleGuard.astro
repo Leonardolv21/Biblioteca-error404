@@ -4,7 +4,6 @@ const roles = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
 ---
 
 <script define:vars={{ roles, redirectTo }}>
-  // define:vars blocks cannot use import — read sessionStorage directly
   const SESSION_KEY = "biblioteca_session";
   let session = null;
   try {
@@ -22,7 +21,6 @@ const roles = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
 </script>
 
 <script>
-  // Cross-tab logout listener (storage event only fires in OTHER tabs).
   const redirectTo = "/login";
 
   window.addEventListener("storage", (event) => {

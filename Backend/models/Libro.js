@@ -1,29 +1,29 @@
 const { DataTypes } = require('sequelize');
-const sequelize     = require('../config/database');
+const sequelize = require('../config/database');
 
 const Libro = sequelize.define('Libro', {
   id: {
-    type:          DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
-    primaryKey:    true,
+    primaryKey: true,
   },
   titulo: {
-    type:      DataTypes.STRING(300),
+    type: DataTypes.STRING(300),
     allowNull: false,
   },
   autor: {
-    type:      DataTypes.STRING(200),
+    type: DataTypes.STRING(200),
     allowNull: false,
   },
   editorial: {
     type: DataTypes.STRING(150),
   },
   isbn: {
-    type:   DataTypes.STRING(20),
+    type: DataTypes.STRING(20),
     unique: true,
   },
   anio: {
-    type:     DataTypes.INTEGER,
+    type: DataTypes.INTEGER,
     validate: { min: 1000, max: new Date().getFullYear() + 1 },
   },
   categoria_id: {
@@ -32,17 +32,21 @@ const Libro = sequelize.define('Libro', {
   descripcion: {
     type: DataTypes.TEXT,
   },
+  palabras_clave: {
+    type: DataTypes.STRING(500),
+    comment: 'Palabras clave separadas por coma para búsquedas rápidas',
+  },
   imagen_url: {
-    type:     DataTypes.STRING(500),
+    type: DataTypes.STRING(500),
     validate: { isUrl: true },
-  },  
+  },
   ejemplares: {
-    type:         DataTypes.INTEGER.UNSIGNED,
-    allowNull:    false,
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
     defaultValue: 1,
   },
 }, {
-  tableName:  'libros',
+  tableName: 'libros',
   timestamps: true,
 });
 

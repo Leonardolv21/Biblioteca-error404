@@ -31,7 +31,7 @@ import "../../styles/catalog.css";
           <span class="material-symbols-outlined">search</span>
           <input
             type="text"
-            placeholder="Buscar por título o autor..."
+            placeholder="Buscar por título, autor, ISBN o palabra clave..."
             data-catalog-search
           />
         </div>
@@ -110,20 +110,17 @@ import "../../styles/catalog.css";
   let allBooks: any[] = [];
   let currentCategory = "all";
 
-  // Build auth headers if user is logged in
   function authHeaders(): Record<string, string> {
     const token = session?.token;
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
-  // Load books from real backend
   async function loadCatalog() {
     try {
       const res = await fetch(`${API_BASE}/libros`, { headers: authHeaders() });
       const books = await res.json();
       allBooks = books;
 
-      // For each book, load ejemplares to determine status
       await Promise.all(
         books.map(async (book: any) => {
           try {
@@ -198,11 +195,17 @@ import "../../styles/catalog.css";
     const filtered = allBooks.filter((b) => {
       const title = (b.titulo || "").toLowerCase();
       const author = (b.autor || "").toLowerCase();
+      const isbn = (b.isbn || "").toLowerCase();
+      const keywords = (b.palabras_clave || "").toLowerCase();
       const cat = b.categoria?.nombre || "Sin categoría";
       const year = Number(b.anio) || 0;
 
       const matchSearch =
-        !search || title.includes(search) || author.includes(search);
+        !search ||
+        title.includes(search) ||
+        author.includes(search) ||
+        isbn.includes(search) ||
+        keywords.includes(search);
       const matchCat = currentCategory === "all" || cat === currentCategory;
       const matchAvail = !availableOnly || b._status === "Disponible";
       const matchYear = matchesYear(year, yearRange);
@@ -228,6 +231,15 @@ import "../../styles/catalog.css";
           ? `${API_BASE.replace("/api", "")}/uploads/${b.imagen_url}`
           : "";
         const isAvail = b._status === "Disponible";
+        const fechasPrestado = (b._ejemplares || [])
+          .filter(
+            (e: any) => e.estado === "prestado" && e.fecha_devolucion_estimada,
+          )
+          .map((e: any) => new Date(e.fecha_devolucion_estimada).getTime())
+          .filter((t: number) => !Number.isNaN(t));
+        const fechaEstimada = fechasPrestado.length
+          ? new Date(Math.min(...fechasPrestado)).toLocaleDateString("es-MX")
+          : null;
         return `<article class="catalog-book-card ${!isAvail ? "is-offset" : ""}">
         <div class="catalog-book-card__image">
           ${imgUrl ? `<img src="${imgUrl}" alt="${b.titulo}" />` : `<div style="width:100%;height:100%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:0.8rem;">Sin imagen</div>`}
@@ -240,12 +252,13 @@ import "../../styles/catalog.css";
           </div>
           <h3>${b.titulo}</h3>
           <p>${b.autor || "—"}, ${b.anio || "—"}</p>
+          ${!isAvail && fechaEstimada ? `<p style="margin-top:0.25rem;color:#b45309;font-size:0.78rem;">Disponible estimado: ${fechaEstimada}</p>` : ""}
           <div class="catalog-book-card__actions" style="display:flex;gap:0.5rem;margin-top:auto;">
             <button class="catalog-book-card__button" data-detail-book="${b.id}" style="flex:1;">Ver detalles</button>
             ${
               session?.role === "estudiante"
                 ? isAvail
-                  ? `<span style="flex:1;text-align:center;font-size:0.75rem;color:#16a34a;padding:0.5rem;border:1px solid #bbf7d0;border-radius:8px;display:flex;align-items:center;justify-content:center;">Disponible — solicita préstamo al bibliotecario</span>`
+                  ? `<button class="catalog-book-card__button" data-request-loan="${b.id}" style="flex:1;background:#16a34a;color:#fff;">Solicitar préstamo</button>`
                   : `<button class="catalog-book-card__button" data-reserve-book="${b.id}" style="flex:1;background:#1a237e;color:#fff;">Reservar</button>`
                 : !session
                   ? `<a href="/login" class="catalog-book-card__button" style="flex:1;text-align:center;">Iniciar sesión</a>`
@@ -257,7 +270,6 @@ import "../../styles/catalog.css";
       })
       .join("");
 
-    // Attach detail buttons — show modal with book info
     document.querySelectorAll("[data-detail-book]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const bookId = Number((btn as HTMLElement).dataset.detailBook);
@@ -294,10 +306,10 @@ import "../../styles/catalog.css";
                 <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Ejemplares:</strong> ${book._disponibles} disponibles de ${ejemplares.length} total</p>
                 <table style="width:100%;margin-top:0.75rem;font-size:0.85rem;border-collapse:collapse;">
                   <thead><tr style="border-bottom:1px solid #e2e8f0;text-align:left;">
-                    <th style="padding:0.3rem 0.5rem;">Código</th><th style="padding:0.3rem 0.5rem;">Estado</th>
+                    <th style="padding:0.3rem 0.5rem;">Código</th><th style="padding:0.3rem 0.5rem;">Estado</th><th style="padding:0.3rem 0.5rem;">Devolución estimada</th>
                   </tr></thead>
                   <tbody>
-                    ${ejemplares.length ? ejemplares.map((ej: any) => `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:0.3rem 0.5rem;">${ej.codigo}</td><td style="padding:0.3rem 0.5rem;"><span style="color:${ej.estado === "disponible" ? "#16a34a" : "#dc2626"};">${ej.estado}</span></td></tr>`).join("") : '<tr><td colspan="2" style="padding:0.5rem;color:#94a3b8;">Sin ejemplares</td></tr>'}
+                    ${ejemplares.length ? ejemplares.map((ej: any) => `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:0.3rem 0.5rem;">${ej.codigo}</td><td style="padding:0.3rem 0.5rem;"><span style="color:${ej.estado === "disponible" ? "#16a34a" : "#dc2626"};">${ej.estado}</span></td><td style="padding:0.3rem 0.5rem;">${ej.fecha_devolucion_estimada ? new Date(ej.fecha_devolucion_estimada).toLocaleDateString("es-MX") : "—"}</td></tr>`).join("") : '<tr><td colspan="3" style="padding:0.5rem;color:#94a3b8;">Sin ejemplares</td></tr>'}
                   </tbody>
                 </table>
               </div>
@@ -313,8 +325,36 @@ import "../../styles/catalog.css";
       });
     });
 
-    // Attach reserve buttons for logged students
     if (session?.role === "estudiante") {
+      document.querySelectorAll("[data-request-loan]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const bookId = (btn as HTMLElement).dataset.requestLoan;
+          const book = allBooks.find((b: any) => b.id === Number(bookId));
+          if (!confirm(`¿Solicitar préstamo de "${book?.titulo}"?`)) return;
+          try {
+            const res = await apiFetch("/reservations", {
+              method: "POST",
+              body: JSON.stringify({
+                libro_id: Number(bookId),
+                usuario_id: session.id,
+                solicitar_prestamo: true,
+              }),
+            });
+            if (!res.ok) {
+              const err = await res.json();
+              throw new Error(err.error || "Error al solicitar préstamo");
+            }
+            showToast(
+              "Solicitud enviada. El bibliotecario debe confirmar la entrega.",
+              true,
+            );
+            loadCatalog();
+          } catch (e: any) {
+            showToast(e.message || "No se pudo solicitar el préstamo", false);
+          }
+        });
+      });
+
       document.querySelectorAll("[data-reserve-book]").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const bookId = (btn as HTMLElement).dataset.reserveBook;

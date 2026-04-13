@@ -641,9 +641,6 @@
   }
 }
 
-/* ══════════════════════════════════
-   STUDENT PAGE SWITCHING
-══════════════════════════════════ */
 .student-page {
   display: none;
 }
@@ -652,9 +649,6 @@
   display: block;
 }
 
-/* ══════════════════════════════════
-   STUDENT TABLES
-══════════════════════════════════ */
 .student-table-wrap {
   background: #fff;
   border-radius: 14px;
@@ -692,9 +686,6 @@
   background: #f8fafc;
 }
 
-/* ══════════════════════════════════
-   BADGES (reuse in student)
-══════════════════════════════════ */
 .badge {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -729,9 +720,6 @@
   color: #475569;
 }
 
-/* ══════════════════════════════════
-   BUTTONS (reuse in student)
-══════════════════════════════════ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -775,9 +763,6 @@
   font-size: 0.78rem;
 }
 
-/* ══════════════════════════════════
-   EMPTY / LOADING STATES
-══════════════════════════════════ */
 .student-loading,
 .student-empty {
   text-align: center;
@@ -790,9 +775,6 @@
   color: #94a3b8;
 }
 
-/* ══════════════════════════════════
-   TOPBAR BUTTON STYLE
-══════════════════════════════════ */
 .student-topbar__btn {
   background: none;
   border: none;
@@ -802,9 +784,6 @@
   padding: 0;
 }
 
-/* ══════════════════════════════════
-   NOTIFICATION BADGE
-══════════════════════════════════ */
 .notif-badge {
   position: absolute;
   top: -4px;
@@ -825,9 +804,6 @@
   position: relative;
 }
 
-/* ══════════════════════════════════
-   NOTIFICATION LIST
-══════════════════════════════════ */
 .notif-list {
   display: flex;
   flex-direction: column;
@@ -878,9 +854,6 @@
   margin: 0;
 }
 
-/* ══════════════════════════════════
-   TOAST (reuse in student)
-══════════════════════════════════ */
 .toast {
   position: fixed;
   bottom: 1.5rem;
@@ -925,9 +898,6 @@
   }
 }
 
-/* ══════════════════════════════════
-   SECTION LINK BUTTON
-══════════════════════════════════ */
 .section-link {
   background: none;
   border: none;
