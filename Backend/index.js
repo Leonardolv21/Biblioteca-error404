@@ -5,7 +5,6 @@ const app = express();
 const { sequelize } = require('./models');
 const bcrypt = require('bcryptjs');
 const { Usuario, Rol } = require('./models');
-const { runDbMigrations } = require('./utils/dbMigrations');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,7 +44,6 @@ const PORT = process.env.PORT;
 sequelize.authenticate()
   .then(async () => {
     console.log('Conectado a MySQL');
-    await runDbMigrations();
     await seedAdmin();
     app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
   })

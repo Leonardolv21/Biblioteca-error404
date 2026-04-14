@@ -7,51 +7,18 @@ const Ejemplar = require('../models/Ejemplar');
 
 const getLibros = async (req, res) => {
   try {
-    const { titulo, autor, categoria_id, isbn, q, keyword, categoria } = req.query;
+    const { titulo, autor, categoria_id } = req.query;
     const where = {};
-    const orConditions = [];
 
-    if (titulo) where.titulo = { [Op.like]: `%${titulo}%` };
-    if (autor) where.autor = { [Op.like]: `%${autor}%` };
+    if (titulo)       where.titulo       = { [Op.like]: `%${titulo}%` };
+    if (autor)        where.autor        = { [Op.like]: `%${autor}%` };
     if (categoria_id) where.categoria_id = categoria_id;
-    if (isbn) where.isbn = { [Op.like]: `%${isbn}%` };
-
-    if (q) {
-      orConditions.push(
-        { titulo: { [Op.like]: `%${q}%` } },
-        { autor: { [Op.like]: `%${q}%` } },
-        { isbn: { [Op.like]: `%${q}%` } },
-        { descripcion: { [Op.like]: `%${q}%` } },
-        { palabras_clave: { [Op.like]: `%${q}%` } },
-      );
-    }
-
-    if (keyword) {
-      orConditions.push(
-        { descripcion: { [Op.like]: `%${keyword}%` } },
-        { palabras_clave: { [Op.like]: `%${keyword}%` } },
-        { titulo: { [Op.like]: `%${keyword}%` } },
-        { autor: { [Op.like]: `%${keyword}%` } },
-      );
-    }
-
-    if (orConditions.length) {
-      where[Op.and] = [
-        ...(where[Op.and] || []),
-        { [Op.or]: orConditions },
-      ];
-    }
-
-    const categoriaInclude = { model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] };
-    if (categoria) {
-      categoriaInclude.where = { nombre: { [Op.like]: `%${categoria}%` } };
-    }
 
     const libros = await Libro.findAll({
       where,
       include: [
-        categoriaInclude,
-        { model: Ejemplar, as: 'copias', attributes: ['id', 'codigo', 'estado'] },
+        { model: Categoria, as: 'categoria', attributes: ['id', 'nombre'] },
+        { model: Ejemplar,  as: 'copias', attributes: ['id', 'codigo', 'estado'] },
       ],
       order: [['createdAt', 'DESC']],
     });

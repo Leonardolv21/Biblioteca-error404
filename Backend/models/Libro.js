@@ -32,10 +32,6 @@ const Libro = sequelize.define('Libro', {
   descripcion: {
     type: DataTypes.TEXT,
   },
-  palabras_clave: {
-    type: DataTypes.STRING(500),
-    comment: 'Palabras clave separadas por coma para búsquedas rápidas',
-  },
   imagen_url: {
     type: DataTypes.STRING(500),
     validate: { isUrl: true },

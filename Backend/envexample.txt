@@ -13,5 +13,6 @@ NODE_ENV=development
 #npm install express sequelize mysql2 dotenv bcryptjs jsonwebtoken cors
 #npm install -D nodemon
 #npm install multer
+#npm instal xlsx
 #Y lo corres con 
 #nodemon index.js
