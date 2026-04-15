@@ -134,10 +134,26 @@ const crearReserva = async (req, res) => {
         };
 
         if (ejemplaresDisponibles > 0 && solicitar_prestamo) {
-            const ejemplarDisponible = await Ejemplar.findOne({
-                where: { libro_id, estado: 'disponible' },
-                order: [['id', 'ASC']],
-            });
+            let ejemplarDisponible = null;
+
+            if (ejemplar_id) {
+                ejemplarDisponible = await Ejemplar.findOne({
+                    where: { id: ejemplar_id, libro_id },
+                });
+
+                if (!ejemplarDisponible) {
+                    return res.status(400).json({ error: 'El ejemplar seleccionado no pertenece al libro' });
+                }
+
+                if (ejemplarDisponible.estado !== 'disponible') {
+                    return res.status(400).json({ error: 'El ejemplar seleccionado ya no está disponible' });
+                }
+            } else {
+                ejemplarDisponible = await Ejemplar.findOne({
+                    where: { libro_id, estado: 'disponible' },
+                    order: [['id', 'ASC']],
+                });
+            }
 
             if (!ejemplarDisponible) {
                 return res.status(400).json({ error: 'No se encontró un ejemplar disponible para generar la solicitud' });

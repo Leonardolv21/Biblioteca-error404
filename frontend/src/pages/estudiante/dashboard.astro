@@ -535,15 +535,24 @@ import "../../styles/student-dashboard.css";
 
       if (multas.length) {
         html += multas
-          .map(
-            (m: any) => `<div class="notif-item notif-item--danger">
+          .map((m: any) => {
+            const tituloLibro = m.prestamo?.ejemplar?.libro?.titulo || "Libro";
+            const fechaVencimiento = m.prestamo?.fecha_vencimiento
+              ? new Date(m.prestamo.fecha_vencimiento).toLocaleDateString(
+                  "es-MX",
+                )
+              : "fecha no disponible";
+            const diasRetraso = Number(m.dias_retraso) || 0;
+            const diasTexto = `${diasRetraso} día${diasRetraso === 1 ? "" : "s"}`;
+
+            return `<div class="notif-item notif-item--danger">
           <span class="material-symbols-outlined">warning</span>
           <div>
             <strong>Multa pendiente</strong>
-            <p>Monto: $${m.monto} — Préstamo #${m.prestamo_id}</p>
+            <p>"${tituloLibro}" debía devolverse el ${fechaVencimiento}. Te pasaste por ${diasTexto}. Monto: $${m.monto}</p>
           </div>
-        </div>`,
-          )
+        </div>`;
+          })
           .join("");
       }
 
