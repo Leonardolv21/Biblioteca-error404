@@ -31,7 +31,7 @@ import "../../styles/catalog.css";
           <span class="material-symbols-outlined">search</span>
           <input
             type="text"
-            placeholder="Buscar por título, autor, ISBN o palabra clave..."
+            placeholder="Buscar por título, autor o ISBN..."
             data-catalog-search
           />
         </div>
@@ -139,7 +139,9 @@ import "../../styles/catalog.css";
       const data = await res.json();
       const arr = Array.isArray(data) ? data : [];
       // The endpoint returns full book objects with field `id`
-      popularBooksOrder = arr.map((b: any) => Number(b.id ?? b.libro_id ?? b.book_id)).filter(Boolean);
+      popularBooksOrder = arr
+        .map((b: any) => Number(b.id ?? b.libro_id ?? b.book_id))
+        .filter(Boolean);
       popularBookIds = new Set(popularBooksOrder);
       console.log("📚 Libros más solicitados IDs:", [...popularBookIds]);
     } catch (err) {
@@ -242,7 +244,6 @@ import "../../styles/catalog.css";
       const title = (b.titulo || "").toLowerCase();
       const author = (b.autor || "").toLowerCase();
       const isbn = (b.isbn || "").toLowerCase();
-      const keywords = (b.palabras_clave || "").toLowerCase();
       const cat = b.categoria?.nombre || "Sin categoría";
       const year = Number(b.anio) || 0;
 
@@ -250,8 +251,7 @@ import "../../styles/catalog.css";
         !search ||
         title.includes(search) ||
         author.includes(search) ||
-        isbn.includes(search) ||
-        keywords.includes(search);
+        isbn.includes(search);
       const matchCat = currentCategory === "all" || cat === currentCategory;
       const matchAvail = !availableOnly || b._status === "Disponible";
       const matchYear = matchesYear(year, yearRange);
