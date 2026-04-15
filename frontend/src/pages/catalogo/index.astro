@@ -254,12 +254,14 @@ import "../../styles/catalog.css";
           <p>${b.autor || "—"}, ${b.anio || "—"}</p>
           ${!isAvail && fechaEstimada ? `<p style="margin-top:0.25rem;color:#b45309;font-size:0.78rem;">Disponible estimado: ${fechaEstimada}</p>` : ""}
           <div class="catalog-book-card__actions" style="display:flex;gap:0.5rem;margin-top:auto;">
-            <button class="catalog-book-card__button" data-detail-book="${b.id}" style="flex:1;">Ver detalles</button>
             ${
-              session?.role === "estudiante"
-                ? isAvail
-                  ? `<button class="catalog-book-card__button" data-request-loan="${b.id}" style="flex:1;background:#16a34a;color:#fff;">Solicitar préstamo</button>`
-                  : `<button class="catalog-book-card__button" data-reserve-book="${b.id}" style="flex:1;background:#1a237e;color:#fff;">Reservar</button>`
+              session?.role === "estudiante" && isAvail
+                ? `<button class="catalog-book-card__button" data-detail-book="${b.id}" style="flex:1;background:#16a34a;color:#fff;">Elegir ejemplar</button>`
+                : `<button class="catalog-book-card__button" data-detail-book="${b.id}" style="flex:1;">Ver detalles</button>`
+            }
+            ${
+              session?.role === "estudiante" && !isAvail
+                ? `<button class="catalog-book-card__button" data-reserve-book="${b.id}" style="flex:1;background:#1a237e;color:#fff;">Reservar</button>`
                 : !session
                   ? `<a href="/login" class="catalog-book-card__button" style="flex:1;text-align:center;">Iniciar sesión</a>`
                   : ""
@@ -306,16 +308,69 @@ import "../../styles/catalog.css";
                 <p style="margin:0.3rem 0;color:#475569;font-size:0.9rem;"><strong>Ejemplares:</strong> ${book._disponibles} disponibles de ${ejemplares.length} total</p>
                 <table style="width:100%;margin-top:0.75rem;font-size:0.85rem;border-collapse:collapse;">
                   <thead><tr style="border-bottom:1px solid #e2e8f0;text-align:left;">
-                    <th style="padding:0.3rem 0.5rem;">Código</th><th style="padding:0.3rem 0.5rem;">Estado</th><th style="padding:0.3rem 0.5rem;">Devolución estimada</th>
+                    <th style="padding:0.3rem 0.5rem;">Código</th><th style="padding:0.3rem 0.5rem;">Estado</th><th style="padding:0.3rem 0.5rem;">Devolución estimada</th><th style="padding:0.3rem 0.5rem;">Acción</th>
                   </tr></thead>
                   <tbody>
-                    ${ejemplares.length ? ejemplares.map((ej: any) => `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:0.3rem 0.5rem;">${ej.codigo}</td><td style="padding:0.3rem 0.5rem;"><span style="color:${ej.estado === "disponible" ? "#16a34a" : "#dc2626"};">${ej.estado}</span></td><td style="padding:0.3rem 0.5rem;">${ej.fecha_devolucion_estimada ? new Date(ej.fecha_devolucion_estimada).toLocaleDateString("es-MX") : "—"}</td></tr>`).join("") : '<tr><td colspan="3" style="padding:0.5rem;color:#94a3b8;">Sin ejemplares</td></tr>'}
+                    ${ejemplares.length ? ejemplares.map((ej: any) => `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:0.3rem 0.5rem;">${ej.codigo}</td><td style="padding:0.3rem 0.5rem;"><span style="color:${ej.estado === "disponible" ? "#16a34a" : "#dc2626"};">${ej.estado}</span></td><td style="padding:0.3rem 0.5rem;">${ej.fecha_devolucion_estimada ? new Date(ej.fecha_devolucion_estimada).toLocaleDateString("es-MX") : "—"}</td><td style="padding:0.3rem 0.5rem;">${session?.role === "estudiante" && ej.estado === "disponible" ? `<button data-request-copy="${ej.id}" data-request-book="${book.id}" style="background:#2563eb;color:#fff;border:none;border-radius:0.4rem;padding:0.35rem 0.55rem;cursor:pointer;font-size:0.78rem;font-weight:600;">Quiero este ejemplar</button>` : "—"}</td></tr>`).join("") : '<tr><td colspan="4" style="padding:0.5rem;color:#94a3b8;">Sin ejemplares</td></tr>'}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>`;
         document.body.appendChild(overlay);
+        overlay.querySelectorAll("[data-request-copy]").forEach((copyBtn) => {
+          copyBtn.addEventListener("click", async () => {
+            if (!session) {
+              showToast("Inicia sesión para solicitar un ejemplar", false);
+              window.location.href = `/login?intent=loan&next=${encodeURIComponent(window.location.pathname)}`;
+              return;
+            }
+
+            const ejemplarId = Number(
+              (copyBtn as HTMLElement).getAttribute("data-request-copy"),
+            );
+            const libroId = Number(
+              (copyBtn as HTMLElement).getAttribute("data-request-book"),
+            );
+            if (!ejemplarId || !libroId) {
+              showToast("No se pudo identificar el ejemplar", false);
+              return;
+            }
+
+            if (
+              !confirm(
+                `¿Solicitar el ejemplar ${ejemplarId} de "${book.titulo}"?`,
+              )
+            ) {
+              return;
+            }
+
+            try {
+              const res = await apiFetch("/reservations", {
+                method: "POST",
+                body: JSON.stringify({
+                  libro_id: libroId,
+                  ejemplar_id: ejemplarId,
+                  usuario_id: session.id,
+                  solicitar_prestamo: true,
+                }),
+              });
+              if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || "Error al solicitar el ejemplar");
+              }
+
+              showToast(
+                "Solicitud enviada para el ejemplar seleccionado.",
+                true,
+              );
+              overlay.remove();
+              loadCatalog();
+            } catch (e: any) {
+              showToast(e.message || "No se pudo solicitar el ejemplar", false);
+            }
+          });
+        });
         overlay
           .querySelector(".detail-close")!
           .addEventListener("click", () => overlay.remove());
@@ -326,35 +381,6 @@ import "../../styles/catalog.css";
     });
 
     if (session?.role === "estudiante") {
-      document.querySelectorAll("[data-request-loan]").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const bookId = (btn as HTMLElement).dataset.requestLoan;
-          const book = allBooks.find((b: any) => b.id === Number(bookId));
-          if (!confirm(`¿Solicitar préstamo de "${book?.titulo}"?`)) return;
-          try {
-            const res = await apiFetch("/reservations", {
-              method: "POST",
-              body: JSON.stringify({
-                libro_id: Number(bookId),
-                usuario_id: session.id,
-                solicitar_prestamo: true,
-              }),
-            });
-            if (!res.ok) {
-              const err = await res.json();
-              throw new Error(err.error || "Error al solicitar préstamo");
-            }
-            showToast(
-              "Solicitud enviada. El bibliotecario debe confirmar la entrega.",
-              true,
-            );
-            loadCatalog();
-          } catch (e: any) {
-            showToast(e.message || "No se pudo solicitar el préstamo", false);
-          }
-        });
-      });
-
       document.querySelectorAll("[data-reserve-book]").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const bookId = (btn as HTMLElement).dataset.reserveBook;

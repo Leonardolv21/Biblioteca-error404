@@ -159,6 +159,24 @@ const { book } = Astro.props as Props;
             primero.
           </div>
 
+          <div
+            style="margin: 1.5rem 0; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.75rem;"
+          >
+            <button
+              id="btn-quiero-libro"
+              style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.95rem; font-weight: 500;"
+            >
+              <span
+                class="material-symbols-outlined"
+                style="font-size: 1.25rem;">bookmark</span
+              >
+              <span id="texto-quiero">Quiero este libro</span>
+            </button>
+            <small style="color: #666; flex: 1;"
+              >Guarda en tu lista personal que te interesa este libro</small
+            >
+          </div>
+
           <BookCopiesTable copies={book.copies} />
         </div>
       </section>
@@ -300,4 +318,70 @@ const { book } = Astro.props as Props;
       window.location.href = result.user.dashboard;
     }
   });
+
+  // Manejar botón "Quiero este libro"
+  const btnQuiero = document.getElementById("btn-quiero-libro");
+  const textoQuiero = document.getElementById("texto-quiero");
+  const bookId = window.location.pathname.split("/").pop();
+
+  function mostrarToast(msg: string, tipo = "info") {
+    const toast = document.createElement("div");
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: ${tipo === "error" ? "#ef4444" : tipo === "exito" ? "#10b981" : "#3b82f6"};
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.375rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  }
+
+  if (btnQuiero) {
+    btnQuiero.addEventListener("click", () => {
+      const session = getSession();
+      if (!session) {
+        mostrarToast(
+          "Inicia sesión para guardar libros que te interesan",
+          "error",
+        );
+        window.location.href =
+          "/login?intent=wishlist&next=" + window.location.pathname;
+        return;
+      }
+
+      let listaQuiero = JSON.parse(
+        localStorage.getItem("libros_que_quiero") || "[]",
+      );
+      const yaEnLista = listaQuiero.includes(bookId);
+
+      if (yaEnLista) {
+        listaQuiero = listaQuiero.filter((id: string) => id !== bookId);
+        textoQuiero!.textContent = "Quiero este libro";
+        btnQuiero.style.background = "#3b82f6";
+        mostrarToast("Libro removido de tu lista", "exito");
+      } else {
+        listaQuiero.push(bookId);
+        textoQuiero!.textContent = "✓ Guardado";
+        btnQuiero.style.background = "#10b981";
+        mostrarToast("Libro guardado en tu lista", "exito");
+      }
+
+      localStorage.setItem("libros_que_quiero", JSON.stringify(listaQuiero));
+    });
+
+    // Verificar si el libro ya está en la lista
+    const listaQuiero = JSON.parse(
+      localStorage.getItem("libros_que_quiero") || "[]",
+    );
+    if (listaQuiero.includes(bookId)) {
+      textoQuiero!.textContent = "✓ Guardado";
+      btnQuiero.style.background = "#10b981";
+    }
+  }
 </script>

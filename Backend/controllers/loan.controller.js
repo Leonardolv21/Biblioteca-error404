@@ -146,6 +146,19 @@ const listarMultasPorUsuario = async (req, res) => {
     try {
         const multas = await Multa.findAll({
             where: { usuario_id: req.params.usuarioId },
+            include: [
+                {
+                    model: Prestamo,
+                    as: 'prestamo',
+                    include: [
+                        {
+                            model: Ejemplar,
+                            as: 'ejemplar',
+                            include: [{ model: Libro, as: 'libro' }],
+                        },
+                    ],
+                },
+            ],
             order: [['createdAt', 'DESC']],
         });
         return res.json(multas);

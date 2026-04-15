@@ -90,6 +90,23 @@ import "../../styles/admin-dashboard.css";
             </tbody>
           </table>
         </div>
+
+        <div class="admin-table-wrap" style="margin-top: 2rem;">
+          <div class="admin-table-toolbar">
+            <h2>Solicitudes de Préstamo Online</h2>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Usuario</th><th>Libro</th><th>Ejemplar</th>
+                <th>Fecha Solicitud</th><th>Estado</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-solicitudes">
+              <tr><td colspan="7" class="admin-loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="admin-section" id="sec-reservas">
@@ -171,7 +188,10 @@ import "../../styles/admin-dashboard.css";
       btn.classList.add("is-active");
       sections.forEach((s) => s.classList.remove("is-active"));
       document.getElementById(`sec-${target}`)?.classList.add("is-active");
-      if (target === "prestamos") loadPrestamos();
+      if (target === "prestamos") {
+        loadPrestamos();
+        loadSolicitudes();
+      }
       if (target === "reservas") loadReservas();
     });
   });
@@ -257,6 +277,107 @@ import "../../styles/admin-dashboard.css";
       document.getElementById("stats-prestamos")!.innerHTML =
         '<div class="admin-empty">Error</div>';
     }
+  }
+
+  let solicitudesData: any[] = [];
+
+  async function loadSolicitudes() {
+    try {
+      const allReservas = await (await apiFetch("/reservations")).json();
+      // Filtrar: solicitudes online son reservas con estado='disponible'
+      solicitudesData = allReservas.filter(
+        (r: any) => r.estado === "disponible",
+      );
+      renderSolicitudes(solicitudesData);
+    } catch {
+      document.getElementById("tbody-solicitudes")!.innerHTML =
+        '<tr><td colspan="7" class="admin-empty">Error al cargar</td></tr>';
+    }
+  }
+
+  function renderSolicitudes(list: any[]) {
+    const tbody = document.getElementById("tbody-solicitudes")!;
+    if (!list.length) {
+      tbody.innerHTML =
+        '<tr><td colspan="7" class="admin-empty">No hay solicitudes pendientes</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list
+      .map(
+        (s: any) => `<tr>
+      <td>${s.id}</td>
+      <td>${esc(s.usuario?.nombre)} ${esc(s.usuario?.apellido)}</td>
+      <td>${esc(s.libro?.titulo)}</td>
+      <td>${esc(s.ejemplar?.codigo || s.ejemplar_id)}</td>
+      <td>${fdate(s.fecha_reserva)}</td>
+      <td><span class="badge badge--blue">pendiente</span></td>
+      <td class="action-cell">
+        <button class="btn btn--success btn--sm" data-accept-req="${s.id}">Aceptar</button>
+        <button class="btn btn--outline btn--sm" data-reject-req="${s.id}">Rechazar</button>
+      </td></tr>`,
+      )
+      .join("");
+    attachSolicitudActions();
+  }
+
+  function attachSolicitudActions() {
+    document.querySelectorAll("[data-accept-req]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.acceptReq;
+        try {
+          // Aceptar = convertir reserva a préstamo
+          const solicitud = solicitudesData.find((s: any) => s.id == id);
+          if (!solicitud || !solicitud.ejemplar_id) {
+            toast("Solicitud inválida", false);
+            return;
+          }
+          // Crear préstamo
+          const today = new Date().toISOString().split("T")[0];
+          const venc = new Date(Date.now() + 14 * 86400000)
+            .toISOString()
+            .split("T")[0];
+          await apiFetch("/loans", {
+            method: "POST",
+            body: JSON.stringify({
+              usuario_id: solicitud.usuario_id,
+              ejemplar_id: solicitud.ejemplar_id,
+              bibliotecario_id: session?.id,
+              fecha_inicio: today,
+              fecha_vencimiento: venc,
+            }),
+          });
+          // Marcar solicitud como completada
+          await apiFetch(`/reservations/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ estado: "completada" }),
+          });
+          toast("Solicitud aceptada, préstamo creado");
+          reservasLoaded = false;
+          prestamosLoaded = false;
+          loadSolicitudes();
+          loadPrestamos(true);
+        } catch (err) {
+          console.error(err);
+          toast("Error al aceptar solicitud", false);
+        }
+      });
+    });
+    document.querySelectorAll("[data-reject-req]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = (btn as HTMLElement).dataset.rejectReq;
+        try {
+          await apiFetch(`/reservations/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({ estado: "cancelada" }),
+          });
+          toast("Solicitud rechazada");
+          reservasLoaded = false;
+          loadSolicitudes();
+        } catch {
+          toast("Error al rechazar solicitud", false);
+        }
+      });
+    });
   }
 
   function filterPrestamos() {
@@ -458,7 +579,9 @@ import "../../styles/admin-dashboard.css";
   async function loadReservas(force = false) {
     if (reservasLoaded && !force) return;
     try {
-      reservasData = await (await apiFetch("/reservations")).json();
+      const allReservas = await (await apiFetch("/reservations")).json();
+      // Excluir solicitudes online (estado='disponible')
+      reservasData = allReservas.filter((r: any) => r.estado !== "disponible");
       renderReservas(reservasData);
       reservasLoaded = true;
     } catch {
@@ -542,4 +665,5 @@ import "../../styles/admin-dashboard.css";
   }
 
   loadPrestamos();
+  loadSolicitudes();
 </script>
