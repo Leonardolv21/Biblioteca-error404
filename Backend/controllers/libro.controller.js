@@ -7,7 +7,7 @@ const Ejemplar = require('../models/Ejemplar');
 
 const getLibros = async (req, res) => {
   try {
-    const { titulo, autor, categoria_id, isbn, q, keyword, categoria } = req.query;
+    const { titulo, autor, categoria_id, isbn, q, categoria } = req.query;
     const where = {};
     const orConditions = [];
 
@@ -22,16 +22,6 @@ const getLibros = async (req, res) => {
         { autor: { [Op.like]: `%${q}%` } },
         { isbn: { [Op.like]: `%${q}%` } },
         { descripcion: { [Op.like]: `%${q}%` } },
-        { palabras_clave: { [Op.like]: `%${q}%` } },
-      );
-    }
-
-    if (keyword) {
-      orConditions.push(
-        { descripcion: { [Op.like]: `%${keyword}%` } },
-        { palabras_clave: { [Op.like]: `%${keyword}%` } },
-        { titulo: { [Op.like]: `%${keyword}%` } },
-        { autor: { [Op.like]: `%${keyword}%` } },
       );
     }
 
