@@ -48,7 +48,6 @@ CREATE TABLE libros (
   anio         SMALLINT,
   categoria_id INT UNSIGNED,
   descripcion  TEXT,
-  palabras_clave VARCHAR(500),
   imagen_url   VARCHAR(500),
   ejemplares   INT,
   createdAt    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

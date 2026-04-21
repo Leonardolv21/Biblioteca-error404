@@ -68,13 +68,13 @@ const getLibroPorId = async (req, res) => {
 };
 
 const crearLibro = async (req, res) => {
-  const { titulo, autor, editorial, isbn, anio, categoria_id, descripcion, palabras_clave, ejemplares } = req.body;
+  const { titulo, autor, editorial, isbn, anio, categoria_id, descripcion, ejemplares } = req.body;
   try {
     const imagen_url = req.file ? req.file.filename : null;
 
     const libro = await Libro.create({
       titulo, autor, editorial, isbn, anio,
-      categoria_id, descripcion, palabras_clave, imagen_url, ejemplares,
+      categoria_id, descripcion, imagen_url, ejemplares,
     });
 
     res.status(201).json(libro);
