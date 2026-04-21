@@ -585,7 +585,6 @@ import "../../styles/admin-dashboard.css";
         <label>ISBN<input name="isbn" value="${libro?.isbn || ""}" /></label>
         <label>Año<input name="anio" type="number" value="${libro?.anio || ""}" /></label>
         <label>Categoría<select name="categoria_id"><option value="">— Sin categoría —</option>${catOptions}</select></label>
-        <label>Palabras clave<input name="palabras_clave" placeholder="ej: algebra, calculo, universidad" value="${libro?.palabras_clave || ""}" /></label>
         <label>Descripción<textarea name="descripcion" rows="3">${libro?.descripcion || ""}</textarea></label>
         ${!libro ? '<label>Ejemplares iniciales<input name="ejemplares" type="number" value="1" min="1" /></label>' : ""}
         <label>Imagen<input name="imagen" type="file" accept="image/*" /></label>
