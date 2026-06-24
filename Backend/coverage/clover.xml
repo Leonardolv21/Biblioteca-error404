@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1776903919615" clover="3.2.0">
-  <project timestamp="1776903919615" name="All files">
+<coverage generated="1782326056267" clover="3.2.0">
+  <project timestamp="1782326056267" name="All files">
     <metrics statements="855" coveredstatements="708" conditionals="377" coveredconditionals="284" methods="84" coveredmethods="67" elements="1316" coveredelements="1059" complexity="0" loc="855" ncloc="855" packages="2" files="9" classes="9"/>
     <package name="controllers">
       <metrics statements="826" coveredstatements="679" conditionals="361" coveredconditionals="268" methods="81" coveredmethods="64"/>
-      <file name="Ejemplar.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\Ejemplar.controller.js">
+      <file name="Ejemplar.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\Ejemplar.controller.js">
         <metrics statements="62" coveredstatements="62" conditionals="28" coveredconditionals="25" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -69,7 +69,7 @@
         <line num="133" count="1" type="stmt"/>
         <line num="137" count="1" type="stmt"/>
       </file>
-      <file name="admin.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\admin.controller.js">
+      <file name="admin.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\admin.controller.js">
         <metrics statements="230" coveredstatements="113" conditionals="63" coveredconditionals="22" methods="40" coveredmethods="23"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -302,7 +302,7 @@
         <line num="522" count="1" type="stmt"/>
         <line num="526" count="1" type="stmt"/>
       </file>
-      <file name="auth.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\auth.controller.js">
+      <file name="auth.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\auth.controller.js">
         <metrics statements="29" coveredstatements="27" conditionals="22" coveredconditionals="20" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -334,7 +334,7 @@
         <line num="64" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
       </file>
-      <file name="catalogo.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\catalogo.controller.js">
+      <file name="catalogo.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\catalogo.controller.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -347,7 +347,7 @@
         <line num="24" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
       </file>
-      <file name="libro.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\libro.controller.js">
+      <file name="libro.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\libro.controller.js">
         <metrics statements="70" coveredstatements="61" conditionals="34" coveredconditionals="17" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -420,7 +420,7 @@
         <line num="131" count="0" type="stmt"/>
         <line num="135" count="1" type="stmt"/>
       </file>
-      <file name="loan.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\loan.controller.js">
+      <file name="loan.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\loan.controller.js">
         <metrics statements="196" coveredstatements="183" conditionals="83" coveredconditionals="68" methods="12" coveredmethods="12"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -619,7 +619,7 @@
         <line num="525" count="1" type="stmt"/>
         <line num="529" count="1" type="stmt"/>
       </file>
-      <file name="reservation.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\reservation.controller.js">
+      <file name="reservation.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\reservation.controller.js">
         <metrics statements="154" coveredstatements="148" conditionals="96" coveredconditionals="85" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -776,7 +776,7 @@
         <line num="391" count="1" type="stmt"/>
         <line num="395" count="1" type="stmt"/>
       </file>
-      <file name="user.controller.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\controllers\user.controller.js">
+      <file name="user.controller.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\controllers\user.controller.js">
         <metrics statements="75" coveredstatements="75" conditionals="35" coveredconditionals="31" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -857,7 +857,7 @@
     </package>
     <package name="middlewares">
       <metrics statements="29" coveredstatements="29" conditionals="16" coveredconditionals="16" methods="3" coveredmethods="3"/>
-      <file name="auth.middleware.js" path="C:\Users\leonardo\Desktop\Biblioteca-error404\Backend\middlewares\auth.middleware.js">
+      <file name="auth.middleware.js" path="C:\Users\Oscar\Documents\GitHub\Biblioteca-error404\Backend\middlewares\auth.middleware.js">
         <metrics statements="29" coveredstatements="29" conditionals="16" coveredconditionals="16" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
