@@ -41,6 +41,6 @@
   "jest-stare": {
     "resultDir": "reports/jest-stare",
     "reportTitle": "Backend Jest Report",
-    "coverageLink": "../coverage/lcov-report/index.html"
+    "coverageLink": "../../coverage/lcov-report/index.html"
   }
 }

@@ -23,6 +23,8 @@ jest.mock('pdfkit', () => {
     text: jest.fn().mockReturnThis(),
     moveDown: jest.fn().mockReturnThis(),
     addPage: jest.fn().mockReturnThis(),
+    font: jest.fn().mockReturnThis(),
+    fillColor: jest.fn().mockReturnThis(),
     pipe: jest.fn(),
     end: jest.fn(),
     y: 100,
@@ -43,6 +45,20 @@ const {
   Rol, Categoria, Auditoria, sequelize,
 } = require('../../../models');
 
+const PDFKit = require('pdfkit');
+
+const makePdfDocMock = () => ({
+  fontSize: jest.fn().mockReturnThis(),
+  text: jest.fn().mockReturnThis(),
+  moveDown: jest.fn().mockReturnThis(),
+  addPage: jest.fn().mockReturnThis(),
+  font: jest.fn().mockReturnThis(),
+  fillColor: jest.fn().mockReturnThis(),
+  pipe: jest.fn(),
+  end: jest.fn(),
+  y: 100,
+});
+
 const {
   obtenerResumenAdmin,
   obtenerResumenAdminSummary,
@@ -54,6 +70,10 @@ const {
   obtenerLibrosMasPrestados,
   obtenerReportes,
   exportUsuariosMasPrestamos,
+  exportUsuariosMasPrestamosPdf,
+  exportUsuariosMasPrestamosExcel,
+  exportReportesPdf,
+  exportReportesExcel,
   obtenerAuditoria,
 } = require('../../../controllers/admin.controller');
 
@@ -95,10 +115,33 @@ const makePrestamoActivo = (id) => ({
   ejemplar: { codigo: 'E01', libro: { titulo: 'Libro Test' } },
 });
 
+const makePrestamoDevuelto = (id) => ({
+  id,
+  estado: 'devuelto',
+  fecha_vencimiento: '2020-01-01',
+  fecha_inicio: '2019-12-01',
+  fecha_devolucion: '2020-01-01',
+  usuario: { nombre: 'Maria', apellido: 'Garcia', correo: 'm@t.com', matricula: 'M02' },
+  ejemplar: { codigo: 'E02', libro: { titulo: 'Libro Devuelto' } },
+});
+
+const makePrestamoVencido = (id) => ({
+  id,
+  estado: 'vencido',
+  fecha_vencimiento: '2020-01-01',
+  fecha_inicio: '2019-11-01',
+  fecha_devolucion: null,
+  usuario: { nombre: 'Pedro', apellido: 'Torres', correo: 'p@t.com', matricula: 'M03' },
+  ejemplar: { codigo: 'E03', libro: { titulo: 'Libro Vencido' } },
+});
+
 const adminUser = { id: 1, rol: { nombre: 'administrador' } };
 
 describe('admin.controller unit tests', () => {
-  beforeEach(() => { jest.resetAllMocks(); });
+  beforeEach(() => {
+    jest.resetAllMocks();
+    PDFKit.mockImplementation(makePdfDocMock);
+  });
 
 
   describe('obtenerResumenAdmin', () => {
@@ -173,6 +216,23 @@ describe('admin.controller unit tests', () => {
         usuarios: 5, libros: 8, ejemplares: 15,
         prestamosActivos: 2, reservasPendientes: 1, multasPendientes: 0,
       });
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST B2 - Error: retorna 500 si falla alguna consulta
+    // -------------------------------------------------------------------------
+    test('B2: retorna 500 si falla una consulta', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockRes();
+      Usuario.count.mockRejectedValue(new Error('db error'));
+
+      // ACT
+      await obtenerResumenAdminSummary(req, res);
+
+      // ASSERT
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ error: 'No se pudo obtener el resumen administrativo' });
     });
   });
 
@@ -517,6 +577,31 @@ describe('admin.controller unit tests', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ error: 'No se pudieron generar los reportes administrativos' });
     });
+
+    // -------------------------------------------------------------------------
+    // TEST I3 - Clasifica correctamente prestamos devueltos y vencidos
+    // -------------------------------------------------------------------------
+    test('I3: clasifica prestamos en activos, devueltos y vencidos', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockRes();
+
+      Prestamo.findAll
+        .mockResolvedValueOnce([makePrestamoActivo(1), makePrestamoDevuelto(2), makePrestamoVencido(3)])
+        .mockResolvedValueOnce([makePrestamoConUsuario(1, 2)]);
+      sequelize.query.mockResolvedValue([
+        { libro_id: 1, titulo: 'Libro A', autor: 'Autor A', cant_prestamos: '2' },
+      ]);
+
+      // ACT
+      await obtenerReportes(req, res);
+
+      // ASSERT
+      const resultado = res.json.mock.calls[0][0];
+      expect(resultado.prestamos.resumen.activos).toBe(1);
+      expect(resultado.prestamos.resumen.devueltos).toBe(1);
+      expect(resultado.prestamos.resumen.vencidos).toBe(1);
+    });
   });
 
   // ===========================================================================
@@ -625,6 +710,232 @@ describe('admin.controller unit tests', () => {
       expect(res.json).toHaveBeenCalledWith({
         error: 'No se pudo exportar el ranking de usuarios con m\u00e1s pr\u00e9stamos',
       });
+    });
+  });
+
+  // ===========================================================================
+  // BLOQUE L - exportUsuariosMasPrestamosPdf
+  // Responsabilidad: generar y enviar un PDF con el ranking de usuarios
+  // ===========================================================================
+  describe('exportUsuariosMasPrestamosPdf', () => {
+
+    // -------------------------------------------------------------------------
+    // TEST L1 - Happy path: envia PDF con headers correctos
+    // -------------------------------------------------------------------------
+    test('L1: genera y envia el PDF con Content-Disposition correcto', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockResolvedValue([makePrestamoConUsuario(1, 4)]);
+
+      // ACT
+      await exportUsuariosMasPrestamosPdf(req, res);
+
+      // ASSERT
+      expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Disposition',
+        'attachment; filename="usuarios-mas-prestamos.pdf"'
+      );
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST L2 - Error: retorna 500 si falla la consulta
+    // -------------------------------------------------------------------------
+    test('L2: retorna 500 si falla la consulta', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockRejectedValue(new Error('db error'));
+
+      // ACT
+      await exportUsuariosMasPrestamosPdf(req, res);
+
+      // ASSERT
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'No se pudo exportar el ranking de usuarios con m\u00e1s pr\u00e9stamos en PDF',
+      });
+    });
+  });
+
+  // ===========================================================================
+  // BLOQUE M - exportUsuariosMasPrestamosExcel
+  // Responsabilidad: generar y enviar un Excel con el ranking de usuarios
+  // ===========================================================================
+  describe('exportUsuariosMasPrestamosExcel', () => {
+
+    // -------------------------------------------------------------------------
+    // TEST M1 - Happy path: envia Excel con headers correctos
+    // -------------------------------------------------------------------------
+    test('M1: genera y envia el Excel con Content-Disposition correcto', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockResolvedValue([makePrestamoConUsuario(1, 4)]);
+
+      // ACT
+      await exportUsuariosMasPrestamosExcel(req, res);
+
+      // ASSERT
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      );
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Disposition',
+        'attachment; filename="usuarios-mas-prestamos.xlsx"'
+      );
+      expect(res.send).toHaveBeenCalled();
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST M2 - Error: retorna 500 si falla la consulta
+    // -------------------------------------------------------------------------
+    test('M2: retorna 500 si falla la consulta', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockRejectedValue(new Error('db error'));
+
+      // ACT
+      await exportUsuariosMasPrestamosExcel(req, res);
+
+      // ASSERT
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'No se pudo exportar el ranking de usuarios con m\u00e1s pr\u00e9stamos en Excel',
+      });
+    });
+  });
+
+  // ===========================================================================
+  // BLOQUE N - exportReportesExcel
+  // Responsabilidad: generar y enviar un Excel con todos los reportes
+  // ===========================================================================
+  describe('exportReportesExcel', () => {
+
+    // -------------------------------------------------------------------------
+    // TEST N1 - Happy path: envia Excel con headers correctos
+    // -------------------------------------------------------------------------
+    test('N1: genera y envia el Excel de reportes con Content-Disposition correcto', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+
+      Prestamo.findAll
+        .mockResolvedValueOnce([makePrestamoActivo(1), makePrestamoDevuelto(2), makePrestamoVencido(3)])
+        .mockResolvedValueOnce([makePrestamoConUsuario(1, 2)]);
+      sequelize.query.mockResolvedValue([
+        { libro_id: 1, titulo: 'Libro A', autor: 'Autor A', cant_prestamos: '2' },
+      ]);
+
+      // ACT
+      await exportReportesExcel(req, res);
+
+      // ASSERT
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      );
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Disposition',
+        'attachment; filename="reportes-biblioteca.xlsx"'
+      );
+      expect(res.send).toHaveBeenCalled();
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST N2 - Error: retorna 500 si falla la consulta
+    // -------------------------------------------------------------------------
+    test('N2: retorna 500 si falla la consulta', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockRejectedValue(new Error('db error'));
+
+      // ACT
+      await exportReportesExcel(req, res);
+
+      // ASSERT
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'No se pudieron exportar los reportes en Excel',
+      });
+    });
+  });
+
+  // ===========================================================================
+  // BLOQUE O - exportReportesPdf
+  // Responsabilidad: generar y enviar un PDF completo con todos los reportes
+  // ===========================================================================
+  describe('exportReportesPdf', () => {
+
+    // -------------------------------------------------------------------------
+    // TEST O1 - Happy path: envia PDF con headers correctos
+    // -------------------------------------------------------------------------
+    test('O1: genera y envia el PDF de reportes con Content-Disposition correcto', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+
+      Prestamo.findAll
+        .mockResolvedValueOnce([makePrestamoActivo(1), makePrestamoDevuelto(2), makePrestamoVencido(3)])
+        .mockResolvedValueOnce([makePrestamoConUsuario(1, 3)]);
+      sequelize.query.mockResolvedValue([
+        { libro_id: 1, titulo: 'Libro A', autor: 'Autor A', cant_prestamos: '3' },
+      ]);
+
+      // ACT
+      await exportReportesPdf(req, res);
+
+      // ASSERT
+      expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
+      expect(res.setHeader).toHaveBeenCalledWith(
+        'Content-Disposition',
+        'attachment; filename="reportes-biblioteca.pdf"'
+      );
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST O2 - Error: retorna 500 si falla la consulta
+    // -------------------------------------------------------------------------
+    test('O2: retorna 500 si falla la consulta', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+      Prestamo.findAll.mockRejectedValue(new Error('db error'));
+
+      // ACT
+      await exportReportesPdf(req, res);
+
+      // ASSERT
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'No se pudieron exportar los reportes en PDF',
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // TEST O3 - Muestra nota de truncamiento cuando hay mas de maxRows filas
+    // -------------------------------------------------------------------------
+    test('O3: agrega nota de filas truncadas cuando usuarios supera el limite de maxRows', async () => {
+      // ARRANGE
+      const req = { user: adminUser };
+      const res = createMockResExport();
+
+      // 36 usuarios supera el limite de maxRows=35 en addPdfTableSection
+      const muchosUsuarios = Array.from({ length: 36 }, (_, i) => makePrestamoConUsuario(i + 1, i + 1));
+      Prestamo.findAll
+        .mockResolvedValueOnce([makePrestamoActivo(1)])
+        .mockResolvedValueOnce(muchosUsuarios);
+      sequelize.query.mockResolvedValue([]);
+
+      // ACT
+      await exportReportesPdf(req, res);
+
+      // ASSERT
+      expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
     });
   });
 });

@@ -2,13 +2,13 @@
   "numFailedTestSuites": 0,
   "numFailedTests": 0,
   "numPassedTestSuites": 9,
-  "numPassedTests": 159,
+  "numPassedTests": 170,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
   "numTodoTests": 0,
   "numTotalTestSuites": 9,
-  "numTotalTests": 159,
+  "numTotalTests": 170,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -26,2432 +26,9 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1782326054613,
+  "startTime": 1782328126714,
   "success": false,
   "testResults": [
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 3,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055629,
-        "loadTestEnvironmentEnd": 1782326055158,
-        "loadTestEnvironmentStart": 1782326054859,
-        "runtime": 470,
-        "setupAfterEnvEnd": 1782326055501,
-        "setupAfterEnvStart": 1782326055501,
-        "setupFilesEnd": 1782326055159,
-        "setupFilesStart": 1782326055159,
-        "slow": false,
-        "start": 1782326055159
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\catalogo.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "catalogo.controller unit tests",
-            "getMasSolicitados"
-          ],
-          "duration": 7,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "catalogo.controller unit tests getMasSolicitados A1: retorna lista de libros mas solicitados",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055618,
-          "status": "passed",
-          "title": "A1: retorna lista de libros mas solicitados"
-        },
-        {
-          "ancestorTitles": [
-            "catalogo.controller unit tests",
-            "getMasSolicitados"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "catalogo.controller unit tests getMasSolicitados A2: retorna array vacio si no hay libros",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326055626,
-          "status": "passed",
-          "title": "A2: retorna array vacio si no hay libros"
-        },
-        {
-          "ancestorTitles": [
-            "catalogo.controller unit tests",
-            "getMasSolicitados"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "catalogo.controller unit tests getMasSolicitados A3: retorna 500 si falla la consulta a la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055627,
-          "status": "passed",
-          "title": "A3: retorna 500 si falla la consulta a la BD"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 5,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055635,
-        "loadTestEnvironmentEnd": 1782326055159,
-        "loadTestEnvironmentStart": 1782326054852,
-        "runtime": 475,
-        "setupAfterEnvEnd": 1782326055502,
-        "setupAfterEnvStart": 1782326055502,
-        "setupFilesEnd": 1782326055160,
-        "setupFilesStart": 1782326055160,
-        "slow": false,
-        "start": 1782326055160
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\auth.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "auth.controller unit tests",
-            "login"
-          ],
-          "duration": 7,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "auth.controller unit tests login retorna 400 si faltan correo o password",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055620,
-          "status": "passed",
-          "title": "retorna 400 si faltan correo o password"
-        },
-        {
-          "ancestorTitles": [
-            "auth.controller unit tests",
-            "login"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "auth.controller unit tests login retorna 401 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055628,
-          "status": "passed",
-          "title": "retorna 401 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "auth.controller unit tests",
-            "login"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "auth.controller unit tests login retorna 200 y token si las credenciales son válidas",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055629,
-          "status": "passed",
-          "title": "retorna 200 y token si las credenciales son válidas"
-        },
-        {
-          "ancestorTitles": [
-            "auth.controller unit tests",
-            "register"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "auth.controller unit tests register retorna 400 si faltan campos requeridos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055631,
-          "status": "passed",
-          "title": "retorna 400 si faltan campos requeridos"
-        },
-        {
-          "ancestorTitles": [
-            "auth.controller unit tests",
-            "register"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "auth.controller unit tests register inyecta rol_id y max_prestamos y delega en crearUsuario",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055633,
-          "status": "passed",
-          "title": "inyecta rol_id y max_prestamos y delega en crearUsuario"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 23,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055662,
-        "loadTestEnvironmentEnd": 1782326055130,
-        "loadTestEnvironmentStart": 1782326054838,
-        "runtime": 531,
-        "setupAfterEnvEnd": 1782326055472,
-        "setupAfterEnvStart": 1782326055472,
-        "setupFilesEnd": 1782326055131,
-        "setupFilesStart": 1782326055131,
-        "slow": false,
-        "start": 1782326055131
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\user.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "listarUsuarios"
-          ],
-          "duration": 8,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests listarUsuarios A1: retorna lista de usuarios",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055592,
-          "status": "passed",
-          "title": "A1: retorna lista de usuarios"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "listarUsuarios"
-          ],
-          "duration": 36,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests listarUsuarios A2: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055600,
-          "status": "passed",
-          "title": "A2: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "obtenerUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests obtenerUsuario B1: retorna 404 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055637,
-          "status": "passed",
-          "title": "B1: retorna 404 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "obtenerUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests obtenerUsuario B2: retorna el usuario encontrado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326055638,
-          "status": "passed",
-          "title": "B2: retorna el usuario encontrado"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "obtenerUsuario"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests obtenerUsuario B3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055639,
-          "status": "passed",
-          "title": "B3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "crearUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests crearUsuario C1: retorna 400 si faltan campos requeridos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055641,
-          "status": "passed",
-          "title": "C1: retorna 400 si faltan campos requeridos"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "crearUsuario"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests crearUsuario C2: retorna 404 si el rol no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055642,
-          "status": "passed",
-          "title": "C2: retorna 404 si el rol no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "crearUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests crearUsuario C3: crea el usuario con password hasheada y responde 201",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 5,
-          "retryReasons": [],
-          "startAt": 1782326055643,
-          "status": "passed",
-          "title": "C3: crea el usuario con password hasheada y responde 201"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "crearUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests crearUsuario C4: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055644,
-          "status": "passed",
-          "title": "C4: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "actualizarUsuario"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests actualizarUsuario D1: retorna 404 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055646,
-          "status": "passed",
-          "title": "D1: retorna 404 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "actualizarUsuario"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests actualizarUsuario D2: actualiza el usuario y regenera la matricula",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055647,
-          "status": "passed",
-          "title": "D2: actualiza el usuario y regenera la matricula"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "actualizarUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests actualizarUsuario D3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055648,
-          "status": "passed",
-          "title": "D3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "eliminarUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests eliminarUsuario E1: retorna 404 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055649,
-          "status": "passed",
-          "title": "E1: retorna 404 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "eliminarUsuario"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests eliminarUsuario E2: elimina el usuario y responde con mensaje de exito",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055650,
-          "status": "passed",
-          "title": "E2: elimina el usuario y responde con mensaje de exito"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "eliminarUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests eliminarUsuario E3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055651,
-          "status": "passed",
-          "title": "E3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerAdmin"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerAdmin F1: retorna 404 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055652,
-          "status": "passed",
-          "title": "F1: retorna 404 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerAdmin"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerAdmin F2: retorna 400 si el usuario ya es administrador",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055653,
-          "status": "passed",
-          "title": "F2: retorna 400 si el usuario ya es administrador"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerAdmin"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerAdmin F3: actualiza el rol a administrador y responde con el usuario",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055654,
-          "status": "passed",
-          "title": "F3: actualiza el rol a administrador y responde con el usuario"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerAdmin"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerAdmin F4: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055654,
-          "status": "passed",
-          "title": "F4: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerBibliotecario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerBibliotecario G1: retorna 404 si el usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055656,
-          "status": "passed",
-          "title": "G1: retorna 404 si el usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerBibliotecario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerBibliotecario G2: retorna 400 si el usuario ya es bibliotecario",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055657,
-          "status": "passed",
-          "title": "G2: retorna 400 si el usuario ya es bibliotecario"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerBibliotecario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerBibliotecario G3: actualiza el rol a bibliotecario con nueva matricula",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055658,
-          "status": "passed",
-          "title": "G3: actualiza el rol a bibliotecario con nueva matricula"
-        },
-        {
-          "ancestorTitles": [
-            "user.controller unit tests",
-            "hacerBibliotecario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "user.controller unit tests hacerBibliotecario G4: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055659,
-          "status": "passed",
-          "title": "G4: retorna 500 si falla la BD"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 9,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055731,
-        "loadTestEnvironmentEnd": 1782326055148,
-        "loadTestEnvironmentStart": 1782326054844,
-        "runtime": 582,
-        "setupAfterEnvEnd": 1782326055493,
-        "setupAfterEnvStart": 1782326055493,
-        "setupFilesEnd": 1782326055149,
-        "setupFilesStart": 1782326055149,
-        "slow": false,
-        "start": 1782326055149
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\middlewares\\auth.middleware.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "authenticate"
-          ],
-          "duration": 8,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authenticate retorna 401 si no se envia token",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055679,
-          "status": "passed",
-          "title": "retorna 401 si no se envia token"
-        },
-        {
-          "ancestorTitles": [
-            "authenticate"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authenticate extrae token del header Bearer y llama next con req.user cargado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 5,
-          "retryReasons": [],
-          "startAt": 1782326055687,
-          "status": "passed",
-          "title": "extrae token del header Bearer y llama next con req.user cargado"
-        },
-        {
-          "ancestorTitles": [
-            "authenticate"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authenticate extrae token del query string y llama next con req.user cargado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055689,
-          "status": "passed",
-          "title": "extrae token del query string y llama next con req.user cargado"
-        },
-        {
-          "ancestorTitles": [
-            "authenticate"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authenticate retorna 401 si el usuario del token no existe en la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055690,
-          "status": "passed",
-          "title": "retorna 401 si el usuario del token no existe en la BD"
-        },
-        {
-          "ancestorTitles": [
-            "authenticate"
-          ],
-          "duration": 34,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authenticate retorna 401 si el token es invalido o esta expirado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055692,
-          "status": "passed",
-          "title": "retorna 401 si el token es invalido o esta expirado"
-        },
-        {
-          "ancestorTitles": [
-            "authorize"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authorize retorna 401 si req.user no esta definido",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055726,
-          "status": "passed",
-          "title": "retorna 401 si req.user no esta definido"
-        },
-        {
-          "ancestorTitles": [
-            "authorize"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authorize retorna 403 si el rol del usuario no tiene permiso",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055727,
-          "status": "passed",
-          "title": "retorna 403 si el rol del usuario no tiene permiso"
-        },
-        {
-          "ancestorTitles": [
-            "authorize"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authorize llama next si el rol del usuario esta permitido",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055728,
-          "status": "passed",
-          "title": "llama next si el rol del usuario esta permitido"
-        },
-        {
-          "ancestorTitles": [
-            "authorize"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "authorize llama next si hay un solo rol permitido y el usuario lo tiene",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055728,
-          "status": "passed",
-          "title": "llama next si hay un solo rol permitido y el usuario lo tiene"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 34,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055694,
-        "loadTestEnvironmentEnd": 1782326055138,
-        "loadTestEnvironmentStart": 1782326054841,
-        "runtime": 555,
-        "setupAfterEnvEnd": 1782326055476,
-        "setupAfterEnvStart": 1782326055476,
-        "setupFilesEnd": 1782326055139,
-        "setupFilesStart": 1782326055139,
-        "slow": false,
-        "start": 1782326055139
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\reservation.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservas"
-          ],
-          "duration": 8,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservas A1: retorna lista de reservas",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055595,
-          "status": "passed",
-          "title": "A1: retorna lista de reservas"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservas"
-          ],
-          "duration": 53,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservas A2: retorna 500 si falla findAll",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055604,
-          "status": "passed",
-          "title": "A2: retorna 500 si falla findAll"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservasPendientes"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservasPendientes B1: retorna solo reservas pendientes",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055658,
-          "status": "passed",
-          "title": "B1: retorna solo reservas pendientes"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservasPendientes"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservasPendientes B2: retorna 500 en error",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055660,
-          "status": "passed",
-          "title": "B2: retorna 500 en error"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservasPorUsuario"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservasPorUsuario C1: retorna reservas del usuario indicado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055662,
-          "status": "passed",
-          "title": "C1: retorna reservas del usuario indicado"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "listarReservasPorUsuario"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests listarReservasPorUsuario C2: retorna 500 en error",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055663,
-          "status": "passed",
-          "title": "C2: retorna 500 en error"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "obtenerReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests obtenerReserva D1: retorna reserva por id",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055665,
-          "status": "passed",
-          "title": "D1: retorna reserva por id"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "obtenerReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests obtenerReserva D2: retorna 404 si no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055666,
-          "status": "passed",
-          "title": "D2: retorna 404 si no existe"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "obtenerReserva"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests obtenerReserva D3: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055667,
-          "status": "passed",
-          "title": "D3: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E1: retorna 400 si faltan libro_id o usuario_id",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055669,
-          "status": "passed",
-          "title": "E1: retorna 400 si faltan libro_id o usuario_id"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E2: retorna 404 si libro no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055670,
-          "status": "passed",
-          "title": "E2: retorna 404 si libro no existe"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E3: retorna 404 si usuario no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055671,
-          "status": "passed",
-          "title": "E3: retorna 404 si usuario no existe"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E4: retorna 400 si usuario alcanzo max_prestamos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055672,
-          "status": "passed",
-          "title": "E4: retorna 400 si usuario alcanzo max_prestamos"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E5: retorna 400 si hay ejemplares disponibles y no solicitar_prestamo",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055672,
-          "status": "passed",
-          "title": "E5: retorna 400 si hay ejemplares disponibles y no solicitar_prestamo"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E6: retorna 400 si no hay ejemplares registrados",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055673,
-          "status": "passed",
-          "title": "E6: retorna 400 si no hay ejemplares registrados"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E7: retorna 400 si ya existe reserva activa del usuario",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055674,
-          "status": "passed",
-          "title": "E7: retorna 400 si ya existe reserva activa del usuario"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E8: crea reserva pendiente y responde 201",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 4,
-          "retryReasons": [],
-          "startAt": 1782326055675,
-          "status": "passed",
-          "title": "E8: crea reserva pendiente y responde 201"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E9: solicitud online con ejemplar_id valido crea reserva disponible (201)",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 4,
-          "retryReasons": [],
-          "startAt": 1782326055676,
-          "status": "passed",
-          "title": "E9: solicitud online con ejemplar_id valido crea reserva disponible (201)"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E10: retorna 400 si ejemplar_id no pertenece al libro",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055677,
-          "status": "passed",
-          "title": "E10: retorna 400 si ejemplar_id no pertenece al libro"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E11: retorna 400 si ejemplar seleccionado no esta disponible",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055678,
-          "status": "passed",
-          "title": "E11: retorna 400 si ejemplar seleccionado no esta disponible"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "crearReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests crearReserva E12: retorna 500 si falla operacion interna",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055679,
-          "status": "passed",
-          "title": "E12: retorna 500 si falla operacion interna"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F1: 404 si reserva no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055680,
-          "status": "passed",
-          "title": "F1: 404 si reserva no existe"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F2: estudiante no puede modificar reserva ajena (403)",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055681,
-          "status": "passed",
-          "title": "F2: estudiante no puede modificar reserva ajena (403)"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F3: estudiante solo puede cancelar su reserva (403 si pide otro estado)",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055682,
-          "status": "passed",
-          "title": "F3: estudiante solo puede cancelar su reserva (403 si pide otro estado)"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F4: actualiza campos permitidos y responde la reserva",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055683,
-          "status": "passed",
-          "title": "F4: actualiza campos permitidos y responde la reserva"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F5: estado disponible + ejemplar_id marca ejemplar como reservado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055684,
-          "status": "passed",
-          "title": "F5: estado disponible + ejemplar_id marca ejemplar como reservado"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F6: estado completada sin ejemplar asignado => 400",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055684,
-          "status": "passed",
-          "title": "F6: estado completada sin ejemplar asignado => 400"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F7: estado completada crea prestamo y pone ejemplar en prestado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 4,
-          "retryReasons": [],
-          "startAt": 1782326055685,
-          "status": "passed",
-          "title": "F7: estado completada crea prestamo y pone ejemplar en prestado"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F8: estado cancelada libera ejemplar reservado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055686,
-          "status": "passed",
-          "title": "F8: estado cancelada libera ejemplar reservado"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "actualizarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests actualizarReserva F9: retorna 500 si falla internamente",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055687,
-          "status": "passed",
-          "title": "F9: retorna 500 si falla internamente"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "eliminarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests eliminarReserva G1: 404 si reserva no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055688,
-          "status": "passed",
-          "title": "G1: 404 si reserva no existe"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "eliminarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests eliminarReserva G2: elimina reserva sin ejemplar y responde mensaje ok",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055689,
-          "status": "passed",
-          "title": "G2: elimina reserva sin ejemplar y responde mensaje ok"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "eliminarReserva"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests eliminarReserva G3: libera ejemplar reservado antes de eliminar",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055690,
-          "status": "passed",
-          "title": "G3: libera ejemplar reservado antes de eliminar"
-        },
-        {
-          "ancestorTitles": [
-            "reservation.controller unit tests",
-            "eliminarReserva"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "reservation.controller unit tests eliminarReserva G4: retorna 500 si falla eliminacion",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055690,
-          "status": "passed",
-          "title": "G4: retorna 500 si falla eliminacion"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 6,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326055990,
-        "loadTestEnvironmentEnd": 1782326055119,
-        "loadTestEnvironmentStart": 1782326054825,
-        "runtime": 870,
-        "setupAfterEnvEnd": 1782326055464,
-        "setupAfterEnvStart": 1782326055464,
-        "setupFilesEnd": 1782326055120,
-        "setupFilesStart": 1782326055120,
-        "slow": false,
-        "start": 1782326055120
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\libro.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "getLibros"
-          ],
-          "duration": 6,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests getLibros retorna lista de libros",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055978,
-          "status": "passed",
-          "title": "retorna lista de libros"
-        },
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "getLibroPorId"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests getLibroPorId retorna 404 si no existe libro",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055984,
-          "status": "passed",
-          "title": "retorna 404 si no existe libro"
-        },
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "crearLibro"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests crearLibro crea libro y retorna 201",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055985,
-          "status": "passed",
-          "title": "crea libro y retorna 201"
-        },
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "actualizarLibro"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests actualizarLibro retorna 404 si no existe el libro",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055987,
-          "status": "passed",
-          "title": "retorna 404 si no existe el libro"
-        },
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "actualizarLibro"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests actualizarLibro actualiza libro y renombra imagen si llega archivo",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 4,
-          "retryReasons": [],
-          "startAt": 1782326055987,
-          "status": "passed",
-          "title": "actualiza libro y renombra imagen si llega archivo"
-        },
-        {
-          "ancestorTitles": [
-            "libro.controller unit tests",
-            "eliminarLibro"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "libro.controller unit tests eliminarLibro elimina libro y su imagen",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055988,
-          "status": "passed",
-          "title": "elimina libro y su imagen"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 16,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326056012,
-        "loadTestEnvironmentEnd": 1782326055120,
-        "loadTestEnvironmentStart": 1782326054824,
-        "runtime": 891,
-        "setupAfterEnvEnd": 1782326055463,
-        "setupAfterEnvStart": 1782326055463,
-        "setupFilesEnd": 1782326055121,
-        "setupFilesStart": 1782326055121,
-        "slow": false,
-        "start": 1782326055121
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\Ejemplar.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "crearEjemplar"
-          ],
-          "duration": 9,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests crearEjemplar A1: retorna 404 si el libro no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055988,
-          "status": "passed",
-          "title": "A1: retorna 404 si el libro no existe"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "crearEjemplar"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests crearEjemplar A2: crea el ejemplar y responde 201 con el objeto creado",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326055997,
-          "status": "passed",
-          "title": "A2: crea el ejemplar y responde 201 con el objeto creado"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "crearEjemplar"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests crearEjemplar A3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055999,
-          "status": "passed",
-          "title": "A3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "cambiarEstado"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests cambiarEstado B1: retorna 400 si el estado enviado no es valido",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056000,
-          "status": "passed",
-          "title": "B1: retorna 400 si el estado enviado no es valido"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "cambiarEstado"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests cambiarEstado B2: retorna 400 si no se envia estado ni notas",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056002,
-          "status": "passed",
-          "title": "B2: retorna 400 si no se envia estado ni notas"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "cambiarEstado"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests cambiarEstado B3: retorna 404 si el ejemplar no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056003,
-          "status": "passed",
-          "title": "B3: retorna 404 si el ejemplar no existe"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "cambiarEstado"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests cambiarEstado B4: actualiza el ejemplar y responde con mensaje de exito",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056003,
-          "status": "passed",
-          "title": "B4: actualiza el ejemplar y responde con mensaje de exito"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "cambiarEstado"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests cambiarEstado B5: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056004,
-          "status": "passed",
-          "title": "B5: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "getEjemplaresPorLibro"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C1: retorna ejemplares con fecha estimada si hay prestamo activo",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326056005,
-          "status": "passed",
-          "title": "C1: retorna ejemplares con fecha estimada si hay prestamo activo"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "getEjemplaresPorLibro"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C2: fecha_devolucion_estimada es null si no hay prestamos activos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326056006,
-          "status": "passed",
-          "title": "C2: fecha_devolucion_estimada es null si no hay prestamos activos"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "getEjemplaresPorLibro"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C3: retorna array vacio si el libro no tiene ejemplares",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056007,
-          "status": "passed",
-          "title": "C3: retorna array vacio si el libro no tiene ejemplares"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "getEjemplaresPorLibro"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C4: retorna 500 si falla la consulta",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056008,
-          "status": "passed",
-          "title": "C4: retorna 500 si falla la consulta"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "eliminarEjemplar"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D1: retorna 404 si el ejemplar no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056008,
-          "status": "passed",
-          "title": "D1: retorna 404 si el ejemplar no existe"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "eliminarEjemplar"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D2: retorna 400 si el ejemplar no esta en estado disponible",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056009,
-          "status": "passed",
-          "title": "D2: retorna 400 si el ejemplar no esta en estado disponible"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "eliminarEjemplar"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D3: elimina el ejemplar disponible y responde con mensaje de exito",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056009,
-          "status": "passed",
-          "title": "D3: elimina el ejemplar disponible y responde con mensaje de exito"
-        },
-        {
-          "ancestorTitles": [
-            "Ejemplar.controller unit tests",
-            "eliminarEjemplar"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D4: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056010,
-          "status": "passed",
-          "title": "D4: retorna 500 si falla la BD"
-        }
-      ],
-      "failureMessage": null
-    },
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 24,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1782326056050,
-        "loadTestEnvironmentEnd": 1782326055125,
-        "loadTestEnvironmentStart": 1782326054823,
-        "runtime": 924,
-        "setupAfterEnvEnd": 1782326055476,
-        "setupAfterEnvStart": 1782326055476,
-        "setupFilesEnd": 1782326055126,
-        "setupFilesStart": 1782326055126,
-        "slow": false,
-        "start": 1782326055126
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\admin.controller.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerResumenAdmin"
-          ],
-          "duration": 8,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerResumenAdmin A1: retorna resumen con todos los conteos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326055984,
-          "status": "passed",
-          "title": "A1: retorna resumen con todos los conteos"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerResumenAdmin"
-          ],
-          "duration": 35,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerResumenAdmin A2: retorna 500 si falla una consulta",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326055992,
-          "status": "passed",
-          "title": "A2: retorna 500 si falla una consulta"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerResumenAdminSummary"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerResumenAdminSummary B1: retorna el resumen administrativo",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326056028,
-          "status": "passed",
-          "title": "B1: retorna el resumen administrativo"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "listarRoles"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests listarRoles C1: retorna lista de roles",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056029,
-          "status": "passed",
-          "title": "C1: retorna lista de roles"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "listarRoles"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests listarRoles C2: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056029,
-          "status": "passed",
-          "title": "C2: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearRol"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearRol D1: retorna 400 si falta el nombre",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056031,
-          "status": "passed",
-          "title": "D1: retorna 400 si falta el nombre"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearRol"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearRol D2: crea el rol y responde 201",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326056032,
-          "status": "passed",
-          "title": "D2: crea el rol y responde 201"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearRol"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearRol D3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056033,
-          "status": "passed",
-          "title": "D3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "listarCategorias"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests listarCategorias E1: retorna lista de categorias",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056034,
-          "status": "passed",
-          "title": "E1: retorna lista de categorias"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "listarCategorias"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests listarCategorias E2: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056035,
-          "status": "passed",
-          "title": "E2: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearCategoria"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearCategoria F1: retorna 400 si falta el nombre",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056037,
-          "status": "passed",
-          "title": "F1: retorna 400 si falta el nombre"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearCategoria"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearCategoria F2: crea la categoria y responde 201",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 3,
-          "retryReasons": [],
-          "startAt": 1782326056037,
-          "status": "passed",
-          "title": "F2: crea la categoria y responde 201"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "crearCategoria"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests crearCategoria F3: retorna 500 si falla la BD",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056038,
-          "status": "passed",
-          "title": "F3: retorna 500 si falla la BD"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerUsuariosMasPrestamos"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerUsuariosMasPrestamos G1: retorna el ranking de usuarios con mas prestamos",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056039,
-          "status": "passed",
-          "title": "G1: retorna el ranking de usuarios con mas prestamos"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerUsuariosMasPrestamos"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerUsuariosMasPrestamos G2: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056040,
-          "status": "passed",
-          "title": "G2: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerLibrosMasPrestados"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerLibrosMasPrestados H1: retorna el ranking de libros mas prestados",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056041,
-          "status": "passed",
-          "title": "H1: retorna el ranking de libros mas prestados"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerLibrosMasPrestados"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerLibrosMasPrestados H2: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056041,
-          "status": "passed",
-          "title": "H2: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerReportes"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerReportes I1: retorna objeto con prestamos, usuarios y libros",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "startAt": 1782326056042,
-          "status": "passed",
-          "title": "I1: retorna objeto con prestamos, usuarios y libros"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerReportes"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerReportes I2: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056043,
-          "status": "passed",
-          "title": "I2: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerAuditoria"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerAuditoria J1: retorna toda la auditoria sin filtros",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056044,
-          "status": "passed",
-          "title": "J1: retorna toda la auditoria sin filtros"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerAuditoria"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerAuditoria J2: filtra la auditoria por usuario_id si viene en la query",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056045,
-          "status": "passed",
-          "title": "J2: filtra la auditoria por usuario_id si viene en la query"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "obtenerAuditoria"
-          ],
-          "duration": 2,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests obtenerAuditoria J3: retorna 500 si falla",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056045,
-          "status": "passed",
-          "title": "J3: retorna 500 si falla"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "exportUsuariosMasPrestamos"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests exportUsuariosMasPrestamos K1: genera y envia el CSV con Content-Disposition correcto",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 5,
-          "retryReasons": [],
-          "startAt": 1782326056047,
-          "status": "passed",
-          "title": "K1: genera y envia el CSV con Content-Disposition correcto"
-        },
-        {
-          "ancestorTitles": [
-            "admin.controller unit tests",
-            "exportUsuariosMasPrestamos"
-          ],
-          "duration": 0,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "admin.controller unit tests exportUsuariosMasPrestamos K2: retorna 500 si falla la consulta",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056048,
-          "status": "passed",
-          "title": "K2: retorna 500 si falla la consulta"
-        }
-      ],
-      "failureMessage": null
-    },
     {
       "leaks": false,
       "numFailingTests": 0,
@@ -2460,16 +37,16 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1782326056066,
-        "loadTestEnvironmentEnd": 1782326055128,
-        "loadTestEnvironmentStart": 1782326054828,
-        "runtime": 937,
-        "setupAfterEnvEnd": 1782326055478,
-        "setupAfterEnvStart": 1782326055478,
-        "setupFilesEnd": 1782326055129,
-        "setupFilesStart": 1782326055129,
+        "end": 1782328127316,
+        "loadTestEnvironmentEnd": 1782328126801,
+        "loadTestEnvironmentStart": 1782328126757,
+        "runtime": 514,
+        "setupAfterEnvEnd": 1782328126955,
+        "setupAfterEnvStart": 1782328126955,
+        "setupFilesEnd": 1782328126802,
+        "setupFilesStart": 1782328126802,
         "slow": false,
-        "start": 1782326055129
+        "start": 1782328126802
       },
       "skipped": false,
       "snapshot": {
@@ -2488,7 +65,7 @@
             "loan.controller unit tests",
             "listarPrestamos"
           ],
-          "duration": 7,
+          "duration": 3,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2497,7 +74,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326055984,
+          "startAt": 1782328127250,
           "status": "passed",
           "title": "A1: retorna lista de prestamos"
         },
@@ -2506,7 +83,7 @@
             "loan.controller unit tests",
             "listarPrestamos"
           ],
-          "duration": 45,
+          "duration": 26,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2515,7 +92,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326055991,
+          "startAt": 1782328127255,
           "status": "passed",
           "title": "A2: retorna 500 si falla"
         },
@@ -2533,7 +110,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056036,
+          "startAt": 1782328127281,
           "status": "passed",
           "title": "B1: retorna prestamo por id"
         },
@@ -2551,7 +128,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056037,
+          "startAt": 1782328127282,
           "status": "passed",
           "title": "B2: retorna 404 si no existe"
         },
@@ -2560,7 +137,7 @@
             "loan.controller unit tests",
             "obtenerPrestamo"
           ],
-          "duration": 2,
+          "duration": 1,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2569,7 +146,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056038,
+          "startAt": 1782328127283,
           "status": "passed",
           "title": "B3: retorna 500 si falla"
         },
@@ -2587,7 +164,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056040,
+          "startAt": 1782328127285,
           "status": "passed",
           "title": "C1: retorna prestamos del usuario"
         },
@@ -2605,7 +182,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056041,
+          "startAt": 1782328127286,
           "status": "passed",
           "title": "C2: retorna 500 si falla"
         },
@@ -2623,7 +200,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056042,
+          "startAt": 1782328127287,
           "status": "passed",
           "title": "D1: retorna lista de prestamos vencidos"
         },
@@ -2632,7 +209,7 @@
             "loan.controller unit tests",
             "listarPrestamosVencidos"
           ],
-          "duration": 3,
+          "duration": 1,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2641,7 +218,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056043,
+          "startAt": 1782328127288,
           "status": "passed",
           "title": "D2: retorna 500 si falla"
         },
@@ -2659,7 +236,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056047,
+          "startAt": 1782328127290,
           "status": "passed",
           "title": "E1: retorna multas del usuario"
         },
@@ -2677,7 +254,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056047,
+          "startAt": 1782328127290,
           "status": "passed",
           "title": "E2: retorna 500 si falla"
         },
@@ -2686,7 +263,7 @@
             "loan.controller unit tests",
             "notificarVencimientosYRetrasos"
           ],
-          "duration": 1,
+          "duration": 0,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2695,7 +272,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056048,
+          "startAt": 1782328127292,
           "status": "passed",
           "title": "F1: procesa prestamos y crea notificaciones de vencimiento proximo"
         },
@@ -2713,7 +290,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056049,
+          "startAt": 1782328127293,
           "status": "passed",
           "title": "F2: crea notificacion multa_pendiente para prestamos vencidos"
         },
@@ -2722,7 +299,7 @@
             "loan.controller unit tests",
             "notificarVencimientosYRetrasos"
           ],
-          "duration": 1,
+          "duration": 0,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2731,7 +308,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056049,
+          "startAt": 1782328127294,
           "status": "passed",
           "title": "F3: retorna 500 si falla"
         },
@@ -2749,7 +326,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056050,
+          "startAt": 1782328127295,
           "status": "passed",
           "title": "G1: 400 si faltan ejemplar_id o usuario_id"
         },
@@ -2767,7 +344,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056050,
+          "startAt": 1782328127295,
           "status": "passed",
           "title": "G2: 404 si ejemplar no existe"
         },
@@ -2785,7 +362,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056051,
+          "startAt": 1782328127296,
           "status": "passed",
           "title": "G3: 400 si ejemplar no esta disponible"
         },
@@ -2803,7 +380,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056051,
+          "startAt": 1782328127297,
           "status": "passed",
           "title": "G4: 404 si usuario no existe"
         },
@@ -2821,7 +398,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056051,
+          "startAt": 1782328127297,
           "status": "passed",
           "title": "G5: 400 si usuario alcanzo max_prestamos"
         },
@@ -2839,7 +416,7 @@
           "location": null,
           "numPassingAsserts": 5,
           "retryReasons": [],
-          "startAt": 1782326056052,
+          "startAt": 1782328127298,
           "status": "passed",
           "title": "G6: crea prestamo y responde 201"
         },
@@ -2848,7 +425,7 @@
             "loan.controller unit tests",
             "crearPrestamo"
           ],
-          "duration": 0,
+          "duration": 1,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2857,7 +434,7 @@
           "location": null,
           "numPassingAsserts": 3,
           "retryReasons": [],
-          "startAt": 1782326056053,
+          "startAt": 1782328127299,
           "status": "passed",
           "title": "G7: si existe reserva activa del usuario la completa"
         },
@@ -2866,7 +443,7 @@
             "loan.controller unit tests",
             "crearPrestamo"
           ],
-          "duration": 1,
+          "duration": 0,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -2875,27 +452,9 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056053,
+          "startAt": 1782328127301,
           "status": "passed",
           "title": "G8: retorna 500 si falla internamente"
-        },
-        {
-          "ancestorTitles": [
-            "loan.controller unit tests",
-            "actualizarPrestamo"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "loan.controller unit tests actualizarPrestamo H1: 404 si prestamo no existe",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056054,
-          "status": "passed",
-          "title": "H1: 404 si prestamo no existe"
         },
         {
           "ancestorTitles": [
@@ -2906,12 +465,30 @@
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
+          "fullName": "loan.controller unit tests actualizarPrestamo H1: 404 si prestamo no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127302,
+          "status": "passed",
+          "title": "H1: 404 si prestamo no existe"
+        },
+        {
+          "ancestorTitles": [
+            "loan.controller unit tests",
+            "actualizarPrestamo"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
           "fullName": "loan.controller unit tests actualizarPrestamo H2: actualiza observaciones y retorna prestamo",
           "invocations": 1,
           "location": null,
           "numPassingAsserts": 3,
           "retryReasons": [],
-          "startAt": 1782326056055,
+          "startAt": 1782328127302,
           "status": "passed",
           "title": "H2: actualiza observaciones y retorna prestamo"
         },
@@ -2929,27 +506,9 @@
           "location": null,
           "numPassingAsserts": 1,
           "retryReasons": [],
-          "startAt": 1782326056055,
+          "startAt": 1782328127303,
           "status": "passed",
           "title": "H3: estado renovado con renovaciones < 2 extiende fecha"
-        },
-        {
-          "ancestorTitles": [
-            "loan.controller unit tests",
-            "actualizarPrestamo"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "loan.controller unit tests actualizarPrestamo H4: estado renovado con renovaciones >= 2 retorna 400",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056055,
-          "status": "passed",
-          "title": "H4: estado renovado con renovaciones >= 2 retorna 400"
         },
         {
           "ancestorTitles": [
@@ -2960,12 +519,30 @@
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
+          "fullName": "loan.controller unit tests actualizarPrestamo H4: estado renovado con renovaciones >= 2 retorna 400",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127304,
+          "status": "passed",
+          "title": "H4: estado renovado con renovaciones >= 2 retorna 400"
+        },
+        {
+          "ancestorTitles": [
+            "loan.controller unit tests",
+            "actualizarPrestamo"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
           "fullName": "loan.controller unit tests actualizarPrestamo H5: estado devuelto crea notificacion y libera ejemplar",
           "invocations": 1,
           "location": null,
           "numPassingAsserts": 3,
           "retryReasons": [],
-          "startAt": 1782326056056,
+          "startAt": 1782328127304,
           "status": "passed",
           "title": "H5: estado devuelto crea notificacion y libera ejemplar"
         },
@@ -2983,7 +560,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056056,
+          "startAt": 1782328127305,
           "status": "passed",
           "title": "H6: devolucion con retraso crea multa y retorna {prestamo, multa}"
         },
@@ -3001,7 +578,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056057,
+          "startAt": 1782328127306,
           "status": "passed",
           "title": "H7: retorna 500 si falla"
         },
@@ -3019,27 +596,9 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056058,
+          "startAt": 1782328127307,
           "status": "passed",
           "title": "I1: 404 si prestamo no existe"
-        },
-        {
-          "ancestorTitles": [
-            "loan.controller unit tests",
-            "renovarPrestamo"
-          ],
-          "duration": 1,
-          "failing": false,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "loan.controller unit tests renovarPrestamo I2: 400 si prestamo ya fue devuelto",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 2,
-          "retryReasons": [],
-          "startAt": 1782326056058,
-          "status": "passed",
-          "title": "I2: 400 si prestamo ya fue devuelto"
         },
         {
           "ancestorTitles": [
@@ -3050,12 +609,30 @@
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
+          "fullName": "loan.controller unit tests renovarPrestamo I2: 400 si prestamo ya fue devuelto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127308,
+          "status": "passed",
+          "title": "I2: 400 si prestamo ya fue devuelto"
+        },
+        {
+          "ancestorTitles": [
+            "loan.controller unit tests",
+            "renovarPrestamo"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
           "fullName": "loan.controller unit tests renovarPrestamo I3: 400 si renovaciones >= 2",
           "invocations": 1,
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056059,
+          "startAt": 1782328127308,
           "status": "passed",
           "title": "I3: 400 si renovaciones >= 2"
         },
@@ -3073,7 +650,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056059,
+          "startAt": 1782328127309,
           "status": "passed",
           "title": "I4: 400 si hay reservas pendientes para el libro"
         },
@@ -3082,7 +659,7 @@
             "loan.controller unit tests",
             "renovarPrestamo"
           ],
-          "duration": 1,
+          "duration": 0,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -3091,7 +668,7 @@
           "location": null,
           "numPassingAsserts": 5,
           "retryReasons": [],
-          "startAt": 1782326056059,
+          "startAt": 1782328127310,
           "status": "passed",
           "title": "I5: renueva correctamente y extiende fecha 7 dias"
         },
@@ -3109,7 +686,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056060,
+          "startAt": 1782328127310,
           "status": "passed",
           "title": "I6: retorna 500 si falla"
         },
@@ -3127,7 +704,7 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056061,
+          "startAt": 1782328127311,
           "status": "passed",
           "title": "J1: 404 si prestamo no existe"
         },
@@ -3136,7 +713,7 @@
             "loan.controller unit tests",
             "eliminarPrestamo"
           ],
-          "duration": 1,
+          "duration": 0,
           "failing": false,
           "failureDetails": [],
           "failureMessages": [],
@@ -3145,7 +722,7 @@
           "location": null,
           "numPassingAsserts": 4,
           "retryReasons": [],
-          "startAt": 1782326056062,
+          "startAt": 1782328127312,
           "status": "passed",
           "title": "J2: elimina prestamo devuelto sin liberar ejemplar"
         },
@@ -3163,7 +740,7 @@
           "location": null,
           "numPassingAsserts": 3,
           "retryReasons": [],
-          "startAt": 1782326056063,
+          "startAt": 1782328127313,
           "status": "passed",
           "title": "J3: elimina prestamo activo y libera ejemplar"
         },
@@ -3181,9 +758,2630 @@
           "location": null,
           "numPassingAsserts": 2,
           "retryReasons": [],
-          "startAt": 1782326056063,
+          "startAt": 1782328127313,
           "status": "passed",
           "title": "J4: retorna 500 si falla"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 35,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328127622,
+        "loadTestEnvironmentEnd": 1782328127380,
+        "loadTestEnvironmentStart": 1782328127377,
+        "runtime": 242,
+        "setupAfterEnvEnd": 1782328127442,
+        "setupAfterEnvStart": 1782328127442,
+        "setupFilesEnd": 1782328127380,
+        "setupFilesStart": 1782328127380,
+        "slow": false,
+        "start": 1782328127380
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\admin.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerResumenAdmin"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerResumenAdmin A1: retorna resumen con todos los conteos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328127560,
+          "status": "passed",
+          "title": "A1: retorna resumen con todos los conteos"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerResumenAdmin"
+          ],
+          "duration": 17,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerResumenAdmin A2: retorna 500 si falla una consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127561,
+          "status": "passed",
+          "title": "A2: retorna 500 si falla una consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerResumenAdminSummary"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerResumenAdminSummary B1: retorna el resumen administrativo",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328127579,
+          "status": "passed",
+          "title": "B1: retorna el resumen administrativo"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerResumenAdminSummary"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerResumenAdminSummary B2: retorna 500 si falla una consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127580,
+          "status": "passed",
+          "title": "B2: retorna 500 si falla una consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "listarRoles"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests listarRoles C1: retorna lista de roles",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127581,
+          "status": "passed",
+          "title": "C1: retorna lista de roles"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "listarRoles"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests listarRoles C2: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127581,
+          "status": "passed",
+          "title": "C2: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearRol"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearRol D1: retorna 400 si falta el nombre",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127582,
+          "status": "passed",
+          "title": "D1: retorna 400 si falta el nombre"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearRol"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearRol D2: crea el rol y responde 201",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127583,
+          "status": "passed",
+          "title": "D2: crea el rol y responde 201"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearRol"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearRol D3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127584,
+          "status": "passed",
+          "title": "D3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "listarCategorias"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests listarCategorias E1: retorna lista de categorias",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127585,
+          "status": "passed",
+          "title": "E1: retorna lista de categorias"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "listarCategorias"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests listarCategorias E2: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127586,
+          "status": "passed",
+          "title": "E2: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearCategoria"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearCategoria F1: retorna 400 si falta el nombre",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127586,
+          "status": "passed",
+          "title": "F1: retorna 400 si falta el nombre"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearCategoria"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearCategoria F2: crea la categoria y responde 201",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127587,
+          "status": "passed",
+          "title": "F2: crea la categoria y responde 201"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "crearCategoria"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests crearCategoria F3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127588,
+          "status": "passed",
+          "title": "F3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerUsuariosMasPrestamos"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerUsuariosMasPrestamos G1: retorna el ranking de usuarios con mas prestamos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127589,
+          "status": "passed",
+          "title": "G1: retorna el ranking de usuarios con mas prestamos"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerUsuariosMasPrestamos"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerUsuariosMasPrestamos G2: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127590,
+          "status": "passed",
+          "title": "G2: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerLibrosMasPrestados"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerLibrosMasPrestados H1: retorna el ranking de libros mas prestados",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127591,
+          "status": "passed",
+          "title": "H1: retorna el ranking de libros mas prestados"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerLibrosMasPrestados"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerLibrosMasPrestados H2: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127592,
+          "status": "passed",
+          "title": "H2: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerReportes"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerReportes I1: retorna objeto con prestamos, usuarios y libros",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328127593,
+          "status": "passed",
+          "title": "I1: retorna objeto con prestamos, usuarios y libros"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerReportes"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerReportes I2: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127594,
+          "status": "passed",
+          "title": "I2: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerReportes"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerReportes I3: clasifica prestamos en activos, devueltos y vencidos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127595,
+          "status": "passed",
+          "title": "I3: clasifica prestamos en activos, devueltos y vencidos"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerAuditoria"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerAuditoria J1: retorna toda la auditoria sin filtros",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127595,
+          "status": "passed",
+          "title": "J1: retorna toda la auditoria sin filtros"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerAuditoria"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerAuditoria J2: filtra la auditoria por usuario_id si viene en la query",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127596,
+          "status": "passed",
+          "title": "J2: filtra la auditoria por usuario_id si viene en la query"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "obtenerAuditoria"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests obtenerAuditoria J3: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127596,
+          "status": "passed",
+          "title": "J3: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamos"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamos K1: genera y envia el CSV con Content-Disposition correcto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 5,
+          "retryReasons": [],
+          "startAt": 1782328127597,
+          "status": "passed",
+          "title": "K1: genera y envia el CSV con Content-Disposition correcto"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamos"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamos K2: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127598,
+          "status": "passed",
+          "title": "K2: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamosPdf"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamosPdf L1: genera y envia el PDF con Content-Disposition correcto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127599,
+          "status": "passed",
+          "title": "L1: genera y envia el PDF con Content-Disposition correcto"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamosPdf"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamosPdf L2: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127600,
+          "status": "passed",
+          "title": "L2: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamosExcel"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamosExcel M1: genera y envia el Excel con Content-Disposition correcto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127601,
+          "status": "passed",
+          "title": "M1: genera y envia el Excel con Content-Disposition correcto"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportUsuariosMasPrestamosExcel"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportUsuariosMasPrestamosExcel M2: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127601,
+          "status": "passed",
+          "title": "M2: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportReportesExcel"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportReportesExcel N1: genera y envia el Excel de reportes con Content-Disposition correcto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127602,
+          "status": "passed",
+          "title": "N1: genera y envia el Excel de reportes con Content-Disposition correcto"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportReportesExcel"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportReportesExcel N2: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127603,
+          "status": "passed",
+          "title": "N2: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportReportesPdf"
+          ],
+          "duration": 14,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportReportesPdf O1: genera y envia el PDF de reportes con Content-Disposition correcto",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127604,
+          "status": "passed",
+          "title": "O1: genera y envia el PDF de reportes con Content-Disposition correcto"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportReportesPdf"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportReportesPdf O2: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127619,
+          "status": "passed",
+          "title": "O2: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "admin.controller unit tests",
+            "exportReportesPdf"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "admin.controller unit tests exportReportesPdf O3: agrega nota de filas truncadas cuando usuarios supera el limite de maxRows",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328127620,
+          "status": "passed",
+          "title": "O3: agrega nota de filas truncadas cuando usuarios supera el limite de maxRows"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 6,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328127857,
+        "loadTestEnvironmentEnd": 1782328127684,
+        "loadTestEnvironmentStart": 1782328127680,
+        "runtime": 173,
+        "setupAfterEnvEnd": 1782328127738,
+        "setupAfterEnvStart": 1782328127738,
+        "setupFilesEnd": 1782328127684,
+        "setupFilesStart": 1782328127684,
+        "slow": false,
+        "start": 1782328127684
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\libro.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "getLibros"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests getLibros retorna lista de libros",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127853,
+          "status": "passed",
+          "title": "retorna lista de libros"
+        },
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "getLibroPorId"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests getLibroPorId retorna 404 si no existe libro",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127854,
+          "status": "passed",
+          "title": "retorna 404 si no existe libro"
+        },
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "crearLibro"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests crearLibro crea libro y retorna 201",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127854,
+          "status": "passed",
+          "title": "crea libro y retorna 201"
+        },
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "actualizarLibro"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests actualizarLibro retorna 404 si no existe el libro",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328127855,
+          "status": "passed",
+          "title": "retorna 404 si no existe el libro"
+        },
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "actualizarLibro"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests actualizarLibro actualiza libro y renombra imagen si llega archivo",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 4,
+          "retryReasons": [],
+          "startAt": 1782328127856,
+          "status": "passed",
+          "title": "actualiza libro y renombra imagen si llega archivo"
+        },
+        {
+          "ancestorTitles": [
+            "libro.controller unit tests",
+            "eliminarLibro"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "libro.controller unit tests eliminarLibro elimina libro y su imagen",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328127856,
+          "status": "passed",
+          "title": "elimina libro y su imagen"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 16,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128057,
+        "loadTestEnvironmentEnd": 1782328127875,
+        "loadTestEnvironmentStart": 1782328127872,
+        "runtime": 182,
+        "setupAfterEnvEnd": 1782328127930,
+        "setupAfterEnvStart": 1782328127930,
+        "setupFilesEnd": 1782328127875,
+        "setupFilesStart": 1782328127875,
+        "slow": false,
+        "start": 1782328127875
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\Ejemplar.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "crearEjemplar"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests crearEjemplar A1: retorna 404 si el libro no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128046,
+          "status": "passed",
+          "title": "A1: retorna 404 si el libro no existe"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "crearEjemplar"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests crearEjemplar A2: crea el ejemplar y responde 201 con el objeto creado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128047,
+          "status": "passed",
+          "title": "A2: crea el ejemplar y responde 201 con el objeto creado"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "crearEjemplar"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests crearEjemplar A3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128048,
+          "status": "passed",
+          "title": "A3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "cambiarEstado"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests cambiarEstado B1: retorna 400 si el estado enviado no es valido",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128049,
+          "status": "passed",
+          "title": "B1: retorna 400 si el estado enviado no es valido"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "cambiarEstado"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests cambiarEstado B2: retorna 400 si no se envia estado ni notas",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128050,
+          "status": "passed",
+          "title": "B2: retorna 400 si no se envia estado ni notas"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "cambiarEstado"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests cambiarEstado B3: retorna 404 si el ejemplar no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128050,
+          "status": "passed",
+          "title": "B3: retorna 404 si el ejemplar no existe"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "cambiarEstado"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests cambiarEstado B4: actualiza el ejemplar y responde con mensaje de exito",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128051,
+          "status": "passed",
+          "title": "B4: actualiza el ejemplar y responde con mensaje de exito"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "cambiarEstado"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests cambiarEstado B5: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128051,
+          "status": "passed",
+          "title": "B5: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "getEjemplaresPorLibro"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C1: retorna ejemplares con fecha estimada si hay prestamo activo",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328128052,
+          "status": "passed",
+          "title": "C1: retorna ejemplares con fecha estimada si hay prestamo activo"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "getEjemplaresPorLibro"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C2: fecha_devolucion_estimada es null si no hay prestamos activos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328128052,
+          "status": "passed",
+          "title": "C2: fecha_devolucion_estimada es null si no hay prestamos activos"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "getEjemplaresPorLibro"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C3: retorna array vacio si el libro no tiene ejemplares",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128053,
+          "status": "passed",
+          "title": "C3: retorna array vacio si el libro no tiene ejemplares"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "getEjemplaresPorLibro"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests getEjemplaresPorLibro C4: retorna 500 si falla la consulta",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128053,
+          "status": "passed",
+          "title": "C4: retorna 500 si falla la consulta"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "eliminarEjemplar"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D1: retorna 404 si el ejemplar no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128054,
+          "status": "passed",
+          "title": "D1: retorna 404 si el ejemplar no existe"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "eliminarEjemplar"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D2: retorna 400 si el ejemplar no esta en estado disponible",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128055,
+          "status": "passed",
+          "title": "D2: retorna 400 si el ejemplar no esta en estado disponible"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "eliminarEjemplar"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D3: elimina el ejemplar disponible y responde con mensaje de exito",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128055,
+          "status": "passed",
+          "title": "D3: elimina el ejemplar disponible y responde con mensaje de exito"
+        },
+        {
+          "ancestorTitles": [
+            "Ejemplar.controller unit tests",
+            "eliminarEjemplar"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Ejemplar.controller unit tests eliminarEjemplar D4: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128056,
+          "status": "passed",
+          "title": "D4: retorna 500 si falla la BD"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 9,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128192,
+        "loadTestEnvironmentEnd": 1782328128074,
+        "loadTestEnvironmentStart": 1782328128071,
+        "runtime": 118,
+        "setupAfterEnvEnd": 1782328128126,
+        "setupAfterEnvStart": 1782328128126,
+        "setupFilesEnd": 1782328128074,
+        "setupFilesStart": 1782328128074,
+        "slow": false,
+        "start": 1782328128074
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\middlewares\\auth.middleware.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "authenticate"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authenticate retorna 401 si no se envia token",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128167,
+          "status": "passed",
+          "title": "retorna 401 si no se envia token"
+        },
+        {
+          "ancestorTitles": [
+            "authenticate"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authenticate extrae token del header Bearer y llama next con req.user cargado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 5,
+          "retryReasons": [],
+          "startAt": 1782328128169,
+          "status": "passed",
+          "title": "extrae token del header Bearer y llama next con req.user cargado"
+        },
+        {
+          "ancestorTitles": [
+            "authenticate"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authenticate extrae token del query string y llama next con req.user cargado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128170,
+          "status": "passed",
+          "title": "extrae token del query string y llama next con req.user cargado"
+        },
+        {
+          "ancestorTitles": [
+            "authenticate"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authenticate retorna 401 si el usuario del token no existe en la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128170,
+          "status": "passed",
+          "title": "retorna 401 si el usuario del token no existe en la BD"
+        },
+        {
+          "ancestorTitles": [
+            "authenticate"
+          ],
+          "duration": 18,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authenticate retorna 401 si el token es invalido o esta expirado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128171,
+          "status": "passed",
+          "title": "retorna 401 si el token es invalido o esta expirado"
+        },
+        {
+          "ancestorTitles": [
+            "authorize"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authorize retorna 401 si req.user no esta definido",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128189,
+          "status": "passed",
+          "title": "retorna 401 si req.user no esta definido"
+        },
+        {
+          "ancestorTitles": [
+            "authorize"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authorize retorna 403 si el rol del usuario no tiene permiso",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128190,
+          "status": "passed",
+          "title": "retorna 403 si el rol del usuario no tiene permiso"
+        },
+        {
+          "ancestorTitles": [
+            "authorize"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authorize llama next si el rol del usuario esta permitido",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128190,
+          "status": "passed",
+          "title": "llama next si el rol del usuario esta permitido"
+        },
+        {
+          "ancestorTitles": [
+            "authorize"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "authorize llama next si hay un solo rol permitido y el usuario lo tiene",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128191,
+          "status": "passed",
+          "title": "llama next si hay un solo rol permitido y el usuario lo tiene"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 34,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128311,
+        "loadTestEnvironmentEnd": 1782328128211,
+        "loadTestEnvironmentStart": 1782328128208,
+        "runtime": 100,
+        "setupAfterEnvEnd": 1782328128262,
+        "setupAfterEnvStart": 1782328128262,
+        "setupFilesEnd": 1782328128211,
+        "setupFilesStart": 1782328128211,
+        "slow": false,
+        "start": 1782328128211
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\reservation.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservas"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservas A1: retorna lista de reservas",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128270,
+          "status": "passed",
+          "title": "A1: retorna lista de reservas"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservas"
+          ],
+          "duration": 18,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservas A2: retorna 500 si falla findAll",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128271,
+          "status": "passed",
+          "title": "A2: retorna 500 si falla findAll"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservasPendientes"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservasPendientes B1: retorna solo reservas pendientes",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128289,
+          "status": "passed",
+          "title": "B1: retorna solo reservas pendientes"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservasPendientes"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservasPendientes B2: retorna 500 en error",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128290,
+          "status": "passed",
+          "title": "B2: retorna 500 en error"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservasPorUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservasPorUsuario C1: retorna reservas del usuario indicado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128291,
+          "status": "passed",
+          "title": "C1: retorna reservas del usuario indicado"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "listarReservasPorUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests listarReservasPorUsuario C2: retorna 500 en error",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128292,
+          "status": "passed",
+          "title": "C2: retorna 500 en error"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "obtenerReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests obtenerReserva D1: retorna reserva por id",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128292,
+          "status": "passed",
+          "title": "D1: retorna reserva por id"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "obtenerReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests obtenerReserva D2: retorna 404 si no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128293,
+          "status": "passed",
+          "title": "D2: retorna 404 si no existe"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "obtenerReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests obtenerReserva D3: retorna 500 si falla",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128293,
+          "status": "passed",
+          "title": "D3: retorna 500 si falla"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E1: retorna 400 si faltan libro_id o usuario_id",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128294,
+          "status": "passed",
+          "title": "E1: retorna 400 si faltan libro_id o usuario_id"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E2: retorna 404 si libro no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128295,
+          "status": "passed",
+          "title": "E2: retorna 404 si libro no existe"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E3: retorna 404 si usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128296,
+          "status": "passed",
+          "title": "E3: retorna 404 si usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E4: retorna 400 si usuario alcanzo max_prestamos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128296,
+          "status": "passed",
+          "title": "E4: retorna 400 si usuario alcanzo max_prestamos"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E5: retorna 400 si hay ejemplares disponibles y no solicitar_prestamo",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128297,
+          "status": "passed",
+          "title": "E5: retorna 400 si hay ejemplares disponibles y no solicitar_prestamo"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E6: retorna 400 si no hay ejemplares registrados",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128298,
+          "status": "passed",
+          "title": "E6: retorna 400 si no hay ejemplares registrados"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E7: retorna 400 si ya existe reserva activa del usuario",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128298,
+          "status": "passed",
+          "title": "E7: retorna 400 si ya existe reserva activa del usuario"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E8: crea reserva pendiente y responde 201",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 4,
+          "retryReasons": [],
+          "startAt": 1782328128299,
+          "status": "passed",
+          "title": "E8: crea reserva pendiente y responde 201"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E9: solicitud online con ejemplar_id valido crea reserva disponible (201)",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 4,
+          "retryReasons": [],
+          "startAt": 1782328128300,
+          "status": "passed",
+          "title": "E9: solicitud online con ejemplar_id valido crea reserva disponible (201)"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E10: retorna 400 si ejemplar_id no pertenece al libro",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128301,
+          "status": "passed",
+          "title": "E10: retorna 400 si ejemplar_id no pertenece al libro"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E11: retorna 400 si ejemplar seleccionado no esta disponible",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128301,
+          "status": "passed",
+          "title": "E11: retorna 400 si ejemplar seleccionado no esta disponible"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "crearReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests crearReserva E12: retorna 500 si falla operacion interna",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128302,
+          "status": "passed",
+          "title": "E12: retorna 500 si falla operacion interna"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F1: 404 si reserva no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128302,
+          "status": "passed",
+          "title": "F1: 404 si reserva no existe"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F2: estudiante no puede modificar reserva ajena (403)",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128303,
+          "status": "passed",
+          "title": "F2: estudiante no puede modificar reserva ajena (403)"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F3: estudiante solo puede cancelar su reserva (403 si pide otro estado)",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128304,
+          "status": "passed",
+          "title": "F3: estudiante solo puede cancelar su reserva (403 si pide otro estado)"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F4: actualiza campos permitidos y responde la reserva",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128304,
+          "status": "passed",
+          "title": "F4: actualiza campos permitidos y responde la reserva"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F5: estado disponible + ejemplar_id marca ejemplar como reservado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128305,
+          "status": "passed",
+          "title": "F5: estado disponible + ejemplar_id marca ejemplar como reservado"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F6: estado completada sin ejemplar asignado => 400",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128305,
+          "status": "passed",
+          "title": "F6: estado completada sin ejemplar asignado => 400"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F7: estado completada crea prestamo y pone ejemplar en prestado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 4,
+          "retryReasons": [],
+          "startAt": 1782328128306,
+          "status": "passed",
+          "title": "F7: estado completada crea prestamo y pone ejemplar en prestado"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F8: estado cancelada libera ejemplar reservado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128306,
+          "status": "passed",
+          "title": "F8: estado cancelada libera ejemplar reservado"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "actualizarReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests actualizarReserva F9: retorna 500 si falla internamente",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128307,
+          "status": "passed",
+          "title": "F9: retorna 500 si falla internamente"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "eliminarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests eliminarReserva G1: 404 si reserva no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128308,
+          "status": "passed",
+          "title": "G1: 404 si reserva no existe"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "eliminarReserva"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests eliminarReserva G2: elimina reserva sin ejemplar y responde mensaje ok",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128308,
+          "status": "passed",
+          "title": "G2: elimina reserva sin ejemplar y responde mensaje ok"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "eliminarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests eliminarReserva G3: libera ejemplar reservado antes de eliminar",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128309,
+          "status": "passed",
+          "title": "G3: libera ejemplar reservado antes de eliminar"
+        },
+        {
+          "ancestorTitles": [
+            "reservation.controller unit tests",
+            "eliminarReserva"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "reservation.controller unit tests eliminarReserva G4: retorna 500 si falla eliminacion",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128310,
+          "status": "passed",
+          "title": "G4: retorna 500 si falla eliminacion"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 23,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128431,
+        "loadTestEnvironmentEnd": 1782328128343,
+        "loadTestEnvironmentStart": 1782328128340,
+        "runtime": 88,
+        "setupAfterEnvEnd": 1782328128394,
+        "setupAfterEnvStart": 1782328128394,
+        "setupFilesEnd": 1782328128343,
+        "setupFilesStart": 1782328128343,
+        "slow": false,
+        "start": 1782328128343
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\user.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "listarUsuarios"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests listarUsuarios A1: retorna lista de usuarios",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128401,
+          "status": "passed",
+          "title": "A1: retorna lista de usuarios"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "listarUsuarios"
+          ],
+          "duration": 11,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests listarUsuarios A2: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128403,
+          "status": "passed",
+          "title": "A2: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "obtenerUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests obtenerUsuario B1: retorna 404 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128415,
+          "status": "passed",
+          "title": "B1: retorna 404 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "obtenerUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests obtenerUsuario B2: retorna el usuario encontrado",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328128415,
+          "status": "passed",
+          "title": "B2: retorna el usuario encontrado"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "obtenerUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests obtenerUsuario B3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128416,
+          "status": "passed",
+          "title": "B3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "crearUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests crearUsuario C1: retorna 400 si faltan campos requeridos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128417,
+          "status": "passed",
+          "title": "C1: retorna 400 si faltan campos requeridos"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "crearUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests crearUsuario C2: retorna 404 si el rol no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128418,
+          "status": "passed",
+          "title": "C2: retorna 404 si el rol no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "crearUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests crearUsuario C3: crea el usuario con password hasheada y responde 201",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 5,
+          "retryReasons": [],
+          "startAt": 1782328128418,
+          "status": "passed",
+          "title": "C3: crea el usuario con password hasheada y responde 201"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "crearUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests crearUsuario C4: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128419,
+          "status": "passed",
+          "title": "C4: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "actualizarUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests actualizarUsuario D1: retorna 404 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128420,
+          "status": "passed",
+          "title": "D1: retorna 404 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "actualizarUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests actualizarUsuario D2: actualiza el usuario y regenera la matricula",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128421,
+          "status": "passed",
+          "title": "D2: actualiza el usuario y regenera la matricula"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "actualizarUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests actualizarUsuario D3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128422,
+          "status": "passed",
+          "title": "D3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "eliminarUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests eliminarUsuario E1: retorna 404 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128423,
+          "status": "passed",
+          "title": "E1: retorna 404 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "eliminarUsuario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests eliminarUsuario E2: elimina el usuario y responde con mensaje de exito",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128424,
+          "status": "passed",
+          "title": "E2: elimina el usuario y responde con mensaje de exito"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "eliminarUsuario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests eliminarUsuario E3: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128424,
+          "status": "passed",
+          "title": "E3: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerAdmin"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerAdmin F1: retorna 404 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128425,
+          "status": "passed",
+          "title": "F1: retorna 404 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerAdmin"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerAdmin F2: retorna 400 si el usuario ya es administrador",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128426,
+          "status": "passed",
+          "title": "F2: retorna 400 si el usuario ya es administrador"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerAdmin"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerAdmin F3: actualiza el rol a administrador y responde con el usuario",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128426,
+          "status": "passed",
+          "title": "F3: actualiza el rol a administrador y responde con el usuario"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerAdmin"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerAdmin F4: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128427,
+          "status": "passed",
+          "title": "F4: retorna 500 si falla la BD"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerBibliotecario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerBibliotecario G1: retorna 404 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128428,
+          "status": "passed",
+          "title": "G1: retorna 404 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerBibliotecario"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerBibliotecario G2: retorna 400 si el usuario ya es bibliotecario",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128428,
+          "status": "passed",
+          "title": "G2: retorna 400 si el usuario ya es bibliotecario"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerBibliotecario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerBibliotecario G3: actualiza el rol a bibliotecario con nueva matricula",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128429,
+          "status": "passed",
+          "title": "G3: actualiza el rol a bibliotecario con nueva matricula"
+        },
+        {
+          "ancestorTitles": [
+            "user.controller unit tests",
+            "hacerBibliotecario"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "user.controller unit tests hacerBibliotecario G4: retorna 500 si falla la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128430,
+          "status": "passed",
+          "title": "G4: retorna 500 si falla la BD"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 5,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128521,
+        "loadTestEnvironmentEnd": 1782328128461,
+        "loadTestEnvironmentStart": 1782328128458,
+        "runtime": 60,
+        "setupAfterEnvEnd": 1782328128511,
+        "setupAfterEnvStart": 1782328128511,
+        "setupFilesEnd": 1782328128461,
+        "setupFilesStart": 1782328128461,
+        "slow": false,
+        "start": 1782328128461
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\auth.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "auth.controller unit tests",
+            "login"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "auth.controller unit tests login retorna 400 si faltan correo o password",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128517,
+          "status": "passed",
+          "title": "retorna 400 si faltan correo o password"
+        },
+        {
+          "ancestorTitles": [
+            "auth.controller unit tests",
+            "login"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "auth.controller unit tests login retorna 401 si el usuario no existe",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128518,
+          "status": "passed",
+          "title": "retorna 401 si el usuario no existe"
+        },
+        {
+          "ancestorTitles": [
+            "auth.controller unit tests",
+            "login"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "auth.controller unit tests login retorna 200 y token si las credenciales son válidas",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128519,
+          "status": "passed",
+          "title": "retorna 200 y token si las credenciales son válidas"
+        },
+        {
+          "ancestorTitles": [
+            "auth.controller unit tests",
+            "register"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "auth.controller unit tests register retorna 400 si faltan campos requeridos",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128519,
+          "status": "passed",
+          "title": "retorna 400 si faltan campos requeridos"
+        },
+        {
+          "ancestorTitles": [
+            "auth.controller unit tests",
+            "register"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "auth.controller unit tests register inyecta rol_id y max_prestamos y delega en crearUsuario",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "startAt": 1782328128520,
+          "status": "passed",
+          "title": "inyecta rol_id y max_prestamos y delega en crearUsuario"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1782328128597,
+        "loadTestEnvironmentEnd": 1782328128538,
+        "loadTestEnvironmentStart": 1782328128535,
+        "runtime": 59,
+        "setupAfterEnvEnd": 1782328128588,
+        "setupAfterEnvStart": 1782328128588,
+        "setupFilesEnd": 1782328128538,
+        "setupFilesStart": 1782328128538,
+        "slow": false,
+        "start": 1782328128538
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\Oscar\\Documents\\GitHub\\Biblioteca-error404\\Backend\\tests\\unit\\controllers\\catalogo.controller.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "catalogo.controller unit tests",
+            "getMasSolicitados"
+          ],
+          "duration": 1,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "catalogo.controller unit tests getMasSolicitados A1: retorna lista de libros mas solicitados",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128594,
+          "status": "passed",
+          "title": "A1: retorna lista de libros mas solicitados"
+        },
+        {
+          "ancestorTitles": [
+            "catalogo.controller unit tests",
+            "getMasSolicitados"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "catalogo.controller unit tests getMasSolicitados A2: retorna array vacio si no hay libros",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "startAt": 1782328128595,
+          "status": "passed",
+          "title": "A2: retorna array vacio si no hay libros"
+        },
+        {
+          "ancestorTitles": [
+            "catalogo.controller unit tests",
+            "getMasSolicitados"
+          ],
+          "duration": 0,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "catalogo.controller unit tests getMasSolicitados A3: retorna 500 si falla la consulta a la BD",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "startAt": 1782328128596,
+          "status": "passed",
+          "title": "A3: retorna 500 si falla la consulta a la BD"
         }
       ],
       "failureMessage": null
